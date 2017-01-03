@@ -35,7 +35,6 @@ import javax.validation.Valid;
 import com.StudentskaSluzba.backend.model.*;
 import com.StudentskaSluzba.backend.web.rest.dto.*;
 
-import com.StudentskaSluzba.backend.repository.*;
 import java.math.BigDecimal;
 import com.StudentskaSluzba.backend.service.*;
 
@@ -47,8 +46,6 @@ public class AuthenticationApi {
     private final Logger log = LoggerFactory.getLogger(AuthenticationApi.class);
 
     @Inject
-    private StanjeRepository stanjeRepository;
-    @Inject
     private StudentService studentService;
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,8 +53,8 @@ public class AuthenticationApi {
     @Transactional
     public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest request) {
         log.debug("POST /sign-up {}", request);
-        final Student student = studentService.signUp(request.getStanjaIds(), request.getIme(), request.getPrezime(), request.getIndex(), request.getTrenutnoStanjeRacuna(), request.getBudzet(),
-                request.getTekuciSemestar(), request.getOsvojeniBodovi(), request.getUsername(), request.getPassword());
+        final Student student = studentService.signUp(request.getIme(), request.getPrezime(), request.getIndex(), request.getTrenutnoStanjeRacuna(), request.getBudzet(), request.getTekuciSemestar(),
+                request.getOsvojeniBodovi(), request.getUsername(), request.getPassword());
         return ResponseEntity.ok().body(convertToSignUpResponse(student));
     }
 
@@ -83,7 +80,6 @@ public class AuthenticationApi {
     private SignUpResponse convertToSignUpResponse(Student model) {
         final SignUpResponse dto = new SignUpResponse();
         dto.setId(model.getId());
-        dto.setStanjaId(model.getStanja().getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
         dto.setIndex(model.getIndex());
@@ -99,7 +95,6 @@ public class AuthenticationApi {
     private ChangePasswordResponse convertToChangePasswordResponse(Student model) {
         final ChangePasswordResponse dto = new ChangePasswordResponse();
         dto.setId(model.getId());
-        dto.setStanjaId(model.getStanja().getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
         dto.setIndex(model.getIndex());

@@ -22,8 +22,6 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import java.util.List;
-
 import javax.validation.constraints.*;
 
 import com.StudentskaSluzba.backend.model.enumeration.*;
@@ -35,9 +33,6 @@ public class UpdateStudentRequest implements Serializable {
 
     @NotNull
     private Long id;
-
-    @NotNull
-    private List<Long> stanjaIds;
 
     @NotNull
     @Size(max = 255)
@@ -82,14 +77,6 @@ public class UpdateStudentRequest implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Long> getStanjaIds() {
-        return stanjaIds;
-    }
-
-    public void setStanjaIds(List<Long> stanjaIds) {
-        this.stanjaIds = stanjaIds;
     }
 
     public String getIme() {
@@ -183,8 +170,6 @@ public class UpdateStudentRequest implements Serializable {
         final UpdateStudentRequest other = (UpdateStudentRequest) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if ((stanjaIds == null && other.stanjaIds != null) || !stanjaIds.equals(other.stanjaIds))
-            return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
@@ -213,7 +198,6 @@ public class UpdateStudentRequest implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((stanjaIds == null) ? 0 : stanjaIds.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
@@ -229,8 +213,8 @@ public class UpdateStudentRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "UpdateStudentRequest[" + "id=" + id + ", stanjaIds=" + stanjaIds + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna
-                + ", budzet=" + budzet + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
+        return "UpdateStudentRequest[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
+                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

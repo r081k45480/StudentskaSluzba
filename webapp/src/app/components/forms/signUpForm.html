@@ -2,13 +2,6 @@
     <div class="col-lg-12">
         <form name="signUpForm" role="form" novalidate ng-submit="submit(signUpForm)">
             <div class="form-group">
-                <label for="stanjaIds">{{'SIGN_UP_FORM_STANJA_IDS' | translate}}</label>
-                <input type="number" id="stanjaIds" name="stanjaIds" class="form-control" ng-model="model.stanjaIds" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
-                <div ng-messages="signUpForm.stanjaIds.$error" ng-if="signUpForm.$submitted || !signUpForm.stanjaIds.$pristine">
-                    <div ng-message="required">{{'SIGN_UP_FORM_STANJA_IDS_IS_REQUIRED' | translate}}</div>
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="ime">{{'SIGN_UP_FORM_IME' | translate}}</label>
                 <input type="text" id="ime" name="ime" class="form-control" ng-model="model.ime" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
                 <div ng-messages="signUpForm.ime.$error" ng-if="signUpForm.$submitted || !signUpForm.ime.$pristine">

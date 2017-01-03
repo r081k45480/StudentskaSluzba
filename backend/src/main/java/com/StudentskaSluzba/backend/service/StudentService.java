@@ -48,19 +48,13 @@ public class StudentService {
     private PasswordEncoder passwordEncoder;
 
     @Inject
-    private StanjeRepository stanjeRepository;
-
-    @Inject
     private StudentRepository studentRepository;
 
-    public Student signUp(Long stanjaIds, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username,
-            String password) {
-        log.debug("signUp(stanjaIds: {}, ime: {}, prezime: {}, index: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", stanjaIds, ime, prezime, index,
-                trenutnoStanjeRacuna, budzet, tekuciSemestar, osvojeniBodovi, username);
+    public Student signUp(String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username, String password) {
+        log.debug("signUp(ime: {}, prezime: {}, index: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", ime, prezime, index, trenutnoStanjeRacuna,
+                budzet, tekuciSemestar, osvojeniBodovi, username);
 
         final Student student = new Student();
-        final Stanje stanjaIds = stanjeRepository.findOne(stanjaIds);
-        student.setStanja(stanjaIds);
         student.setIme(ime);
         student.setPrezime(prezime);
         student.setIndex(index);
@@ -87,7 +81,6 @@ public class StudentService {
         final String accessToken = JWTUtils.createToken(student.getId(), student.getRole(), customProperties.getSecretKey());
         response.setAccessToken(accessToken);
         response.setId(student.getId());
-        response.setStanjaId(student.getStanja().getId());
         response.setIme(student.getIme());
         response.setPrezime(student.getPrezime());
         response.setIndex(student.getIndex());

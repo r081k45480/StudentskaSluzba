@@ -22,8 +22,6 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import java.util.List;
-
 import javax.validation.constraints.*;
 
 import com.StudentskaSluzba.backend.model.enumeration.*;
@@ -39,9 +37,6 @@ public class SignInResponse implements Serializable {
 
     @NotNull
     private Long id;
-
-    @NotNull
-    private List<Long> stanjaId;
 
     @NotNull
     @Size(max = 255)
@@ -90,14 +85,6 @@ public class SignInResponse implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Long> getStanjaId() {
-        return stanjaId;
-    }
-
-    public void setStanjaId(List<Long> stanjaId) {
-        this.stanjaId = stanjaId;
     }
 
     public String getIme() {
@@ -185,8 +172,6 @@ public class SignInResponse implements Serializable {
             return false;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if ((stanjaId == null && other.stanjaId != null) || !stanjaId.equals(other.stanjaId))
-            return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
@@ -214,7 +199,6 @@ public class SignInResponse implements Serializable {
         int result = 1;
         result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((stanjaId == null) ? 0 : stanjaId.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
@@ -229,8 +213,8 @@ public class SignInResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "SignInResponse[" + "id=" + id + ", stanjaId=" + stanjaId + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet="
-                + budzet + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
+        return "SignInResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
+                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

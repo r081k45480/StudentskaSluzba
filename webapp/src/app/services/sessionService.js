@@ -45,7 +45,6 @@
         function save(sessionData) {
             localStorage.setItem('accessToken', sessionData.accessToken);
             localStorage.setItem('id', sessionData.id);
-            localStorage.setItem('stanjaId', sessionData.stanjaId);
             localStorage.setItem('ime', sessionData.ime);
             localStorage.setItem('prezime', sessionData.prezime);
             localStorage.setItem('index', sessionData.index);
@@ -60,7 +59,6 @@
         function clear() {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('id');
-            localStorage.removeItem('stanjaId');
             localStorage.removeItem('ime');
             localStorage.removeItem('prezime');
             localStorage.removeItem('index');
@@ -76,7 +74,6 @@
             return {
                 accessToken: localStorage.getItem('accessToken'),
                 id: localStorage.getItem('id'),
-                stanjaId: localStorage.getItem('stanjaId'),
                 ime: localStorage.getItem('ime'),
                 prezime: localStorage.getItem('prezime'),
                 index: localStorage.getItem('index'),

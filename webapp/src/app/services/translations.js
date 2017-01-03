@@ -80,8 +80,6 @@
                 SIGN_UP_FORM_PREZIME: 'Prezime',
                 SIGN_UP_FORM_PREZIME_IS_REQUIRED: 'Prezime is required',
                 SIGN_UP_FORM_PREZIME_MAX: 'Prezime max',
-                SIGN_UP_FORM_STANJA_IDS: 'Stanja ids',
-                SIGN_UP_FORM_STANJA_IDS_IS_REQUIRED: 'Stanja ids is required',
                 SIGN_UP_FORM_SUBMIT: 'Submit',
                 SIGN_UP_FORM_TEKUCI_SEMESTAR: 'Tekuci semestar',
                 SIGN_UP_FORM_TEKUCI_SEMESTAR_IS_REQUIRED: 'Tekuci semestar is required',

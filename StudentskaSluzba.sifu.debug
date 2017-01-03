@@ -19,7 +19,6 @@ StudentskaSluzba project[
                 query findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -47,8 +46,6 @@ StudentskaSluzba project[
             id integer[
                 primarykey
                 max 9223372036854775807]
-            stanja list Stanje[
-                oneToMany]
             ime text[
                 max 255]
             prezime text[
@@ -123,8 +120,6 @@ StudentskaSluzba project[
                 precision 10
                 scale 4]
             datum datetime
-            student Student[
-                manyToOne]
             findAll find from Stanje as Stanje
             countAll count from Stanje as Stanje
             findById find from Stanje as Stanje where Stanje.id == id
@@ -132,7 +127,6 @@ StudentskaSluzba project[
             deleteById delete from Stanje as Stanje where Stanje.id == id
             findByIznos find from Stanje as Stanje where Stanje.iznos == iznos
             findByDatum find from Stanje as Stanje where Stanje.datum == datum
-            findByStudent find from Stanje as Stanje where Stanje.student.id == studentId
         )
         Rok model[
             type mysql](
@@ -191,7 +185,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -212,8 +205,6 @@ StudentskaSluzba project[
             )
             ReadStudentResponse dto(
                 id integer[
-                    max 9223372036854775807]
-                stanjaId list integer[
                     max 9223372036854775807]
                 ime text[
                     max 255]
@@ -244,7 +235,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -261,11 +251,6 @@ StudentskaSluzba project[
                 response CreateStudentResponse](
                 id id[
                     visible(
-                        read
-                    )]
-                stanjaIds stanja.id[
-                    visible(
-                        create
                         read
                     )]
                 ime ime[
@@ -320,8 +305,6 @@ StudentskaSluzba project[
                     )]
             )
             CreateStudentRequest dto(
-                stanjaIds list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -347,8 +330,6 @@ StudentskaSluzba project[
             )
             CreateStudentResponse dto(
                 id integer[
-                    max 9223372036854775807]
-                stanjaId list integer[
                     max 9223372036854775807]
                 ime text[
                     max 255]
@@ -379,7 +360,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -395,11 +375,6 @@ StudentskaSluzba project[
                 request UpdateStudentRequest
                 response UpdateStudentResponse](
                 id id[
-                    visible(
-                        read
-                        update
-                    )]
-                stanjaIds stanja.id[
                     visible(
                         read
                         update
@@ -458,8 +433,6 @@ StudentskaSluzba project[
             UpdateStudentRequest dto(
                 id integer[
                     max 9223372036854775807]
-                stanjaIds list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -485,8 +458,6 @@ StudentskaSluzba project[
             )
             UpdateStudentResponse dto(
                 id integer[
-                    max 9223372036854775807]
-                stanjaId list integer[
                     max 9223372036854775807]
                 ime text[
                     max 255]
@@ -668,7 +639,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -682,7 +652,6 @@ StudentskaSluzba project[
                 errors
                 request SignUpRequest
                 response SignUpResponse](
-                stanjaIds stanja.id
                 ime ime
                 prezime prezime
                 index index
@@ -698,8 +667,6 @@ StudentskaSluzba project[
                     sensitive]
             )
             SignUpRequest dto(
-                stanjaIds list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -726,8 +693,6 @@ StudentskaSluzba project[
             SignUpResponse dto(
                 id integer[
                     max 9223372036854775807]
-                stanjaId list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -753,7 +718,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -783,8 +747,6 @@ StudentskaSluzba project[
                     sensitive]
                 id integer[
                     max 9223372036854775807]
-                stanjaId list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -811,7 +773,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.stanja.id
                     Student.ime
                     Student.prezime
                     Student.index
@@ -838,8 +799,6 @@ StudentskaSluzba project[
             )
             ChangePasswordResponse dto(
                 id integer[
-                    max 9223372036854775807]
-                stanjaId list integer[
                     max 9223372036854775807]
                 ime text[
                     max 255]
@@ -945,8 +904,6 @@ StudentskaSluzba project[
                 max 64
                 sensitive]
             id integer[
-                max 9223372036854775807]
-            stanjaId list integer[
                 max 9223372036854775807]
             ime text[
                 max 255]
@@ -1079,7 +1036,6 @@ StudentskaSluzba project[
                 fire UserSignedIn(
                     success . accessToken
                     success . id
-                    success . stanjaId
                     success . ime
                     success . prezime
                     success . index
@@ -1096,8 +1052,6 @@ StudentskaSluzba project[
             submit backend.AuthenticationApi.signUp
             model[
                 dto backend.AuthenticationApi.SignUpRequest](
-                stanjaIds list integer[
-                    max 9223372036854775807]
                 ime text[
                     max 255]
                 prezime text[
@@ -1122,7 +1076,6 @@ StudentskaSluzba project[
                     sensitive]
             )
             visible(
-                stanjaIds
                 ime
                 prezime
                 index
@@ -1133,11 +1086,6 @@ StudentskaSluzba project[
                 username
                 password
             )](
-            stanjaIds list integer[
-                bind(
-                    model . stanjaIds
-                )
-                max 9223372036854775807]
             ime text[
                 bind(
                     model . ime
