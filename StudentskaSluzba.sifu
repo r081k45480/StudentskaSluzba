@@ -7,7 +7,7 @@ StudentskaSluzba project[
   backend server[
     template java-springboot
     developer (Robert)
-    security (principal Student, type username)
+    #security (principal User, type username)
   ](
 
     #####MODELs
@@ -67,8 +67,7 @@ StudentskaSluzba project[
     template js-angular
     connectedTo backend
     path /path
-    home signInPage
-    loggedin notesPage
+    home (notesPage)
   ](
     NoteUpdated event
 
