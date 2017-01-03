@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 
 import com.StudentskaSluzba.backend.model.*;
-
+import com.StudentskaSluzba.backend.model.enumeration.*;
 import com.StudentskaSluzba.backend.repository.StudentRepositoryCustom;
 
 import com.querydsl.jpa.JPQLQueryFactory;
@@ -90,6 +90,27 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
         log.trace(".findByOsvojeniBodovi(osvojeniBodovi: {})", osvojeniBodovi);
         final QStudent student = QStudent.student;
         return factory.select(student).from(student).where(student.osvojeniBodovi.eq(osvojeniBodovi)).fetch();
+    }
+
+    @Override
+    public List<Student> findByRole(UserRole role) {
+        log.trace(".findByRole(role: {})", role);
+        final QStudent student = QStudent.student;
+        return factory.select(student).from(student).where(student.role.eq(role)).fetch();
+    }
+
+    @Override
+    public Optional<Student> findByUsername(String username) {
+        log.trace(".findByUsername(username: {})", username);
+        final QStudent student = QStudent.student;
+        return Optional.ofNullable(factory.select(student).from(student).where(student.username.eq(username)).fetchOne());
+    }
+
+    @Override
+    public List<Student> findByPasswordHash(String passwordHash) {
+        log.trace(".findByPasswordHash(passwordHash)");
+        final QStudent student = QStudent.student;
+        return factory.select(student).from(student).where(student.passwordHash.eq(passwordHash)).fetch();
     }
 
 }

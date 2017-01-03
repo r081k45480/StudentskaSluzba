@@ -24,6 +24,8 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.*;
 
+import com.StudentskaSluzba.backend.model.enumeration.*;
+
 
 public class UpdateStudentRequest implements Serializable {
 
@@ -58,10 +60,22 @@ public class UpdateStudentRequest implements Serializable {
     @Min(0)
     private Integer osvojeniBodovi;
 
+    @NotNull
+    private UserRole role;
+
+    @NotNull
+    @Size(min = 3, max = 128)
+    private String username;
+
+    @NotNull
+    @Size(min = 6, max = 128)
+    private String passwordHash;
+
     public UpdateStudentRequest() {
     }
 
-    public UpdateStudentRequest(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi) {
+    public UpdateStudentRequest(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
+            String username, String passwordHash) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -70,6 +84,9 @@ public class UpdateStudentRequest implements Serializable {
         this.budzet = budzet;
         this.tekuciSemestar = tekuciSemestar;
         this.osvojeniBodovi = osvojeniBodovi;
+        this.role = role;
+        this.username = username;
+        this.passwordHash = passwordHash;
     }
 
     public Long getId() {
@@ -136,6 +153,30 @@ public class UpdateStudentRequest implements Serializable {
         this.osvojeniBodovi = osvojeniBodovi;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -161,6 +202,12 @@ public class UpdateStudentRequest implements Serializable {
             return false;
         if ((osvojeniBodovi == null && other.osvojeniBodovi != null) || !osvojeniBodovi.equals(other.osvojeniBodovi))
             return false;
+        if ((role == null && other.role != null) || !role.equals(other.role))
+            return false;
+        if ((username == null && other.username != null) || !username.equals(other.username))
+            return false;
+        if ((passwordHash == null && other.passwordHash != null) || !passwordHash.equals(other.passwordHash))
+            return false;
         return true;
     }
 
@@ -176,13 +223,16 @@ public class UpdateStudentRequest implements Serializable {
         result = prime * result + ((budzet == null) ? 0 : budzet.hashCode());
         result = prime * result + ((tekuciSemestar == null) ? 0 : tekuciSemestar.hashCode());
         result = prime * result + ((osvojeniBodovi == null) ? 0 : osvojeniBodovi.hashCode());
+        result = prime * result + ((role == null) ? 0 : role.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        result = prime * result + ((passwordHash == null) ? 0 : passwordHash.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
         return "UpdateStudentRequest[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
-                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + "]";
+                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

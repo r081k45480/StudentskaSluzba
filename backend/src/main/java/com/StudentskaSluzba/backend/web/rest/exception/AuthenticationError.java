@@ -19,24 +19,28 @@
 **/
 package com.StudentskaSluzba.backend.web.rest.exception;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.Nonnull;
 
 
-public final class ConstraintMapping {
+public class AuthenticationError extends RuntimeException {
 
-    private static final Map<String, String> mappings = new HashMap<>();
+    private static final long serialVersionUID = 1L;
 
-    static {
-        mappings.put("UNQ_STU_I_76BEE7", "Student.index.unique");
-        mappings.put("UNQ_STU_U_3AF129", "Student.username.unique");
+    private final String errorCode;
+
+    private final String errorMessage;
+
+    public AuthenticationError(@Nonnull String errorCode, String errorMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
-    private ConstraintMapping() {
-    };
+    public String getErrorCode() {
+        return errorCode;
+    }
 
-    public static String getErrorCodeForConstraint(String constraint) {
-        return mappings.get(constraint);
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
 }

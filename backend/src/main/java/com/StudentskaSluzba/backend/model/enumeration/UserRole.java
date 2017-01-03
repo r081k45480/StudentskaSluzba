@@ -17,26 +17,10 @@
 * You should have received a copy of the GNU General Public License
 * along with StudentskaSluzba. If not, see <http://www.gnu.org/licenses/>.*
 **/
-package com.StudentskaSluzba.backend.web.rest.exception;
+package com.StudentskaSluzba.backend.model.enumeration;
 
-import java.util.HashMap;
-import java.util.Map;
+public enum UserRole {
 
-
-public final class ConstraintMapping {
-
-    private static final Map<String, String> mappings = new HashMap<>();
-
-    static {
-        mappings.put("UNQ_STU_I_76BEE7", "Student.index.unique");
-        mappings.put("UNQ_STU_U_3AF129", "Student.username.unique");
-    }
-
-    private ConstraintMapping() {
-    };
-
-    public static String getErrorCodeForConstraint(String constraint) {
-        return mappings.get(constraint);
-    }
+    STUDENT
 
 }
