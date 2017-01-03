@@ -8,3 +8,4 @@ backend/target/
 *.sifu.debug
 *.iml
 **/target/
+webapp/src/app/environmentConfig.js
