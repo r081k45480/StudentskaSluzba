@@ -56,11 +56,4 @@ public class StanjeRepositoryImpl implements StanjeRepositoryCustom {
         return factory.select(stanje).from(stanje).where(stanje.datum.eq(datum)).fetch();
     }
 
-    @Override
-    public List<Stanje> findByStudent(Long studentId) {
-        log.trace(".findByStudent(studentId: {})", studentId);
-        final QStanje stanje = QStanje.stanje;
-        return factory.select(stanje).from(stanje).where(stanje.student.id.eq(studentId)).fetch();
-    }
-
 }

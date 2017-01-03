@@ -22,8 +22,6 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import java.util.List;
-
 import javax.validation.constraints.*;
 
 import com.StudentskaSluzba.backend.model.enumeration.*;
@@ -32,9 +30,6 @@ import com.StudentskaSluzba.backend.model.enumeration.*;
 public class RestUpdateStudentRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @NotNull
-    private List<Long> stanjaIds;
 
     @NotNull
     @Size(max = 255)
@@ -72,14 +67,6 @@ public class RestUpdateStudentRequest implements Serializable {
     @NotNull
     @Size(min = 6, max = 128)
     private String passwordHash;
-
-    public List<Long> getStanjaIds() {
-        return stanjaIds;
-    }
-
-    public void setStanjaIds(List<Long> stanjaIds) {
-        this.stanjaIds = stanjaIds;
-    }
 
     public String getIme() {
         return ime;
@@ -170,8 +157,6 @@ public class RestUpdateStudentRequest implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final RestUpdateStudentRequest other = (RestUpdateStudentRequest) obj;
-        if ((stanjaIds == null && other.stanjaIds != null) || !stanjaIds.equals(other.stanjaIds))
-            return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
@@ -199,7 +184,6 @@ public class RestUpdateStudentRequest implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((stanjaIds == null) ? 0 : stanjaIds.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
@@ -215,8 +199,8 @@ public class RestUpdateStudentRequest implements Serializable {
 
     @Override
     public String toString() {
-        return "RestUpdateStudentRequest[" + "stanjaIds=" + stanjaIds + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet="
-                + budzet + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
+        return "RestUpdateStudentRequest[" + "ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet + ", tekuciSemestar="
+                + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

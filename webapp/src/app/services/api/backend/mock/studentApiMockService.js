@@ -40,7 +40,6 @@
          *
          * response - ReadStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -64,7 +63,6 @@
 
         /** createStudent 
          * request - CreateStudentRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -79,7 +77,6 @@
          *
          * response - CreateStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -103,7 +100,6 @@
 
         /** updateStudent 
          * request - RestUpdateStudentRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -118,7 +114,6 @@
          *
          * response - UpdateStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String

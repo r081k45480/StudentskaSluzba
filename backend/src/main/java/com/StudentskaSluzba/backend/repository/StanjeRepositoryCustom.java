@@ -32,6 +32,4 @@ public interface StanjeRepositoryCustom {
 
     List<Stanje> findByDatum(ZonedDateTime datum);
 
-    List<Stanje> findByStudent(Long studentId);
-
 }

@@ -43,7 +43,6 @@
 
         /** signUp 
          * request - SignUpRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -57,7 +56,6 @@
          *
          * response - SignUpResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -75,7 +73,6 @@
                 method: 'POST',
                 url: backendApiUrl + '/api/sign-up',
                 data: {
-                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,
@@ -98,7 +95,6 @@
          * response - SignInResponse {
          *   accessToken: String
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -130,7 +126,6 @@
          *
          * response - ChangePasswordResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String

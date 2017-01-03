@@ -47,7 +47,6 @@
          *
          * response - ReadStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -70,7 +69,6 @@
 
         /** createStudent 
          * request - CreateStudentRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -85,7 +83,6 @@
          *
          * response - CreateStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -104,7 +101,6 @@
                 method: 'POST',
                 url: backendApiUrl + '/api/student',
                 data: {
-                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,
@@ -121,7 +117,6 @@
 
         /** updateStudent 
          * request - RestUpdateStudentRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -136,7 +131,6 @@
          *
          * response - UpdateStudentResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -155,7 +149,6 @@
                 method: 'PUT',
                 url: backendApiUrl + '/api/student/' + model.id + '',
                 data: {
-                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,

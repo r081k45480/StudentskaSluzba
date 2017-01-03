@@ -46,9 +46,6 @@ public class StudentApi {
     private final Logger log = LoggerFactory.getLogger(StudentApi.class);
 
     @Inject
-    private StanjeRepository stanjeRepository;
-
-    @Inject
     private StudentRepository studentRepository;
 
     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -95,7 +92,6 @@ public class StudentApi {
     private ReadStudentResponse convertToReadStudentResponse(Student model) {
         final ReadStudentResponse dto = new ReadStudentResponse();
         dto.setId(model.getId());
-        dto.setStanjaId(model.getStanja().getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
         dto.setIndex(model.getIndex());
@@ -111,8 +107,6 @@ public class StudentApi {
 
     private Student convertToStudent(CreateStudentRequest dto) {
         final Student student = new Student();
-        final List<Stanje> stanja = stanjeRepository.findAll(dto.getStanjaIds());
-        student.setStanja(stanja);
         student.setIme(dto.getIme());
         student.setPrezime(dto.getPrezime());
         student.setIndex(dto.getIndex());
@@ -129,7 +123,6 @@ public class StudentApi {
     private CreateStudentResponse convertToCreateStudentResponse(Student model) {
         final CreateStudentResponse dto = new CreateStudentResponse();
         dto.setId(model.getId());
-        dto.setStanjaId(model.getStanja().getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
         dto.setIndex(model.getIndex());
@@ -146,8 +139,6 @@ public class StudentApi {
     private Student convertToStudent(Long id, RestUpdateStudentRequest dto) {
         final Student student = new Student();
         student.setId(id);
-        final List<Stanje> stanja = stanjeRepository.findAll(dto.getStanjaIds());
-        student.setStanja(stanja);
         student.setIme(dto.getIme());
         student.setPrezime(dto.getPrezime());
         student.setIndex(dto.getIndex());
@@ -164,7 +155,6 @@ public class StudentApi {
     private UpdateStudentResponse convertToUpdateStudentResponse(Student model) {
         final UpdateStudentResponse dto = new UpdateStudentResponse();
         dto.setId(model.getId());
-        dto.setStanjaId(model.getStanja().getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
         dto.setIndex(model.getIndex());

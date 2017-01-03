@@ -36,7 +36,6 @@
 
         /** signUp 
          * request - SignUpRequest {
-         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -50,7 +49,6 @@
          *
          * response - SignUpResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -80,7 +78,6 @@
          * response - SignInResponse {
          *   accessToken: String
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -109,7 +106,6 @@
          *
          * response - ChangePasswordResponse {
          *   id: Int
-         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String

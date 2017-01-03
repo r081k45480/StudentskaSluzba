@@ -45,11 +45,6 @@ public class Stanje implements Serializable {
     @Column(name = "datum")
     private ZonedDateTime datum;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "studentId")
-    private Student student;
-
     public Long getId() {
         return id;
     }
@@ -74,14 +69,6 @@ public class Stanje implements Serializable {
         this.datum = datum;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -97,8 +84,6 @@ public class Stanje implements Serializable {
             return false;
         if ((datum == null && other.datum != null) || !datum.equals(other.datum))
             return false;
-        if ((student == null && other.student != null) || !student.equals(other.student))
-            return false;
         return true;
     }
 
@@ -109,13 +94,12 @@ public class Stanje implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((iznos == null) ? 0 : iznos.hashCode());
         result = prime * result + ((datum == null) ? 0 : datum.hashCode());
-        result = prime * result + ((student == null) ? 0 : student.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", datum=" + datum + ", student=" + student + "]";
+        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", datum=" + datum + "]";
     }
 
 }

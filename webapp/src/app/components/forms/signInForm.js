@@ -55,7 +55,6 @@
                 eventBus.emitEvent('UserSignedIn', {
                     accessToken: response.data.accessToken,
                     id: response.data.id,
-                    stanjaId: response.data.stanjaId,
                     ime: response.data.ime,
                     prezime: response.data.prezime,
                     index: response.data.index,
