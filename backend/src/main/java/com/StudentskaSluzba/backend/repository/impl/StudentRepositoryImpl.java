@@ -58,10 +58,10 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
     }
 
     @Override
-    public Optional<Student> findByIndex(String index) {
-        log.trace(".findByIndex(index: {})", index);
+    public Optional<Student> findByIndeks(String indeks) {
+        log.trace(".findByIndeks(indeks: {})", indeks);
         final QStudent student = QStudent.student;
-        return Optional.ofNullable(factory.select(student).from(student).where(student.index.eq(index)).fetchOne());
+        return Optional.ofNullable(factory.select(student).from(student).where(student.indeks.eq(indeks)).fetchOne());
     }
 
     @Override

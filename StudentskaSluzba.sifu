@@ -16,7 +16,7 @@ StudentskaSluzba project[
     Student model(
       ime text
       prezime text
-      index text[unique]
+      indeks text[unique]
       trenutnoStanjeRacuna decimal
       budzet boolean
       tekuciSemestar integer[min 1]

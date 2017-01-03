@@ -53,7 +53,7 @@ public class AuthenticationApi {
     @Transactional
     public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest request) {
         log.debug("POST /sign-up {}", request);
-        final Student student = studentService.signUp(request.getIme(), request.getPrezime(), request.getIndex(), request.getTrenutnoStanjeRacuna(), request.getBudzet(), request.getTekuciSemestar(),
+        final Student student = studentService.signUp(request.getIme(), request.getPrezime(), request.getIndeks(), request.getTrenutnoStanjeRacuna(), request.getBudzet(), request.getTekuciSemestar(),
                 request.getOsvojeniBodovi(), request.getUsername(), request.getPassword());
         return ResponseEntity.ok().body(convertToSignUpResponse(student));
     }
@@ -82,7 +82,7 @@ public class AuthenticationApi {
         dto.setId(model.getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
-        dto.setIndex(model.getIndex());
+        dto.setIndeks(model.getIndeks());
         dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         dto.setBudzet(model.getBudzet());
         dto.setTekuciSemestar(model.getTekuciSemestar());
@@ -97,7 +97,7 @@ public class AuthenticationApi {
         dto.setId(model.getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
-        dto.setIndex(model.getIndex());
+        dto.setIndeks(model.getIndeks());
         dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         dto.setBudzet(model.getBudzet());
         dto.setTekuciSemestar(model.getTekuciSemestar());

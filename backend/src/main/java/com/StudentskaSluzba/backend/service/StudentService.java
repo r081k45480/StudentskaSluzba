@@ -50,14 +50,15 @@ public class StudentService {
     @Inject
     private StudentRepository studentRepository;
 
-    public Student signUp(String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username, String password) {
-        log.debug("signUp(ime: {}, prezime: {}, index: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", ime, prezime, index, trenutnoStanjeRacuna,
+    public Student signUp(String ime, String prezime, String indeks, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username,
+            String password) {
+        log.debug("signUp(ime: {}, prezime: {}, indeks: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", ime, prezime, indeks, trenutnoStanjeRacuna,
                 budzet, tekuciSemestar, osvojeniBodovi, username);
 
         final Student student = new Student();
         student.setIme(ime);
         student.setPrezime(prezime);
-        student.setIndex(index);
+        student.setIndeks(indeks);
         student.setTrenutnoStanjeRacuna(trenutnoStanjeRacuna);
         student.setBudzet(budzet);
         student.setTekuciSemestar(tekuciSemestar);
@@ -83,7 +84,7 @@ public class StudentService {
         response.setId(student.getId());
         response.setIme(student.getIme());
         response.setPrezime(student.getPrezime());
-        response.setIndex(student.getIndex());
+        response.setIndeks(student.getIndeks());
         response.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna());
         response.setBudzet(student.getBudzet());
         response.setTekuciSemestar(student.getTekuciSemestar());

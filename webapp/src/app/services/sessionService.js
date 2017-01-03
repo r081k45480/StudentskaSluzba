@@ -47,7 +47,7 @@
             localStorage.setItem('id', sessionData.id);
             localStorage.setItem('ime', sessionData.ime);
             localStorage.setItem('prezime', sessionData.prezime);
-            localStorage.setItem('index', sessionData.index);
+            localStorage.setItem('indeks', sessionData.indeks);
             localStorage.setItem('trenutnoStanjeRacuna', sessionData.trenutnoStanjeRacuna);
             localStorage.setItem('budzet', sessionData.budzet);
             localStorage.setItem('tekuciSemestar', sessionData.tekuciSemestar);
@@ -61,7 +61,7 @@
             localStorage.removeItem('id');
             localStorage.removeItem('ime');
             localStorage.removeItem('prezime');
-            localStorage.removeItem('index');
+            localStorage.removeItem('indeks');
             localStorage.removeItem('trenutnoStanjeRacuna');
             localStorage.removeItem('budzet');
             localStorage.removeItem('tekuciSemestar');
@@ -76,7 +76,7 @@
                 id: localStorage.getItem('id'),
                 ime: localStorage.getItem('ime'),
                 prezime: localStorage.getItem('prezime'),
-                index: localStorage.getItem('index'),
+                indeks: localStorage.getItem('indeks'),
                 trenutnoStanjeRacuna: localStorage.getItem('trenutnoStanjeRacuna'),
                 budzet: localStorage.getItem('budzet'),
                 tekuciSemestar: localStorage.getItem('tekuciSemestar'),

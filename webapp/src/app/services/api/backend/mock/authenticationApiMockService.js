@@ -38,7 +38,7 @@
          * request - SignUpRequest {
          *   ime: String
          *   prezime: String
-         *   index: String
+         *   indeks: String
          *   trenutnoStanjeRacuna: Decimal(10, 4)
          *   budzet: Boolean
          *   tekuciSemestar: Int
@@ -51,7 +51,7 @@
          *   id: Int
          *   ime: String
          *   prezime: String
-         *   index: String
+         *   indeks: String
          *   trenutnoStanjeRacuna: Decimal(10, 4)
          *   budzet: Boolean
          *   tekuciSemestar: Int
@@ -80,7 +80,7 @@
          *   id: Int
          *   ime: String
          *   prezime: String
-         *   index: String
+         *   indeks: String
          *   trenutnoStanjeRacuna: Decimal(10, 4)
          *   budzet: Boolean
          *   tekuciSemestar: Int
@@ -108,7 +108,7 @@
          *   id: Int
          *   ime: String
          *   prezime: String
-         *   index: String
+         *   indeks: String
          *   trenutnoStanjeRacuna: Decimal(10, 4)
          *   budzet: Boolean
          *   tekuciSemestar: Int

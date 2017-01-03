@@ -28,7 +28,7 @@ public final class ConstraintMapping {
     private static final Map<String, String> mappings = new HashMap<>();
 
     static {
-        mappings.put("UNQ_STUD_I_76BEE7", "Student.index.unique");
+        mappings.put("UNQ_STUD_I_D92844", "Student.indeks.unique");
         mappings.put("UNQ_STUD_U_3AF129", "Student.username.unique");
     }
 
