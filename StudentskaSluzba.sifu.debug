@@ -16,13 +16,6 @@ StudentskaSluzba project[
                 query findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                 )]
         )
@@ -31,31 +24,11 @@ StudentskaSluzba project[
         Student model[
             type mysql
             unique(
-                index
-            )
-            unique(
                 username
             )](
             id integer[
                 primarykey
                 max 9223372036854775807]
-            stanja list Stanje[
-                oneToMany student]
-            ime text[
-                max 255]
-            prezime text[
-                max 255]
-            index text[
-                unique
-                max 255]
-            trenutnoStanjeRacuna decimal[
-                precision 10
-                scale 4]
-            budzet boolean
-            tekuciSemestar integer[
-                min 1]
-            osvojeniBodovi integer[
-                min 0]
             username text[
                 unique
                 min 3
@@ -69,13 +42,6 @@ StudentskaSluzba project[
             findById find from Student as Student where Student.id == id
             getById get from Student as Student where Student.id == id
             deleteById delete from Student as Student where Student.id == id
-            findByIme find from Student as Student where Student.ime == ime
-            findByPrezime find from Student as Student where Student.prezime == prezime
-            findByIndex find from Student as Student where Student.index == index
-            findByTrenutnoStanjeRacuna find from Student as Student where Student.trenutnoStanjeRacuna == trenutnoStanjeRacuna
-            findByBudzet find from Student as Student where Student.budzet == budzet
-            findByTekuciSemestar find from Student as Student where Student.tekuciSemestar == tekuciSemestar
-            findByOsvojeniBodovi find from Student as Student where Student.osvojeniBodovi == osvojeniBodovi
             findByUsername find from Student as Student where Student.username == username
             findByPasswordHash find from Student as Student where Student.passwordHash == passwordHash
         )
@@ -113,8 +79,6 @@ StudentskaSluzba project[
                 precision 10
                 scale 4]
             datum datetime
-            student Student[
-                manyToOne stanje]
             findAll find from Stanje as Stanje
             countAll count from Stanje as Stanje
             findById find from Stanje as Stanje where Stanje.id == id
@@ -122,7 +86,6 @@ StudentskaSluzba project[
             deleteById delete from Stanje as Stanje where Stanje.id == id
             findByIznos find from Stanje as Stanje where Stanje.iznos == iznos
             findByDatum find from Stanje as Stanje where Stanje.datum == datum
-            findByStudent find from Stanje as Stanje where Stanje.student.id == studentId
         )
         Rok model[
             type mysql](
@@ -182,13 +145,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                     Student.passwordHash
                 )
@@ -203,20 +159,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -231,13 +173,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                     Student.passwordHash
                 )
@@ -246,41 +181,6 @@ StudentskaSluzba project[
                 response CreateStudentResponse](
                 id id[
                     visible(
-                        read
-                    )]
-                ime ime[
-                    visible(
-                        create
-                        read
-                    )]
-                prezime prezime[
-                    visible(
-                        create
-                        read
-                    )]
-                index index[
-                    visible(
-                        create
-                        read
-                    )]
-                trenutnoStanjeRacuna trenutnoStanjeRacuna[
-                    visible(
-                        create
-                        read
-                    )]
-                budzet budzet[
-                    visible(
-                        create
-                        read
-                    )]
-                tekuciSemestar tekuciSemestar[
-                    visible(
-                        create
-                        read
-                    )]
-                osvojeniBodovi osvojeniBodovi[
-                    visible(
-                        create
                         read
                     )]
                 username username[
@@ -296,20 +196,6 @@ StudentskaSluzba project[
             )
             CreateStudentRequest dto[
                 model Student](
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -322,20 +208,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -350,13 +222,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                     Student.passwordHash
                 )
@@ -364,41 +229,6 @@ StudentskaSluzba project[
                 request UpdateStudentRequest
                 response UpdateStudentResponse](
                 id id[
-                    visible(
-                        read
-                        update
-                    )]
-                ime ime[
-                    visible(
-                        read
-                        update
-                    )]
-                prezime prezime[
-                    visible(
-                        read
-                        update
-                    )]
-                index index[
-                    visible(
-                        read
-                        update
-                    )]
-                trenutnoStanjeRacuna trenutnoStanjeRacuna[
-                    visible(
-                        read
-                        update
-                    )]
-                budzet budzet[
-                    visible(
-                        read
-                        update
-                    )]
-                tekuciSemestar tekuciSemestar[
-                    visible(
-                        read
-                        update
-                    )]
-                osvojeniBodovi osvojeniBodovi[
                     visible(
                         read
                         update
@@ -418,20 +248,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -444,20 +260,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -638,13 +440,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                 )
                 errors
@@ -666,20 +461,6 @@ StudentskaSluzba project[
                     sensitive]
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -689,25 +470,11 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                 )
                 errors
                 request SignUpRequest
                 response SignUpResponse](
-                ime ime
-                prezime prezime
-                index index
-                trenutnoStanjeRacuna trenutnoStanjeRacuna
-                budzet budzet
-                tekuciSemestar tekuciSemestar
-                osvojeniBodovi osvojeniBodovi
                 username username
                 password text[
                     min 6
@@ -716,20 +483,6 @@ StudentskaSluzba project[
                     sensitive]
             )
             SignUpRequest dto(
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -743,20 +496,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -767,13 +506,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                 )
                 errors
@@ -800,20 +532,6 @@ StudentskaSluzba project[
                     sensitive]
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -825,13 +543,6 @@ StudentskaSluzba project[
                 query Student.findById
                 response(
                     Student.id
-                    Student.ime
-                    Student.prezime
-                    Student.index
-                    Student.trenutnoStanjeRacuna
-                    Student.budzet
-                    Student.tekuciSemestar
-                    Student.osvojeniBodovi
                     Student.username
                 )
                 errors
@@ -852,20 +563,6 @@ StudentskaSluzba project[
                 model Student](
                 id integer[
                     max 9223372036854775807]
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -1092,20 +789,6 @@ StudentskaSluzba project[
         signUpForm form[
             submit backend.AuthenticationApi.signUp
             model(
-                ime text[
-                    max 255]
-                prezime text[
-                    max 255]
-                index text[
-                    max 255]
-                trenutnoStanjeRacuna decimal[
-                    precision 10
-                    scale 4]
-                budzet boolean
-                tekuciSemestar integer[
-                    min 1]
-                osvojeniBodovi integer[
-                    min 0]
                 username text[
                     min 3
                     max 128]
@@ -1116,51 +799,9 @@ StudentskaSluzba project[
                     sensitive]
             )
             visible(
-                ime
-                prezime
-                index
-                trenutnoStanjeRacuna
-                budzet
-                tekuciSemestar
-                osvojeniBodovi
                 username
                 password
             )](
-            ime text[
-                input(
-                    model . ime
-                )
-                max 255]
-            prezime text[
-                input(
-                    model . prezime
-                )
-                max 255]
-            index text[
-                input(
-                    model . index
-                )
-                max 255]
-            trenutnoStanjeRacuna decimal[
-                input(
-                    model . trenutnoStanjeRacuna
-                )
-                precision 10
-                scale 4]
-            budzet boolean[
-                input(
-                    model . budzet
-                )]
-            tekuciSemestar integer[
-                input(
-                    model . tekuciSemestar
-                )
-                min 1]
-            osvojeniBodovi integer[
-                input(
-                    model . osvojeniBodovi
-                )
-                min 0]
             username text[
                 input(
                     model . username
@@ -1178,13 +819,6 @@ StudentskaSluzba project[
             submit button{
                 on click(
                     call backend.AuthenticationApi.signUp(
-                        model . ime
-                        model . prezime
-                        model . index
-                        model . trenutnoStanjeRacuna
-                        model . budzet
-                        model . tekuciSemestar
-                        model . osvojeniBodovi
                         model . username
                         model . password
                     ){
