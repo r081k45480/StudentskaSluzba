@@ -12,7 +12,7 @@
             <column name="prezime" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="index" type="VARCHAR(255)">
+            <column name="indeks" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="trenutnoStanjeRacuna" type="DECIMAL(10, 4)">
@@ -25,6 +25,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="osvojeniBodovi" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passwordHash" type="VARCHAR(128)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -56,9 +65,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="datum" type="DATETIME">
-                <constraints nullable="false"/>
-            </column>
-            <column name="studentId" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -96,12 +102,12 @@
             </column>
         </createTable>
         <!--ADD FOREIGN KEYS-->
-        <addForeignKeyConstraint baseColumnNames="studentId" baseTableName="Stanje" constraintName="FK_STA.S_STU.I_A0FACF" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Student"/>
-        <addForeignKeyConstraint baseColumnNames="studentId" baseTableName="StudPred" constraintName="FK_STU_PRE.S_STU.I_D34777" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Student"/>
-        <addForeignKeyConstraint baseColumnNames="predmetId" baseTableName="StudPred" constraintName="FK_STU_PRE.P_PRE.I_9E39C0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Predmet"/>
-        <addForeignKeyConstraint baseColumnNames="rokId" baseTableName="Prijava" constraintName="FK_PRI.R_ROK.I_FB78B3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Rok"/>
-        <addForeignKeyConstraint baseColumnNames="studPredId" baseTableName="Prijava" constraintName="FK_PRI.SP_STU_PRE.I_2508C3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="StudPred"/>
+        <addForeignKeyConstraint baseColumnNames="studentId" baseTableName="StudPred" constraintName="FK_STUD.SI_STUD.I_F5F956" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Student"/>
+        <addForeignKeyConstraint baseColumnNames="predmetId" baseTableName="StudPred" constraintName="FK_STUD.PI_PRED.I_81C533" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Predmet"/>
+        <addForeignKeyConstraint baseColumnNames="rokId" baseTableName="Prijava" constraintName="FK_PRIJ.RI_ROK.I_3320AF" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Rok"/>
+        <addForeignKeyConstraint baseColumnNames="studPredId" baseTableName="Prijava" constraintName="FK_PRIJ.SPI_STUD.I_E20301" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="StudPred"/>
         <!--ADD UNIQUE CONSTRAINTS-->
-        <addUniqueConstraint columnNames="index" constraintName="UNQ_STU_I_76BEE7" tableName="Student"/>
+        <addUniqueConstraint columnNames="indeks" constraintName="UNQ_STUD_I_D92844" tableName="Student"/>
+        <addUniqueConstraint columnNames="username" constraintName="UNQ_STUD_U_3AF129" tableName="Student"/>
     </changeSet>
 </databaseChangeLog>
