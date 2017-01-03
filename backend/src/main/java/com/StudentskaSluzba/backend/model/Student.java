@@ -50,8 +50,8 @@ public class Student implements Serializable {
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "index")
-    private String index;
+    @Column(name = "indeks")
+    private String indeks;
 
     @NotNull
     @Column(name = "trenutnoStanjeRacuna")
@@ -110,12 +110,12 @@ public class Student implements Serializable {
         this.prezime = prezime;
     }
 
-    public String getIndex() {
-        return index;
+    public String getIndeks() {
+        return indeks;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setIndeks(String indeks) {
+        this.indeks = indeks;
     }
 
     public BigDecimal getTrenutnoStanjeRacuna() {
@@ -189,7 +189,7 @@ public class Student implements Serializable {
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
             return false;
-        if ((index == null && other.index != null) || !index.equals(other.index))
+        if ((indeks == null && other.indeks != null) || !indeks.equals(other.indeks))
             return false;
         if ((trenutnoStanjeRacuna == null && other.trenutnoStanjeRacuna != null) || !trenutnoStanjeRacuna.equals(other.trenutnoStanjeRacuna))
             return false;
@@ -215,7 +215,7 @@ public class Student implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
-        result = prime * result + ((index == null) ? 0 : index.hashCode());
+        result = prime * result + ((indeks == null) ? 0 : indeks.hashCode());
         result = prime * result + ((trenutnoStanjeRacuna == null) ? 0 : trenutnoStanjeRacuna.hashCode());
         result = prime * result + ((budzet == null) ? 0 : budzet.hashCode());
         result = prime * result + ((tekuciSemestar == null) ? 0 : tekuciSemestar.hashCode());
@@ -228,7 +228,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "Student[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet + ", tekuciSemestar="
+        return "Student[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", indeks=" + indeks + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet + ", tekuciSemestar="
                 + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 

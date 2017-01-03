@@ -34,7 +34,7 @@ public interface StudentRepositoryCustom {
 
     List<Student> findByPrezime(String prezime);
 
-    Optional<Student> findByIndex(String index);
+    Optional<Student> findByIndeks(String indeks);
 
     List<Student> findByTrenutnoStanjeRacuna(BigDecimal trenutnoStanjeRacuna);
 

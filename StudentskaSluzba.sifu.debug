@@ -21,7 +21,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -38,7 +38,7 @@ StudentskaSluzba project[
         Student model[
             type mysql
             unique(
-                index
+                indeks
             )
             unique(
                 username
@@ -50,7 +50,7 @@ StudentskaSluzba project[
                 max 255]
             prezime text[
                 max 255]
-            index text[
+            indeks text[
                 unique
                 max 255]
             trenutnoStanjeRacuna decimal[
@@ -77,7 +77,7 @@ StudentskaSluzba project[
             deleteById delete from Student as Student where Student.id == id
             findByIme find from Student as Student where Student.ime == ime
             findByPrezime find from Student as Student where Student.prezime == prezime
-            findByIndex find from Student as Student where Student.index == index
+            findByIndeks find from Student as Student where Student.indeks == indeks
             findByTrenutnoStanjeRacuna find from Student as Student where Student.trenutnoStanjeRacuna == trenutnoStanjeRacuna
             findByBudzet find from Student as Student where Student.budzet == budzet
             findByTekuciSemestar find from Student as Student where Student.tekuciSemestar == tekuciSemestar
@@ -187,7 +187,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -210,7 +210,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -237,7 +237,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -263,7 +263,7 @@ StudentskaSluzba project[
                         create
                         read
                     )]
-                index index[
+                indeks indeks[
                     visible(
                         create
                         read
@@ -309,7 +309,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -335,7 +335,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -362,7 +362,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -389,7 +389,7 @@ StudentskaSluzba project[
                         read
                         update
                     )]
-                index index[
+                indeks indeks[
                     visible(
                         read
                         update
@@ -437,7 +437,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -463,7 +463,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -641,7 +641,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -654,7 +654,7 @@ StudentskaSluzba project[
                 response SignUpResponse](
                 ime ime
                 prezime prezime
-                index index
+                indeks indeks
                 trenutnoStanjeRacuna trenutnoStanjeRacuna
                 budzet budzet
                 tekuciSemestar tekuciSemestar
@@ -671,7 +671,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -697,7 +697,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -720,7 +720,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -751,7 +751,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -775,7 +775,7 @@ StudentskaSluzba project[
                     Student.id
                     Student.ime
                     Student.prezime
-                    Student.index
+                    Student.indeks
                     Student.trenutnoStanjeRacuna
                     Student.budzet
                     Student.tekuciSemestar
@@ -804,7 +804,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -909,7 +909,7 @@ StudentskaSluzba project[
                 max 255]
             prezime text[
                 max 255]
-            index text[
+            indeks text[
                 max 255]
             trenutnoStanjeRacuna decimal[
                 precision 10
@@ -1038,7 +1038,7 @@ StudentskaSluzba project[
                     success . id
                     success . ime
                     success . prezime
-                    success . index
+                    success . indeks
                     success . trenutnoStanjeRacuna
                     success . budzet
                     success . tekuciSemestar
@@ -1056,7 +1056,7 @@ StudentskaSluzba project[
                     max 255]
                 prezime text[
                     max 255]
-                index text[
+                indeks text[
                     max 255]
                 trenutnoStanjeRacuna decimal[
                     precision 10
@@ -1078,7 +1078,7 @@ StudentskaSluzba project[
             visible(
                 ime
                 prezime
-                index
+                indeks
                 trenutnoStanjeRacuna
                 budzet
                 tekuciSemestar
@@ -1096,9 +1096,9 @@ StudentskaSluzba project[
                     model . prezime
                 )
                 max 255]
-            index text[
+            indeks text[
                 bind(
-                    model . index
+                    model . indeks
                 )
                 max 255]
             trenutnoStanjeRacuna decimal[

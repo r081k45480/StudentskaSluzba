@@ -57,7 +57,7 @@
                     id: response.data.id,
                     ime: response.data.ime,
                     prezime: response.data.prezime,
-                    index: response.data.index,
+                    indeks: response.data.indeks,
                     trenutnoStanjeRacuna: response.data.trenutnoStanjeRacuna,
                     budzet: response.data.budzet,
                     tekuciSemestar: response.data.tekuciSemestar,

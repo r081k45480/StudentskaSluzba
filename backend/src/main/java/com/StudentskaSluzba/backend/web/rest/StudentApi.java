@@ -94,7 +94,7 @@ public class StudentApi {
         dto.setId(model.getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
-        dto.setIndex(model.getIndex());
+        dto.setIndeks(model.getIndeks());
         dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         dto.setBudzet(model.getBudzet());
         dto.setTekuciSemestar(model.getTekuciSemestar());
@@ -109,7 +109,7 @@ public class StudentApi {
         final Student student = new Student();
         student.setIme(dto.getIme());
         student.setPrezime(dto.getPrezime());
-        student.setIndex(dto.getIndex());
+        student.setIndeks(dto.getIndeks());
         student.setTrenutnoStanjeRacuna(dto.getTrenutnoStanjeRacuna());
         student.setBudzet(dto.getBudzet());
         student.setTekuciSemestar(dto.getTekuciSemestar());
@@ -125,7 +125,7 @@ public class StudentApi {
         dto.setId(model.getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
-        dto.setIndex(model.getIndex());
+        dto.setIndeks(model.getIndeks());
         dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         dto.setBudzet(model.getBudzet());
         dto.setTekuciSemestar(model.getTekuciSemestar());
@@ -141,7 +141,7 @@ public class StudentApi {
         student.setId(id);
         student.setIme(dto.getIme());
         student.setPrezime(dto.getPrezime());
-        student.setIndex(dto.getIndex());
+        student.setIndeks(dto.getIndeks());
         student.setTrenutnoStanjeRacuna(dto.getTrenutnoStanjeRacuna());
         student.setBudzet(dto.getBudzet());
         student.setTekuciSemestar(dto.getTekuciSemestar());
@@ -157,7 +157,7 @@ public class StudentApi {
         dto.setId(model.getId());
         dto.setIme(model.getIme());
         dto.setPrezime(model.getPrezime());
-        dto.setIndex(model.getIndex());
+        dto.setIndeks(model.getIndeks());
         dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         dto.setBudzet(model.getBudzet());
         dto.setTekuciSemestar(model.getTekuciSemestar());

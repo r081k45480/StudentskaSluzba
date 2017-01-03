@@ -18,11 +18,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="index">{{'SIGN_UP_FORM_INDEX' | translate}}</label>
-                <input type="text" id="index" name="index" class="form-control" ng-model="model.index" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
-                <div ng-messages="signUpForm.index.$error" ng-if="signUpForm.$submitted || !signUpForm.index.$pristine">
-                    <div ng-message="required">{{'SIGN_UP_FORM_INDEX_IS_REQUIRED' | translate}}</div>
-                    <div ng-message="maxlength" ng-if="!signUpForm.index.$pristine">{{'SIGN_UP_FORM_INDEX_MAX' | translate:'{ max: 255 }'}}</div>
+                <label for="indeks">{{'SIGN_UP_FORM_INDEKS' | translate}}</label>
+                <input type="text" id="indeks" name="indeks" class="form-control" ng-model="model.indeks" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="signUpForm.indeks.$error" ng-if="signUpForm.$submitted || !signUpForm.indeks.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_INDEKS_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.indeks.$pristine">{{'SIGN_UP_FORM_INDEKS_MAX' | translate:'{ max: 255 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
