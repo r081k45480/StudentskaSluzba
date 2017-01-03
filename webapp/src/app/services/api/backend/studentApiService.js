@@ -24,9 +24,9 @@
         .module('webapp')
         .service('studentApiService', studentApiService);
 
-    studentApiService.$inject = ['$http'];
+    studentApiService.$inject = ['$http', 'sessionService'];
 
-    function studentApiService($http) {
+    function studentApiService($http, sessionService) {
 
         var backendApiUrl = '';
 
@@ -47,6 +47,7 @@
          *
          * response - ReadStudentResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -63,16 +64,13 @@
         function readStudent(model) {
             return $http({
                 method: 'GET',
-                url: backendApiUrl + '/api/student/' + model.id + '',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                url: backendApiUrl + '/api/student/' + model.id + ''
             });
-
         }
 
         /** createStudent 
          * request - CreateStudentRequest {
+         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -87,6 +85,7 @@
          *
          * response - CreateStudentResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -105,6 +104,7 @@
                 method: 'POST',
                 url: backendApiUrl + '/api/student',
                 data: {
+                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,
@@ -115,16 +115,13 @@
                     role: model.role,
                     username: model.username,
                     passwordHash: model.passwordHash
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** updateStudent 
          * request - RestUpdateStudentRequest {
+         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -139,6 +136,7 @@
          *
          * response - UpdateStudentResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -157,6 +155,7 @@
                 method: 'PUT',
                 url: backendApiUrl + '/api/student/' + model.id + '',
                 data: {
+                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,
@@ -167,12 +166,8 @@
                     role: model.role,
                     username: model.username,
                     passwordHash: model.passwordHash
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** deleteStudent 
@@ -189,12 +184,8 @@
                 url: backendApiUrl + '/api/student/' + model.id + '',
                 data: {
                     id: model.id
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
     }

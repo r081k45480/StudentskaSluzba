@@ -34,14 +34,6 @@ public class RestUpdateStudPredRequest implements Serializable {
     @NotNull
     private Long predmetId;
 
-    public RestUpdateStudPredRequest() {
-    }
-
-    public RestUpdateStudPredRequest(Long studentId, Long predmetId) {
-        this.studentId = studentId;
-        this.predmetId = predmetId;
-    }
-
     public Long getStudentId() {
         return studentId;
     }

@@ -31,7 +31,7 @@
         $scope.onClickSignIn = onClickSignIn;
 
         function onClickSignIn() {
-            $state.go('signInPage', {});
+            $state.go('signInPage');
         }
 
     }

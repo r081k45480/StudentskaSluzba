@@ -20,56 +20,20 @@
 package com.StudentskaSluzba.backend;
 
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.test.context.junit4.SpringRunner;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.inject.Inject;
-import java.io.IOException;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.StudentskaSluzba.backend.config.CustomProperties;
-import com.StudentskaSluzba.backend.repository.StudentRepository;
-import com.StudentskaSluzba.backend.repository.PredmetRepository;
-import com.StudentskaSluzba.backend.repository.StanjeRepository;
-import com.StudentskaSluzba.backend.repository.RokRepository;
-import com.StudentskaSluzba.backend.repository.StudPredRepository;
-import com.StudentskaSluzba.backend.repository.PrijavaRepository;
 
 
 @ActiveProfiles(resolver = TestProfileResolver.class)
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = BackendApplication.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = BackendApplication.class)
+@IntegrationTest
 @Transactional
 public abstract class AbstractDatabaseTest {
 
-    @Inject
-    public ObjectMapper objectMapper;
-
-    @Inject
-    private CustomProperties customProperties;
-
-    @Inject
-    protected StudentRepository studentRepository;
-
-    @Inject
-    protected PredmetRepository predmetRepository;
-
-    @Inject
-    protected StanjeRepository stanjeRepository;
-
-    @Inject
-    protected RokRepository rokRepository;
-
-    @Inject
-    protected StudPredRepository studPredRepository;
-
-    @Inject
-    protected PrijavaRepository prijavaRepository;
-
-    protected byte[] convertObjectToJsonBytes(Object object) throws IOException {
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return objectMapper.writeValueAsBytes(object);
-    }
+    // extend this class when your tests need to access the database
 
 }

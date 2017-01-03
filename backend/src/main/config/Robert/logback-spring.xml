@@ -2,7 +2,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <springProfile name="dev">
-        <logger level="DEBUG" name="com.StudentskaSluzba.backend"/>
+        <logger level="@logback.loglevel@" name="com.StudentskaSluzba.backend"/>
         <logger level="WARN" name="javax.activation"/>
         <logger level="WARN" name="javax.mail"/>
         <logger level="WARN" name="javax.xml.bind"/>
@@ -24,7 +24,6 @@
         <logger level="WARN" name="org.springframework.cache"/>
         <logger level="WARN" name="org.thymeleaf"/>
         <logger level="WARN" name="org.xnio"/>
-        <logger level="WARN" name="reactor.io"/>
         <logger level="WARN" name="springfox"/>
         <logger level="WARN" name="sun.rmi"/>
         <logger level="WARN" name="liquibase"/>

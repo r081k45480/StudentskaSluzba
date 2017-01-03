@@ -46,6 +46,9 @@ public class StudentApi {
     private final Logger log = LoggerFactory.getLogger(StudentApi.class);
 
     @Inject
+    private StanjeRepository stanjeRepository;
+
+    @Inject
     private StudentRepository studentRepository;
 
     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,82 +92,89 @@ public class StudentApi {
         return ResponseEntity.ok().build();
     }
 
-    private ReadStudentResponse convertToReadStudentResponse(Student student) {
-        final ReadStudentResponse readStudentResponse = new ReadStudentResponse();
-        readStudentResponse.setId(student.getId());
-        readStudentResponse.setIme(student.getIme());
-        readStudentResponse.setPrezime(student.getPrezime());
-        readStudentResponse.setIndex(student.getIndex());
-        readStudentResponse.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna());
-        readStudentResponse.setBudzet(student.getBudzet());
-        readStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
-        readStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
-        readStudentResponse.setRole(student.getRole());
-        readStudentResponse.setUsername(student.getUsername());
-        readStudentResponse.setPasswordHash(student.getPasswordHash());
-        return readStudentResponse;
+    private ReadStudentResponse convertToReadStudentResponse(Student model) {
+        final ReadStudentResponse dto = new ReadStudentResponse();
+        dto.setId(model.getId());
+        dto.setStanjaId(model.getStanja().getId());
+        dto.setIme(model.getIme());
+        dto.setPrezime(model.getPrezime());
+        dto.setIndex(model.getIndex());
+        dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
+        dto.setBudzet(model.getBudzet());
+        dto.setTekuciSemestar(model.getTekuciSemestar());
+        dto.setOsvojeniBodovi(model.getOsvojeniBodovi());
+        dto.setRole(model.getRole());
+        dto.setUsername(model.getUsername());
+        dto.setPasswordHash(model.getPasswordHash());
+        return dto;
     }
 
-    private Student convertToStudent(CreateStudentRequest createStudentRequest) {
+    private Student convertToStudent(CreateStudentRequest dto) {
         final Student student = new Student();
-        student.setIme(createStudentRequest.getIme());
-        student.setPrezime(createStudentRequest.getPrezime());
-        student.setIndex(createStudentRequest.getIndex());
-        student.setTrenutnoStanjeRacuna(createStudentRequest.getTrenutnoStanjeRacuna());
-        student.setBudzet(createStudentRequest.getBudzet());
-        student.setTekuciSemestar(createStudentRequest.getTekuciSemestar());
-        student.setOsvojeniBodovi(createStudentRequest.getOsvojeniBodovi());
-        student.setRole(createStudentRequest.getRole());
-        student.setUsername(createStudentRequest.getUsername());
-        student.setPasswordHash(createStudentRequest.getPasswordHash());
+        final List<Stanje> stanja = stanjeRepository.findAll(dto.getStanjaIds());
+        student.setStanja(stanja);
+        student.setIme(dto.getIme());
+        student.setPrezime(dto.getPrezime());
+        student.setIndex(dto.getIndex());
+        student.setTrenutnoStanjeRacuna(dto.getTrenutnoStanjeRacuna());
+        student.setBudzet(dto.getBudzet());
+        student.setTekuciSemestar(dto.getTekuciSemestar());
+        student.setOsvojeniBodovi(dto.getOsvojeniBodovi());
+        student.setRole(dto.getRole());
+        student.setUsername(dto.getUsername());
+        student.setPasswordHash(dto.getPasswordHash());
         return student;
     }
 
-    private CreateStudentResponse convertToCreateStudentResponse(Student student) {
-        final CreateStudentResponse createStudentResponse = new CreateStudentResponse();
-        createStudentResponse.setId(student.getId());
-        createStudentResponse.setIme(student.getIme());
-        createStudentResponse.setPrezime(student.getPrezime());
-        createStudentResponse.setIndex(student.getIndex());
-        createStudentResponse.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna());
-        createStudentResponse.setBudzet(student.getBudzet());
-        createStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
-        createStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
-        createStudentResponse.setRole(student.getRole());
-        createStudentResponse.setUsername(student.getUsername());
-        createStudentResponse.setPasswordHash(student.getPasswordHash());
-        return createStudentResponse;
+    private CreateStudentResponse convertToCreateStudentResponse(Student model) {
+        final CreateStudentResponse dto = new CreateStudentResponse();
+        dto.setId(model.getId());
+        dto.setStanjaId(model.getStanja().getId());
+        dto.setIme(model.getIme());
+        dto.setPrezime(model.getPrezime());
+        dto.setIndex(model.getIndex());
+        dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
+        dto.setBudzet(model.getBudzet());
+        dto.setTekuciSemestar(model.getTekuciSemestar());
+        dto.setOsvojeniBodovi(model.getOsvojeniBodovi());
+        dto.setRole(model.getRole());
+        dto.setUsername(model.getUsername());
+        dto.setPasswordHash(model.getPasswordHash());
+        return dto;
     }
 
-    private Student convertToStudent(Long id, RestUpdateStudentRequest restUpdateStudentRequest) {
+    private Student convertToStudent(Long id, RestUpdateStudentRequest dto) {
         final Student student = new Student();
         student.setId(id);
-        student.setIme(restUpdateStudentRequest.getIme());
-        student.setPrezime(restUpdateStudentRequest.getPrezime());
-        student.setIndex(restUpdateStudentRequest.getIndex());
-        student.setTrenutnoStanjeRacuna(restUpdateStudentRequest.getTrenutnoStanjeRacuna());
-        student.setBudzet(restUpdateStudentRequest.getBudzet());
-        student.setTekuciSemestar(restUpdateStudentRequest.getTekuciSemestar());
-        student.setOsvojeniBodovi(restUpdateStudentRequest.getOsvojeniBodovi());
-        student.setRole(restUpdateStudentRequest.getRole());
-        student.setUsername(restUpdateStudentRequest.getUsername());
-        student.setPasswordHash(restUpdateStudentRequest.getPasswordHash());
+        final List<Stanje> stanja = stanjeRepository.findAll(dto.getStanjaIds());
+        student.setStanja(stanja);
+        student.setIme(dto.getIme());
+        student.setPrezime(dto.getPrezime());
+        student.setIndex(dto.getIndex());
+        student.setTrenutnoStanjeRacuna(dto.getTrenutnoStanjeRacuna());
+        student.setBudzet(dto.getBudzet());
+        student.setTekuciSemestar(dto.getTekuciSemestar());
+        student.setOsvojeniBodovi(dto.getOsvojeniBodovi());
+        student.setRole(dto.getRole());
+        student.setUsername(dto.getUsername());
+        student.setPasswordHash(dto.getPasswordHash());
         return student;
     }
 
-    private UpdateStudentResponse convertToUpdateStudentResponse(Student student) {
-        final UpdateStudentResponse updateStudentResponse = new UpdateStudentResponse();
-        updateStudentResponse.setId(student.getId());
-        updateStudentResponse.setIme(student.getIme());
-        updateStudentResponse.setPrezime(student.getPrezime());
-        updateStudentResponse.setIndex(student.getIndex());
-        updateStudentResponse.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna());
-        updateStudentResponse.setBudzet(student.getBudzet());
-        updateStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
-        updateStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
-        updateStudentResponse.setRole(student.getRole());
-        updateStudentResponse.setUsername(student.getUsername());
-        updateStudentResponse.setPasswordHash(student.getPasswordHash());
-        return updateStudentResponse;
+    private UpdateStudentResponse convertToUpdateStudentResponse(Student model) {
+        final UpdateStudentResponse dto = new UpdateStudentResponse();
+        dto.setId(model.getId());
+        dto.setStanjaId(model.getStanja().getId());
+        dto.setIme(model.getIme());
+        dto.setPrezime(model.getPrezime());
+        dto.setIndex(model.getIndex());
+        dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
+        dto.setBudzet(model.getBudzet());
+        dto.setTekuciSemestar(model.getTekuciSemestar());
+        dto.setOsvojeniBodovi(model.getOsvojeniBodovi());
+        dto.setRole(model.getRole());
+        dto.setUsername(model.getUsername());
+        dto.setPasswordHash(model.getPasswordHash());
+        return dto;
     }
 }

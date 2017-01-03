@@ -22,8 +22,8 @@ package com.StudentskaSluzba.backend.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -42,8 +42,8 @@ public class Student implements Serializable {
     private Long id;
 
     @NotNull
-    @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST)
-    private Set<Stanje> stanja = new HashSet<>();
+    @OneToMany(mappedBy = "id")
+    private List<Stanje> stanja = new ArrayList<>();
 
     @NotNull
     @Size(max = 255)
@@ -57,7 +57,7 @@ public class Student implements Serializable {
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "`index`")
+    @Column(name = "index")
     private String index;
 
     @NotNull
@@ -93,40 +93,6 @@ public class Student implements Serializable {
     @Column(name = "passwordHash")
     private String passwordHash;
 
-    public Student() {
-    }
-
-    public Student(Long id, Set<Stanje> stanja, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi,
-            UserRole role, String username, String passwordHash) {
-        this.id = id;
-        this.stanja = stanja;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.index = index;
-        this.trenutnoStanjeRacuna = trenutnoStanjeRacuna;
-        this.budzet = budzet;
-        this.tekuciSemestar = tekuciSemestar;
-        this.osvojeniBodovi = osvojeniBodovi;
-        this.role = role;
-        this.username = username;
-        this.passwordHash = passwordHash;
-    }
-
-    public Student(Set<Stanje> stanja, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
-            String username, String passwordHash) {
-        this.stanja = stanja;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.index = index;
-        this.trenutnoStanjeRacuna = trenutnoStanjeRacuna;
-        this.budzet = budzet;
-        this.tekuciSemestar = tekuciSemestar;
-        this.osvojeniBodovi = osvojeniBodovi;
-        this.role = role;
-        this.username = username;
-        this.passwordHash = passwordHash;
-    }
-
     public Long getId() {
         return id;
     }
@@ -135,8 +101,12 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    public Set<Stanje> getStanja() {
+    public List<Stanje> getStanja() {
         return stanja;
+    }
+
+    public void setStanja(List<Stanje> stanja) {
+        this.stanja = stanja;
     }
 
     public String getIme() {
@@ -230,6 +200,8 @@ public class Student implements Serializable {
         final Student other = (Student) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
+        if ((stanja == null && other.stanja != null) || !stanja.equals(other.stanja))
+            return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
@@ -258,6 +230,7 @@ public class Student implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((stanja == null) ? 0 : stanja.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
@@ -273,8 +246,8 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "Student[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet + ", tekuciSemestar="
-                + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
+        return "Student[" + "id=" + id + ", stanja=" + stanja + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
+                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

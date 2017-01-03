@@ -10,7 +10,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="item in model track by $index">
+                    <tr ng-repeat="item in model">
                         <td>{{item.id}}</td>
                         <td>{{item.studentId}}</td>
                         <td>{{item.predmetId}}</td>
@@ -24,8 +24,9 @@
             </table>
         </div>
     </div>
+
 </div>
-<div class="row" data-ng-show="errorCode">
+<div class="row" ng-show="errorCode">
     <div class="col-lg-12">
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="{{'ALERT_CLOSE' | translate}}">

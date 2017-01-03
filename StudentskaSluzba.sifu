@@ -69,7 +69,8 @@ StudentskaSluzba project[
     template js-angular
     connectedTo backend
     path /path
-    home (notesPage)
+    home signInPage
+    loggedin notesPage
   ](
     NoteUpdated event
 

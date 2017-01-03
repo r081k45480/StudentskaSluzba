@@ -26,16 +26,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import io.jsonwebtoken.Claims;
-import java.util.Date;
 
 import com.StudentskaSluzba.backend.config.CustomProperties;
-import com.StudentskaSluzba.backend.security.JWTService;
 import com.StudentskaSluzba.backend.model.*;
 import com.StudentskaSluzba.backend.model.enumeration.*;
 import com.StudentskaSluzba.backend.repository.*;
 import com.StudentskaSluzba.backend.web.rest.dto.*;
 import com.StudentskaSluzba.backend.web.rest.exception.*;
+import com.StudentskaSluzba.backend.security.JWTUtils;
 
 
 @Service
@@ -50,16 +48,19 @@ public class StudentService {
     private PasswordEncoder passwordEncoder;
 
     @Inject
-    private JWTService jwtService;
+    private StanjeRepository stanjeRepository;
 
     @Inject
     private StudentRepository studentRepository;
 
-    public Student signUp(String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username, String password) {
-        log.debug("signUp(ime: {}, prezime: {}, index: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", ime, prezime, index, trenutnoStanjeRacuna,
-                budzet, tekuciSemestar, osvojeniBodovi, username);
+    public Student signUp(Long stanjaIds, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, String username,
+            String password) {
+        log.debug("signUp(stanjaIds: {}, ime: {}, prezime: {}, index: {}, trenutnoStanjeRacuna: {}, budzet: {}, tekuciSemestar: {}, osvojeniBodovi: {}, username: {})", stanjaIds, ime, prezime, index,
+                trenutnoStanjeRacuna, budzet, tekuciSemestar, osvojeniBodovi, username);
 
         final Student student = new Student();
+        final Stanje stanjaIds = stanjeRepository.findOne(stanjaIds);
+        student.setStanja(stanjaIds);
         student.setIme(ime);
         student.setPrezime(prezime);
         student.setIndex(index);
@@ -83,12 +84,10 @@ public class StudentService {
             throw new AuthenticationError("credentials.invalid", "Credentials are invalid!");
 
         final SignInResponse response = new SignInResponse();
-        final String accessToken = jwtService.createAccessToken(student.getId(), student.getRole());
-        final String refreshToken = jwtService.createRefreshToken(student.getId());
-
+        final String accessToken = JWTUtils.createToken(student.getId(), student.getRole(), customProperties.getSecretKey());
         response.setAccessToken(accessToken);
-        response.setRefreshToken(refreshToken);
         response.setId(student.getId());
+        response.setStanjaId(student.getStanja().getId());
         response.setIme(student.getIme());
         response.setPrezime(student.getPrezime());
         response.setIndex(student.getIndex());
@@ -115,35 +114,6 @@ public class StudentService {
         student.setPasswordHash(passwordEncoder.encode(newPassword));
         studentRepository.save(student);
         return student;
-    }
-
-    public RefreshTokenResponse refreshToken(String refreshToken) {
-
-        log.debug("refreshToken(refreshToken: {})", refreshToken);
-
-        final Claims claims = jwtService.getJwtClaims(refreshToken);
-        if (claims.getExpiration().before(new Date())) {
-            throw new AuthenticationError("refreshToken.expired", "Refresh token has expired.");
-        }
-
-        final Student student = studentRepository.getOne(Long.valueOf(claims.getSubject()));
-
-        final RefreshTokenResponse response = new RefreshTokenResponse();
-        final String accessToken = jwtService.createAccessToken(student.getId(), student.getRole());
-
-        response.setAccessToken(accessToken);
-        response.setRefreshToken(refreshToken);
-        response.setId(student.getId());
-        response.setIme(student.getIme());
-        response.setPrezime(student.getPrezime());
-        response.setIndex(student.getIndex());
-        response.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna());
-        response.setBudzet(student.getBudzet());
-        response.setTekuciSemestar(student.getTekuciSemestar());
-        response.setOsvojeniBodovi(student.getOsvojeniBodovi());
-        response.setRole(student.getRole());
-        response.setUsername(student.getUsername());
-        return response;
     }
 
 }

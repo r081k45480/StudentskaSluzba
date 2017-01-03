@@ -24,9 +24,9 @@
         .module('webapp')
         .service('studPredApiService', studPredApiService);
 
-    studPredApiService.$inject = ['$http'];
+    studPredApiService.$inject = ['$http', 'sessionService'];
 
-    function studPredApiService($http) {
+    function studPredApiService($http, sessionService) {
 
         var backendApiUrl = '';
 
@@ -56,12 +56,8 @@
         function readStudPred(model) {
             return $http({
                 method: 'GET',
-                url: backendApiUrl + '/api/stud-pred/' + model.id + '',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                url: backendApiUrl + '/api/studPred/' + model.id + ''
             });
-
         }
 
         /** createStudPred 
@@ -80,16 +76,12 @@
         function createStudPred(model) {
             return $http({
                 method: 'POST',
-                url: backendApiUrl + '/api/stud-pred',
+                url: backendApiUrl + '/api/studPred',
                 data: {
                     studentId: model.studentId,
                     predmetId: model.predmetId
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** updateStudPred 
@@ -108,16 +100,12 @@
         function updateStudPred(model) {
             return $http({
                 method: 'PUT',
-                url: backendApiUrl + '/api/stud-pred/' + model.id + '',
+                url: backendApiUrl + '/api/studPred/' + model.id + '',
                 data: {
                     studentId: model.studentId,
                     predmetId: model.predmetId
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** deleteStudPred 
@@ -131,15 +119,11 @@
         function deleteStudPred(model) {
             return $http({
                 method: 'DELETE',
-                url: backendApiUrl + '/api/stud-pred/' + model.id + '',
+                url: backendApiUrl + '/api/studPred/' + model.id + '',
                 data: {
                     id: model.id
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** studPreds 
@@ -157,12 +141,8 @@
         function studPreds() {
             return $http({
                 method: 'GET',
-                url: backendApiUrl + '/api/stud-preds',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                url: backendApiUrl + '/api/stud-preds'
             });
-
         }
 
     }

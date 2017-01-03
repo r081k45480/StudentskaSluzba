@@ -49,13 +49,13 @@
             openCreateNewNote: function() {
                 return openModal({},
                     '<div class="modal-header">' +
-                    '<button data-ng-click="close()" type="button" data-dismiss="modal" title="{{\'MODAL_WINDOW_CLOSE\' | translate}}" class="btn btn-link close">' +
+                    '<button type="button" data-ng-click="close()" data-dismiss="modal" class="btn btn-link close" title="{{\'MODAL_WINDOW_CLOSE\' | translate}}">' +
                     '&times;' +
                     '</button>' +
                     '<h3 class="modal-title">{{"CREATE_NEW_NOTE" | translate}}</h3>' +
                     '</div>' +
                     '<div class="modal-body">' +
-                    '<create-new-note ></create-new-note>' +
+                    '<create-new-note  ></create-new-note>' +
                     '</div>' +
                     '<div class="modal-footer"></div>'
                 );

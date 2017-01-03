@@ -51,7 +51,7 @@ public class DatabaseConfiguration {
 
         log.debug("Initializing datasource...");
 
-        final HikariConfig config = new HikariConfig();
+        HikariConfig config = new HikariConfig();
         config.setDataSourceClassName(dataSourceProperties.getDriverClassName());
         config.addDataSourceProperty("url", dataSourceProperties.getUrl());
         config.addDataSourceProperty("user", dataSourceProperties.getUsername());
@@ -71,7 +71,7 @@ public class DatabaseConfiguration {
 
         log.debug("Initializing liquibase...");
 
-        final SpringLiquibase liquibase = new SpringLiquibase();
+        SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog("classpath:liquibase/db-changelog.xml");
         return liquibase;

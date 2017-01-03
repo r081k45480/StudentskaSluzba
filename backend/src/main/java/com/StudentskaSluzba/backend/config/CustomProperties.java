@@ -27,10 +27,6 @@ public class CustomProperties {
 
     private String secretKey;
 
-    private Integer accessTokenValidityInSeconds;
-
-    private Integer refreshTokenValidityInSeconds;
-
     private final Datasource datasource = new Datasource();
 
     private final Metrics metrics = new Metrics();
@@ -41,22 +37,6 @@ public class CustomProperties {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
-    }
-
-    public Integer getAccessTokenValidityInSeconds() {
-        return accessTokenValidityInSeconds;
-    }
-
-    public void setAccessTokenValidityInSeconds(Integer accessTokenValidityInSeconds) {
-        this.accessTokenValidityInSeconds = accessTokenValidityInSeconds;
-    }
-
-    public Integer getRefreshTokenValidityInSeconds() {
-        return refreshTokenValidityInSeconds;
-    }
-
-    public void setRefreshTokenValidityInSeconds(Integer refreshTokenValidityInSeconds) {
-        this.refreshTokenValidityInSeconds = refreshTokenValidityInSeconds;
     }
 
     public Datasource getDatasource() {

@@ -1,74 +1,81 @@
 <div class="row">
     <div class="col-lg-12">
-        <form data-ng-submit="onClickSubmit(signUpForm)" name="signUpForm" role="form" novalidate>
+        <form name="signUpForm" role="form" novalidate ng-submit="submit(signUpForm)">
+            <div class="form-group">
+                <label for="stanjaIds">{{'SIGN_UP_FORM_STANJA_IDS' | translate}}</label>
+                <input type="number" id="stanjaIds" name="stanjaIds" class="form-control" ng-model="model.stanjaIds" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="signUpForm.stanjaIds.$error" ng-if="signUpForm.$submitted || !signUpForm.stanjaIds.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_STANJA_IDS_IS_REQUIRED' | translate}}</div>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="ime">{{'SIGN_UP_FORM_IME' | translate}}</label>
-                <input data-ng-model="model.ime" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="ime" name="ime" type="text" maxlength="255" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.ime.$pristine" data-ng-messages="signUpForm.ime.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_IME_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.ime.$pristine" data-ng-message="maxlength">{{'SIGN_UP_FORM_IME_MAX' | translate:'{ max: 255 }'}}</div>
+                <input type="text" id="ime" name="ime" class="form-control" ng-model="model.ime" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="signUpForm.ime.$error" ng-if="signUpForm.$submitted || !signUpForm.ime.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_IME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.ime.$pristine">{{'SIGN_UP_FORM_IME_MAX' | translate:'{ max: 255 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="prezime">{{'SIGN_UP_FORM_PREZIME' | translate}}</label>
-                <input data-ng-model="model.prezime" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="prezime" name="prezime" type="text" maxlength="255" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.prezime.$pristine" data-ng-messages="signUpForm.prezime.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_PREZIME_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.prezime.$pristine" data-ng-message="maxlength">{{'SIGN_UP_FORM_PREZIME_MAX' | translate:'{ max: 255 }'}}</div>
+                <input type="text" id="prezime" name="prezime" class="form-control" ng-model="model.prezime" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="signUpForm.prezime.$error" ng-if="signUpForm.$submitted || !signUpForm.prezime.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_PREZIME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.prezime.$pristine">{{'SIGN_UP_FORM_PREZIME_MAX' | translate:'{ max: 255 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="index">{{'SIGN_UP_FORM_INDEX' | translate}}</label>
-                <input data-ng-model="model.index" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="index" name="index" type="text" maxlength="255" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.index.$pristine" data-ng-messages="signUpForm.index.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_INDEX_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.index.$pristine" data-ng-message="maxlength">{{'SIGN_UP_FORM_INDEX_MAX' | translate:'{ max: 255 }'}}</div>
+                <input type="text" id="index" name="index" class="form-control" ng-model="model.index" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="signUpForm.index.$error" ng-if="signUpForm.$submitted || !signUpForm.index.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_INDEX_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.index.$pristine">{{'SIGN_UP_FORM_INDEX_MAX' | translate:'{ max: 255 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="trenutnoStanjeRacuna">{{'SIGN_UP_FORM_TRENUTNO_STANJE_RACUNA' | translate}}</label>
-                <input data-ng-model="model.trenutnoStanjeRacuna" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="trenutnoStanjeRacuna" name="trenutnoStanjeRacuna" type="number" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.trenutnoStanjeRacuna.$pristine" data-ng-messages="signUpForm.trenutnoStanjeRacuna.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_TRENUTNO_STANJE_RACUNA_IS_REQUIRED' | translate}}</div>
+                <input type="number" id="trenutnoStanjeRacuna" name="trenutnoStanjeRacuna" class="form-control" ng-model="model.trenutnoStanjeRacuna" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="signUpForm.trenutnoStanjeRacuna.$error" ng-if="signUpForm.$submitted || !signUpForm.trenutnoStanjeRacuna.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_TRENUTNO_STANJE_RACUNA_IS_REQUIRED' | translate}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="budzet">{{'SIGN_UP_FORM_BUDZET' | translate}}</label>
-                <input data-ng-model="model.budzet" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="budzet" name="budzet" type="checkbox" />
+                <input type="checkbox" id="budzet" name="budzet" class="form-control" ng-model="model.budzet" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }">
             </div>
             <div class="form-group">
                 <label for="tekuciSemestar">{{'SIGN_UP_FORM_TEKUCI_SEMESTAR' | translate}}</label>
-                <input data-ng-model="model.tekuciSemestar" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="tekuciSemestar" name="tekuciSemestar" type="number" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.tekuciSemestar.$pristine" data-ng-messages="signUpForm.tekuciSemestar.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_TEKUCI_SEMESTAR_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.tekuciSemestar.$pristine" data-ng-message="minlength">{{'SIGN_UP_FORM_TEKUCI_SEMESTAR_MIN' | translate:'{ min: 1 }'}}</div>
+                <input type="number" id="tekuciSemestar" name="tekuciSemestar" class="form-control" ng-model="model.tekuciSemestar" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="signUpForm.tekuciSemestar.$error" ng-if="signUpForm.$submitted || !signUpForm.tekuciSemestar.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_TEKUCI_SEMESTAR_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!signUpForm.tekuciSemestar.$pristine">{{'SIGN_UP_FORM_TEKUCI_SEMESTAR_MIN' | translate:'{ min: 1 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="osvojeniBodovi">{{'SIGN_UP_FORM_OSVOJENI_BODOVI' | translate}}</label>
-                <input data-ng-model="model.osvojeniBodovi" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="osvojeniBodovi" name="osvojeniBodovi" type="number" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.osvojeniBodovi.$pristine" data-ng-messages="signUpForm.osvojeniBodovi.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_OSVOJENI_BODOVI_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.osvojeniBodovi.$pristine" data-ng-message="minlength">{{'SIGN_UP_FORM_OSVOJENI_BODOVI_MIN' | translate:'{ min: 0 }'}}</div>
+                <input type="number" id="osvojeniBodovi" name="osvojeniBodovi" class="form-control" ng-model="model.osvojeniBodovi" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="signUpForm.osvojeniBodovi.$error" ng-if="signUpForm.$submitted || !signUpForm.osvojeniBodovi.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_OSVOJENI_BODOVI_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!signUpForm.osvojeniBodovi.$pristine">{{'SIGN_UP_FORM_OSVOJENI_BODOVI_MIN' | translate:'{ min: 0 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="username">{{'SIGN_UP_FORM_USERNAME' | translate}}</label>
-                <input data-ng-model="model.username" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="username" name="username" type="text" minlength="3" maxlength="128" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.username.$pristine" data-ng-messages="signUpForm.username.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_USERNAME_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.username.$pristine" data-ng-message="minlength">{{'SIGN_UP_FORM_USERNAME_MIN' | translate:'{ min: 3 }'}}</div>
-                    <div data-ng-if="!signUpForm.username.$pristine" data-ng-message="maxlength">{{'SIGN_UP_FORM_USERNAME_MAX' | translate:'{ max: 128 }'}}</div>
+                <input type="text" id="username" name="username" class="form-control" ng-model="model.username" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" minlength="3" maxlength="128" required />
+                <div ng-messages="signUpForm.username.$error" ng-if="signUpForm.$submitted || !signUpForm.username.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_USERNAME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!signUpForm.username.$pristine">{{'SIGN_UP_FORM_USERNAME_MIN' | translate:'{ min: 3 }'}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.username.$pristine">{{'SIGN_UP_FORM_USERNAME_MAX' | translate:'{ max: 128 }'}}</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password">{{'SIGN_UP_FORM_PASSWORD' | translate}}</label>
-                <input data-ng-model="model.password" data-ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" id="password" name="password" type="password" minlength="6" maxlength="32" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\)\[\]{}~\-]{8,}$" required class="form-control" />
-                <div data-ng-if="signUpForm.$submitted || !signUpForm.password.$pristine" data-ng-messages="signUpForm.password.$error">
-                    <div data-ng-message="required">{{'SIGN_UP_FORM_PASSWORD_IS_REQUIRED' | translate}}</div>
-                    <div data-ng-if="!signUpForm.password.$pristine" data-ng-message="minlength">{{'SIGN_UP_FORM_PASSWORD_MIN' | translate:'{ min: 6 }'}}</div>
-                    <div data-ng-if="!signUpForm.password.$pristine" data-ng-message="maxlength">{{'SIGN_UP_FORM_PASSWORD_MAX' | translate:'{ max: 32 }'}}</div>
-                    <div data-ng-if="!signUpForm.password.$pristine" data-ng-message="pattern">{{'SIGN_UP_FORM_PASSWORD_PATTERN' | translate}}</div>
+                <input type="password" id="password" name="password" class="form-control" ng-model="model.password" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" minlength="6" maxlength="32" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$" required />
+                <div ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted || !signUpForm.password.$pristine">
+                    <div ng-message="required">{{'SIGN_UP_FORM_PASSWORD_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!signUpForm.password.$pristine">{{'SIGN_UP_FORM_PASSWORD_MIN' | translate:'{ min: 6 }'}}</div>
+                    <div ng-message="maxlength" ng-if="!signUpForm.password.$pristine">{{'SIGN_UP_FORM_PASSWORD_MAX' | translate:'{ max: 32 }'}}</div>
+                    <div ng-message="pattern" ng-if="!signUpForm.password.$pristine">{{'SIGN_UP_FORM_PASSWORD_PATTERN' | translate:'{ max: 32 }'}}</div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">
@@ -77,7 +84,7 @@
         </form>
     </div>
 </div>
-<div class="row" data-ng-show="errorCode">
+<div class="row" ng-show="errorCode">
     <div class="col-lg-12">
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="{{'ALERT_CLOSE' | translate}}">

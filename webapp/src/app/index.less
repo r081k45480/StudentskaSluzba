@@ -13,3 +13,17 @@
   height: 300px;
   width: 300px
 } 
+
+//
+// Vertical spacing for stacked elements
+// --------------------------------------------------
+
+.row + .row,
+.row [class*="col-"] + [class*="col-"] {
+  margin-top: 15px;
+}
+
+.row.row-dense,
+.row.col-dense [class*="col-"] + [class*="col-"]  {
+  margin-top: 0;
+}

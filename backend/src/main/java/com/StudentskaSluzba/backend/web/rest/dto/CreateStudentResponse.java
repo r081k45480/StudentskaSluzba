@@ -22,6 +22,8 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import java.util.List;
+
 import javax.validation.constraints.*;
 
 import com.StudentskaSluzba.backend.model.enumeration.*;
@@ -33,6 +35,9 @@ public class CreateStudentResponse implements Serializable {
 
     @NotNull
     private Long id;
+
+    @NotNull
+    private List<Long> stanjaId;
 
     @NotNull
     @Size(max = 255)
@@ -71,30 +76,20 @@ public class CreateStudentResponse implements Serializable {
     @Size(min = 6, max = 128)
     private String passwordHash;
 
-    public CreateStudentResponse() {
-    }
-
-    public CreateStudentResponse(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
-            String username, String passwordHash) {
-        this.id = id;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.index = index;
-        this.trenutnoStanjeRacuna = trenutnoStanjeRacuna;
-        this.budzet = budzet;
-        this.tekuciSemestar = tekuciSemestar;
-        this.osvojeniBodovi = osvojeniBodovi;
-        this.role = role;
-        this.username = username;
-        this.passwordHash = passwordHash;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Long> getStanjaId() {
+        return stanjaId;
+    }
+
+    public void setStanjaId(List<Long> stanjaId) {
+        this.stanjaId = stanjaId;
     }
 
     public String getIme() {
@@ -188,6 +183,8 @@ public class CreateStudentResponse implements Serializable {
         final CreateStudentResponse other = (CreateStudentResponse) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
+        if ((stanjaId == null && other.stanjaId != null) || !stanjaId.equals(other.stanjaId))
+            return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
             return false;
         if ((prezime == null && other.prezime != null) || !prezime.equals(other.prezime))
@@ -216,6 +213,7 @@ public class CreateStudentResponse implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((stanjaId == null) ? 0 : stanjaId.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
@@ -231,8 +229,8 @@ public class CreateStudentResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "CreateStudentResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
-                + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
+        return "CreateStudentResponse[" + "id=" + id + ", stanjaId=" + stanjaId + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna
+                + ", budzet=" + budzet + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 
 }

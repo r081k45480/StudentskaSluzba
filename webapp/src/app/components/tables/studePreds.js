@@ -40,44 +40,19 @@
     StudePredsController.$inject = ['$scope', 'eventBus', 'studPredApi'];
 
     function StudePredsController($scope, eventBus, studPredApi) {
-
         $scope.model = [];
-
         $scope.errorCode = null;
-        $scope.onNoteUpdated = eventBus.onEvent('NoteUpdated', onNoteUpdated, $scope);
+        $scope.onNoteUpdated = eventBus.onEvent('NoteUpdated', onNoteUpdated);
 
-        onInit();
+        load();
 
-        function onInit() {
+        function load() {
 
-            studPreds(function(response) {
-                $scope.errorCode = null;
-                $scope.model = response.data.map(function(item) {
-                    return {
-                        id: item.id,
-                        studentId: item.studentId,
-                        predmetId: item.predmetId
-                    }
-                });
-            });
+            studPredApi.studPreds().then(onSuccess, onError);
 
-        }
-
-        function onNoteUpdated(event, payload) {
-            studPreds(function(response) {
-                $scope.errorCode = null;
-                $scope.model = response.data.map(function(item) {
-                    return {
-                        id: item.id,
-                        studentId: item.studentId,
-                        predmetId: item.predmetId
-                    }
-                });
-            });
-        }
-
-        function studPreds(successCallback) {
-            studPredApi.studPreds().then(successCallback, onError);
+            function onSuccess(response) {
+                $scope.model = response.data;
+            }
 
             function onError(response) {
                 if (response.status && response.statusText) {
@@ -86,6 +61,11 @@
                     $scope.errorCode = 'Unknown error';
                 }
             }
+
+        }
+
+        function onNoteUpdated(event, payload) {
+            load();
         }
 
     }
