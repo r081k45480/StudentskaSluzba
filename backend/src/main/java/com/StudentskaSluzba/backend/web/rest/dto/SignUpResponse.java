@@ -27,7 +27,7 @@ import javax.validation.constraints.*;
 import com.StudentskaSluzba.backend.model.enumeration.*;
 
 
-public class ReadStudentResponse implements Serializable {
+public class SignUpResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,15 +67,11 @@ public class ReadStudentResponse implements Serializable {
     @Size(min = 3, max = 128)
     private String username;
 
-    @NotNull
-    @Size(min = 6, max = 128)
-    private String passwordHash;
-
-    public ReadStudentResponse() {
+    public SignUpResponse() {
     }
 
-    public ReadStudentResponse(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
-            String username, String passwordHash) {
+    public SignUpResponse(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
+            String username) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -86,7 +82,6 @@ public class ReadStudentResponse implements Serializable {
         this.osvojeniBodovi = osvojeniBodovi;
         this.role = role;
         this.username = username;
-        this.passwordHash = passwordHash;
     }
 
     public Long getId() {
@@ -169,14 +164,6 @@ public class ReadStudentResponse implements Serializable {
         this.username = username;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -185,7 +172,7 @@ public class ReadStudentResponse implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final ReadStudentResponse other = (ReadStudentResponse) obj;
+        final SignUpResponse other = (SignUpResponse) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
@@ -206,8 +193,6 @@ public class ReadStudentResponse implements Serializable {
             return false;
         if ((username == null && other.username != null) || !username.equals(other.username))
             return false;
-        if ((passwordHash == null && other.passwordHash != null) || !passwordHash.equals(other.passwordHash))
-            return false;
         return true;
     }
 
@@ -225,13 +210,12 @@ public class ReadStudentResponse implements Serializable {
         result = prime * result + ((osvojeniBodovi == null) ? 0 : osvojeniBodovi.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((passwordHash == null) ? 0 : passwordHash.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "ReadStudentResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
+        return "SignUpResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
                 + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 

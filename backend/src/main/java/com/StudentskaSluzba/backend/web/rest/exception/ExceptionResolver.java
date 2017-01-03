@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -66,6 +67,24 @@ public class ExceptionResolver {
             return new ErrorResponse(ConstraintMapping.getErrorCodeForConstraint(constraint), message);
         }
         return new ErrorResponse(message, Collections.emptyList());
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(AccessDeniedException.class)
+    public @ResponseBody ErrorResponse accessDenied(HttpServletRequest request, AccessDeniedException exception) {
+        if (log.isErrorEnabled()) {
+            log.error(exception.getMessage(), exception);
+        }
+        return new ErrorResponse("access.denied", "Access is denied!");
+    }
+
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(AuthenticationError.class)
+    public @ResponseBody ErrorResponse authenticationError(HttpServletRequest request, AuthenticationError exception) {
+        if (log.isErrorEnabled()) {
+            log.error(exception.getMessage(), exception);
+        }
+        return new ErrorResponse(exception.getErrorCode(), exception.getErrorMessage());
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

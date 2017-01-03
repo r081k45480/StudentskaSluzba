@@ -27,9 +27,17 @@ import javax.validation.constraints.*;
 import com.StudentskaSluzba.backend.model.enumeration.*;
 
 
-public class ReadStudentResponse implements Serializable {
+public class SignInResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @NotNull
+    @Size(min = 64, max = 64)
+    private String accessToken;
+
+    @NotNull
+    @Size(min = 64, max = 64)
+    private String refreshToken;
 
     @NotNull
     private Long id;
@@ -67,15 +75,13 @@ public class ReadStudentResponse implements Serializable {
     @Size(min = 3, max = 128)
     private String username;
 
-    @NotNull
-    @Size(min = 6, max = 128)
-    private String passwordHash;
-
-    public ReadStudentResponse() {
+    public SignInResponse() {
     }
 
-    public ReadStudentResponse(Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar, Integer osvojeniBodovi, UserRole role,
-            String username, String passwordHash) {
+    public SignInResponse(String accessToken, String refreshToken, Long id, String ime, String prezime, String index, BigDecimal trenutnoStanjeRacuna, Boolean budzet, Integer tekuciSemestar,
+            Integer osvojeniBodovi, UserRole role, String username) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -86,7 +92,22 @@ public class ReadStudentResponse implements Serializable {
         this.osvojeniBodovi = osvojeniBodovi;
         this.role = role;
         this.username = username;
-        this.passwordHash = passwordHash;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public Long getId() {
@@ -169,14 +190,6 @@ public class ReadStudentResponse implements Serializable {
         this.username = username;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -185,7 +198,11 @@ public class ReadStudentResponse implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final ReadStudentResponse other = (ReadStudentResponse) obj;
+        final SignInResponse other = (SignInResponse) obj;
+        if ((accessToken == null && other.accessToken != null) || !accessToken.equals(other.accessToken))
+            return false;
+        if ((refreshToken == null && other.refreshToken != null) || !refreshToken.equals(other.refreshToken))
+            return false;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
         if ((ime == null && other.ime != null) || !ime.equals(other.ime))
@@ -206,8 +223,6 @@ public class ReadStudentResponse implements Serializable {
             return false;
         if ((username == null && other.username != null) || !username.equals(other.username))
             return false;
-        if ((passwordHash == null && other.passwordHash != null) || !passwordHash.equals(other.passwordHash))
-            return false;
         return true;
     }
 
@@ -215,6 +230,8 @@ public class ReadStudentResponse implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
+        result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((ime == null) ? 0 : ime.hashCode());
         result = prime * result + ((prezime == null) ? 0 : prezime.hashCode());
@@ -225,13 +242,12 @@ public class ReadStudentResponse implements Serializable {
         result = prime * result + ((osvojeniBodovi == null) ? 0 : osvojeniBodovi.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((passwordHash == null) ? 0 : passwordHash.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "ReadStudentResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
+        return "SignInResponse[" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", index=" + index + ", trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + ", budzet=" + budzet
                 + ", tekuciSemestar=" + tekuciSemestar + ", osvojeniBodovi=" + osvojeniBodovi + ", role=" + role + ", username=" + username + "]";
     }
 

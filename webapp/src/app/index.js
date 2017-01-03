@@ -36,15 +36,32 @@
                 url: '/path/notes',
                 templateUrl: 'src/app/components/pages/notesPage.html',
                 controller: 'NotesPageController'
+            })
+            .state('signInPage', {
+                url: '/path/sign-in',
+                templateUrl: 'src/app/components/pages/signInPage.html',
+                controller: 'SignInPageController'
+            })
+            .state('signUpPage', {
+                url: '/path/sign-up',
+                templateUrl: 'src/app/components/pages/signUpPage.html',
+                controller: 'SignUpPageController'
             });
 
         $urlRouterProvider.otherwise('/path/notes');
     }
 
-    run.$inject = ['$rootScope', '$state', '$log'];
+    run.$inject = ['$rootScope', '$state', 'sessionService', '$log'];
 
-    function run($rootScope, $state, $log) {
+    function run($rootScope, $state, sessionService, $log) {
         $rootScope.$on('$stateChangeStart', function(ev, to) {
+            if (to.name === 'signInPage') {
+                sessionService.clear();
+            } else if (!sessionService.canUserAccessState(to.name)) {
+                $log.warn('Unauthorized access to secured page, redirecting to signIn.');
+                ev.preventDefault();
+                $state.go('signInPage');
+            }
             $rootScope.pageTitle = to.title;
         });
     }

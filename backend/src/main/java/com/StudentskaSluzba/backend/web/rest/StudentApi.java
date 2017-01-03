@@ -99,6 +99,9 @@ public class StudentApi {
         readStudentResponse.setBudzet(student.getBudzet());
         readStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
         readStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
+        readStudentResponse.setRole(student.getRole());
+        readStudentResponse.setUsername(student.getUsername());
+        readStudentResponse.setPasswordHash(student.getPasswordHash());
         return readStudentResponse;
     }
 
@@ -111,6 +114,9 @@ public class StudentApi {
         student.setBudzet(createStudentRequest.getBudzet());
         student.setTekuciSemestar(createStudentRequest.getTekuciSemestar());
         student.setOsvojeniBodovi(createStudentRequest.getOsvojeniBodovi());
+        student.setRole(createStudentRequest.getRole());
+        student.setUsername(createStudentRequest.getUsername());
+        student.setPasswordHash(createStudentRequest.getPasswordHash());
         return student;
     }
 
@@ -124,6 +130,9 @@ public class StudentApi {
         createStudentResponse.setBudzet(student.getBudzet());
         createStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
         createStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
+        createStudentResponse.setRole(student.getRole());
+        createStudentResponse.setUsername(student.getUsername());
+        createStudentResponse.setPasswordHash(student.getPasswordHash());
         return createStudentResponse;
     }
 
@@ -137,6 +146,9 @@ public class StudentApi {
         student.setBudzet(restUpdateStudentRequest.getBudzet());
         student.setTekuciSemestar(restUpdateStudentRequest.getTekuciSemestar());
         student.setOsvojeniBodovi(restUpdateStudentRequest.getOsvojeniBodovi());
+        student.setRole(restUpdateStudentRequest.getRole());
+        student.setUsername(restUpdateStudentRequest.getUsername());
+        student.setPasswordHash(restUpdateStudentRequest.getPasswordHash());
         return student;
     }
 
@@ -150,6 +162,9 @@ public class StudentApi {
         updateStudentResponse.setBudzet(student.getBudzet());
         updateStudentResponse.setTekuciSemestar(student.getTekuciSemestar());
         updateStudentResponse.setOsvojeniBodovi(student.getOsvojeniBodovi());
+        updateStudentResponse.setRole(student.getRole());
+        updateStudentResponse.setUsername(student.getUsername());
+        updateStudentResponse.setPasswordHash(student.getPasswordHash());
         return updateStudentResponse;
     }
 }

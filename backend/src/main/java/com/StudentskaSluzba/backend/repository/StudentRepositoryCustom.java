@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.StudentskaSluzba.backend.model.*;
+import com.StudentskaSluzba.backend.model.enumeration.*;
 
 
 public interface StudentRepositoryCustom {
@@ -42,5 +43,11 @@ public interface StudentRepositoryCustom {
     List<Student> findByTekuciSemestar(Integer tekuciSemestar);
 
     List<Student> findByOsvojeniBodovi(Integer osvojeniBodovi);
+
+    List<Student> findByRole(UserRole role);
+
+    Optional<Student> findByUsername(String username);
+
+    List<Student> findByPasswordHash(String passwordHash);
 
 }

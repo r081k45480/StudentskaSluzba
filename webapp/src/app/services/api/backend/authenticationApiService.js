@@ -22,30 +22,39 @@
 
     angular
         .module('webapp')
-        .service('studentApiService', studentApiService);
+        .service('authenticationApiService', authenticationApiService);
 
-    studentApiService.$inject = ['$http'];
+    authenticationApiService.$inject = ['$http', 'sessionService', 'securityService'];
 
-    function studentApiService($http) {
+    function authenticationApiService($http, sessionService, securityService) {
 
         var backendApiUrl = '';
 
         return {
             init: init,
-            readStudent: readStudent,
-            createStudent: createStudent,
-            updateStudent: updateStudent,
-            deleteStudent: deleteStudent
+            signUp: signUp,
+            signIn: signIn,
+            changePassword: changePassword
         };
 
         function init(backendUrl) {
             backendApiUrl = backendUrl;
         }
 
-        /** readStudent 
-         * request - Unit
+        /** signUp 
+         * request - SignUpRequest {
+         *   ime: String
+         *   prezime: String
+         *   index: String
+         *   trenutnoStanjeRacuna: Decimal(10, 4)
+         *   budzet: Boolean
+         *   tekuciSemestar: Int
+         *   osvojeniBodovi: Int
+         *   username: String
+         *   password: String
+         * }
          *
-         * response - ReadStudentResponse {
+         * response - SignUpResponse {
          *   id: Int
          *   ime: String
          *   prezime: String
@@ -56,54 +65,13 @@
          *   osvojeniBodovi: Int
          *   role: UserRole
          *   username: String
-         *   passwordHash: String
          * }
          *
          */
-        function readStudent(model) {
-            return $http({
-                method: 'GET',
-                url: backendApiUrl + '/api/student/' + model.id + '',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-        }
-
-        /** createStudent 
-         * request - CreateStudentRequest {
-         *   ime: String
-         *   prezime: String
-         *   index: String
-         *   trenutnoStanjeRacuna: Decimal(10, 4)
-         *   budzet: Boolean
-         *   tekuciSemestar: Int
-         *   osvojeniBodovi: Int
-         *   role: UserRole
-         *   username: String
-         *   passwordHash: String
-         * }
-         *
-         * response - CreateStudentResponse {
-         *   id: Int
-         *   ime: String
-         *   prezime: String
-         *   index: String
-         *   trenutnoStanjeRacuna: Decimal(10, 4)
-         *   budzet: Boolean
-         *   tekuciSemestar: Int
-         *   osvojeniBodovi: Int
-         *   role: UserRole
-         *   username: String
-         *   passwordHash: String
-         * }
-         *
-         */
-        function createStudent(model) {
+        function signUp(model) {
             return $http({
                 method: 'POST',
-                url: backendApiUrl + '/api/student',
+                url: backendApiUrl + '/api/sign-up',
                 data: {
                     ime: model.ime,
                     prezime: model.prezime,
@@ -112,9 +80,8 @@
                     budzet: model.budzet,
                     tekuciSemestar: model.tekuciSemestar,
                     osvojeniBodovi: model.osvojeniBodovi,
-                    role: model.role,
                     username: model.username,
-                    passwordHash: model.passwordHash
+                    password: model.password
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -123,21 +90,15 @@
 
         }
 
-        /** updateStudent 
-         * request - RestUpdateStudentRequest {
-         *   ime: String
-         *   prezime: String
-         *   index: String
-         *   trenutnoStanjeRacuna: Decimal(10, 4)
-         *   budzet: Boolean
-         *   tekuciSemestar: Int
-         *   osvojeniBodovi: Int
-         *   role: UserRole
+        /** signIn 
+         * request - SignInRequest {
          *   username: String
-         *   passwordHash: String
+         *   password: String
          * }
          *
-         * response - UpdateStudentResponse {
+         * response - SignInResponse {
+         *   accessToken: String
+         *   refreshToken: String
          *   id: Int
          *   ime: String
          *   prezime: String
@@ -148,25 +109,16 @@
          *   osvojeniBodovi: Int
          *   role: UserRole
          *   username: String
-         *   passwordHash: String
          * }
          *
          */
-        function updateStudent(model) {
+        function signIn(model) {
             return $http({
-                method: 'PUT',
-                url: backendApiUrl + '/api/student/' + model.id + '',
+                method: 'POST',
+                url: backendApiUrl + '/api/sign-in',
                 data: {
-                    ime: model.ime,
-                    prezime: model.prezime,
-                    index: model.index,
-                    trenutnoStanjeRacuna: model.trenutnoStanjeRacuna,
-                    budzet: model.budzet,
-                    tekuciSemestar: model.tekuciSemestar,
-                    osvojeniBodovi: model.osvojeniBodovi,
-                    role: model.role,
                     username: model.username,
-                    passwordHash: model.passwordHash
+                    password: model.password
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -175,25 +127,42 @@
 
         }
 
-        /** deleteStudent 
-         * request - DeleteStudentRequest {
-         *   id: Int
+        /** changePassword (secured)
+         * request - ChangePasswordRequest {
+         *   oldPassword: String
+         *   newPassword: String
          * }
          *
-         * response - Unit
+         * response - ChangePasswordResponse {
+         *   id: Int
+         *   ime: String
+         *   prezime: String
+         *   index: String
+         *   trenutnoStanjeRacuna: Decimal(10, 4)
+         *   budzet: Boolean
+         *   tekuciSemestar: Int
+         *   osvojeniBodovi: Int
+         *   role: UserRole
+         *   username: String
+         * }
          *
          */
-        function deleteStudent(model) {
-            return $http({
-                method: 'DELETE',
-                url: backendApiUrl + '/api/student/' + model.id + '',
-                data: {
-                    id: model.id
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+        function changePassword(model) {
+            function httpRequest() {
+                return $http({
+                    method: 'POST',
+                    url: backendApiUrl + '/api/change-password',
+                    data: {
+                        oldPassword: model.oldPassword,
+                        newPassword: model.newPassword
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                    }
+                });
+            }
+            return securityService.securedCall(httpRequest);
 
         }
 

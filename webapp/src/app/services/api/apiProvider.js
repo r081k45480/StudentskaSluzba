@@ -22,6 +22,35 @@
 
     angular
         .module('webapp')
+        .provider('authenticationApi', authenticationApi)
+        .config(authenticationApiProvider);
+
+    function authenticationApi() {
+        var isMocked = false;
+
+        var $get = ['authenticationApiService', 'authenticationApiMockService', 'clientConfigurationValues', function(authenticationApiService, authenticationApiMockService, clientConfigurationValues) {
+            if (this.isMocked) {
+                return authenticationApiMockService;
+            } else {
+                if (clientConfigurationValues.remoteBackendUrl) {
+                    authenticationApiService.init(clientConfigurationValues.remoteBackendUrl);
+                }
+                return authenticationApiService;
+            }
+        }];
+
+        return {
+            isMocked: isMocked,
+            $get: $get
+        };
+    }
+
+    function authenticationApiProvider(clientConfigurationValues, authenticationApiProvider) {
+        authenticationApiProvider.isMocked = clientConfigurationValues.useServerMock;
+    }
+
+    angular
+        .module('webapp')
         .provider('studentApi', studentApi)
         .config(studentApiProvider);
 

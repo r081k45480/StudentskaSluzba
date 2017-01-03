@@ -22,23 +22,27 @@
 
     angular
         .module('webapp')
-        .service('studentApiMockService', studentApiMockService);
+        .service('authenticationApiMockService', authenticationApiMockService);
 
-    studentApiMockService.$inject = ['$timeout'];
+    authenticationApiMockService.$inject = ['$timeout'];
 
-    function studentApiMockService($timeout) {
+    function authenticationApiMockService($timeout) {
 
         return {
-            readStudent: readStudent,
-            createStudent: createStudent,
-            updateStudent: updateStudent,
-            deleteStudent: deleteStudent
+            refreshToken: refreshToken,
+            signUp: signUp,
+            signIn: signIn,
+            changePassword: changePassword
         };
 
-        /** readStudent 
-         * request - Unit
+        /** refreshToken 
+         * request - RefreshTokenRequest {
+         *   refreshToken: String
+         * }
          *
-         * response - ReadStudentResponse {
+         * response - RefreshTokenResponse {
+         *   accessToken: String
+         *   refreshToken: String
          *   id: Int
          *   ime: String
          *   prezime: String
@@ -49,11 +53,10 @@
          *   osvojeniBodovi: Int
          *   role: UserRole
          *   username: String
-         *   passwordHash: String
          * }
          *
          */
-        function readStudent(model) {
+        function refreshToken(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values
@@ -61,8 +64,8 @@
             });
         }
 
-        /** createStudent 
-         * request - CreateStudentRequest {
+        /** signUp 
+         * request - SignUpRequest {
          *   ime: String
          *   prezime: String
          *   index: String
@@ -70,12 +73,11 @@
          *   budzet: Boolean
          *   tekuciSemestar: Int
          *   osvojeniBodovi: Int
-         *   role: UserRole
          *   username: String
-         *   passwordHash: String
+         *   password: String
          * }
          *
-         * response - CreateStudentResponse {
+         * response - SignUpResponse {
          *   id: Int
          *   ime: String
          *   prezime: String
@@ -86,11 +88,10 @@
          *   osvojeniBodovi: Int
          *   role: UserRole
          *   username: String
-         *   passwordHash: String
          * }
          *
          */
-        function createStudent(model) {
+        function signUp(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values
@@ -98,21 +99,15 @@
             });
         }
 
-        /** updateStudent 
-         * request - RestUpdateStudentRequest {
-         *   ime: String
-         *   prezime: String
-         *   index: String
-         *   trenutnoStanjeRacuna: Decimal(10, 4)
-         *   budzet: Boolean
-         *   tekuciSemestar: Int
-         *   osvojeniBodovi: Int
-         *   role: UserRole
+        /** signIn 
+         * request - SignInRequest {
          *   username: String
-         *   passwordHash: String
+         *   password: String
          * }
          *
-         * response - UpdateStudentResponse {
+         * response - SignInResponse {
+         *   accessToken: String
+         *   refreshToken: String
          *   id: Int
          *   ime: String
          *   prezime: String
@@ -123,11 +118,10 @@
          *   osvojeniBodovi: Int
          *   role: UserRole
          *   username: String
-         *   passwordHash: String
          * }
          *
          */
-        function updateStudent(model) {
+        function signIn(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values
@@ -135,15 +129,27 @@
             });
         }
 
-        /** deleteStudent 
-         * request - DeleteStudentRequest {
-         *   id: Int
+        /** changePassword (secured)
+         * request - ChangePasswordRequest {
+         *   oldPassword: String
+         *   newPassword: String
          * }
          *
-         * response - Unit
+         * response - ChangePasswordResponse {
+         *   id: Int
+         *   ime: String
+         *   prezime: String
+         *   index: String
+         *   trenutnoStanjeRacuna: Decimal(10, 4)
+         *   budzet: Boolean
+         *   tekuciSemestar: Int
+         *   osvojeniBodovi: Int
+         *   role: UserRole
+         *   username: String
+         * }
          *
          */
-        function deleteStudent(model) {
+        function changePassword(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values

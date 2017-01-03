@@ -7,8 +7,10 @@ StudentskaSluzba project[
   backend server[
     template java-springboot
     developer (Robert)
-    #security (principal User, type username)
+    security (principal Student, role UserRole, type username)
   ](
+
+    UserRole enum(STUDENT)
 
     #####MODELs
     Student model(
