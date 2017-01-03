@@ -7,43 +7,45 @@ StudentskaSluzba project[
             Robert
             docker
         )
-        security(
-            principal User
-            type(
-                username
-            )
-            signIn[
-                query findById
-                response(
-                    User.id
-                    User.username
-                )]
-        )
         path /
         default model type mysql](
-        User model[
+        Student model[
             type mysql
             unique(
-                username
+                index
             )](
             id integer[
                 primarykey
                 max 9223372036854775807]
-            username text[
+            stanja list Stanje[
+                oneToMany student]
+            ime text[
+                max 255]
+            prezime text[
+                max 255]
+            index text[
                 unique
-                min 3
-                max 128]
-            passwordHash text[
-                min 6
-                max 128
-                sensitive]
-            findAll find from User as User
-            countAll count from User as User
-            findById find from User as User where User.id == id
-            getById get from User as User where User.id == id
-            deleteById delete from User as User where User.id == id
-            findByUsername find from User as User where User.username == username
-            findByPasswordHash find from User as User where User.passwordHash == passwordHash
+                max 255]
+            trenutnoStanjeRacuna decimal[
+                precision 10
+                scale 4]
+            budzet boolean
+            tekuciSemestar integer[
+                min 1]
+            osvojeniBodovi integer[
+                min 0]
+            findAll find from Student as Student
+            countAll count from Student as Student
+            findById find from Student as Student where Student.id == id
+            getById get from Student as Student where Student.id == id
+            deleteById delete from Student as Student where Student.id == id
+            findByIme find from Student as Student where Student.ime == ime
+            findByPrezime find from Student as Student where Student.prezime == prezime
+            findByIndex find from Student as Student where Student.index == index
+            findByTrenutnoStanjeRacuna find from Student as Student where Student.trenutnoStanjeRacuna == trenutnoStanjeRacuna
+            findByBudzet find from Student as Student where Student.budzet == budzet
+            findByTekuciSemestar find from Student as Student where Student.tekuciSemestar == tekuciSemestar
+            findByOsvojeniBodovi find from Student as Student where Student.osvojeniBodovi == osvojeniBodovi
         )
         Predmet model[
             type mysql](
@@ -79,6 +81,8 @@ StudentskaSluzba project[
                 precision 10
                 scale 4]
             datum datetime
+            student Student[
+                manyToOne stanje]
             findAll find from Stanje as Stanje
             countAll count from Stanje as Stanje
             findById find from Stanje as Stanje where Stanje.id == id
@@ -86,6 +90,7 @@ StudentskaSluzba project[
             deleteById delete from Stanje as Stanje where Stanje.id == id
             findByIznos find from Stanje as Stanje where Stanje.iznos == iznos
             findByDatum find from Stanje as Stanje where Stanje.datum == datum
+            findByStudent find from Stanje as Stanje where Stanje.student.id == studentId
         )
         Rok model[
             type mysql](
@@ -108,7 +113,7 @@ StudentskaSluzba project[
             id integer[
                 primarykey
                 max 9223372036854775807]
-            student User[
+            student Student[
                 manyToOne studPred]
             predmet Predmet[
                 manyToOne studPred]
@@ -141,12 +146,17 @@ StudentskaSluzba project[
         StudentApi api(
             readStudent find[
                 get /student/:id
-                model User
-                query User.findById
+                model Student
+                query Student.findById
                 response(
-                    User.id
-                    User.username
-                    User.passwordHash
+                    Student.id
+                    Student.ime
+                    Student.prezime
+                    Student.index
+                    Student.trenutnoStanjeRacuna
+                    Student.budzet
+                    Student.tekuciSemestar
+                    Student.osvojeniBodovi
                 )
                 errors
                 request ReadStudentRequest
@@ -156,25 +166,37 @@ StudentskaSluzba project[
                     max 9223372036854775807]
             )
             ReadStudentResponse dto[
-                model User](
+                model Student](
                 id integer[
                     max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-                passwordHash text[
-                    min 6
-                    max 128
-                    sensitive]
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                index text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
             )
             createStudent create[
                 post /student
-                model User
-                query User.findById
+                model Student
+                query Student.findById
                 response(
-                    User.id
-                    User.username
-                    User.passwordHash
+                    Student.id
+                    Student.ime
+                    Student.prezime
+                    Student.index
+                    Student.trenutnoStanjeRacuna
+                    Student.budzet
+                    Student.tekuciSemestar
+                    Student.osvojeniBodovi
                 )
                 errors
                 request CreateStudentRequest
@@ -183,47 +205,91 @@ StudentskaSluzba project[
                     visible(
                         read
                     )]
-                username username[
+                ime ime[
                     visible(
                         create
                         read
                     )]
-                passwordHash passwordHash[
+                prezime prezime[
+                    visible(
+                        create
+                        read
+                    )]
+                index index[
+                    visible(
+                        create
+                        read
+                    )]
+                trenutnoStanjeRacuna trenutnoStanjeRacuna[
+                    visible(
+                        create
+                        read
+                    )]
+                budzet budzet[
+                    visible(
+                        create
+                        read
+                    )]
+                tekuciSemestar tekuciSemestar[
+                    visible(
+                        create
+                        read
+                    )]
+                osvojeniBodovi osvojeniBodovi[
                     visible(
                         create
                         read
                     )]
             )
             CreateStudentRequest dto[
-                model User](
-                username text[
-                    min 3
-                    max 128]
-                passwordHash text[
-                    min 6
-                    max 128
-                    sensitive]
+                model Student](
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                index text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
             )
             CreateStudentResponse dto[
-                model User](
+                model Student](
                 id integer[
                     max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-                passwordHash text[
-                    min 6
-                    max 128
-                    sensitive]
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                index text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
             )
             updateStudent update[
                 put /student/:id
-                model User
-                query User.findById
+                model Student
+                query Student.findById
                 response(
-                    User.id
-                    User.username
-                    User.passwordHash
+                    Student.id
+                    Student.ime
+                    Student.prezime
+                    Student.index
+                    Student.trenutnoStanjeRacuna
+                    Student.budzet
+                    Student.tekuciSemestar
+                    Student.osvojeniBodovi
                 )
                 errors
                 request UpdateStudentRequest
@@ -233,44 +299,83 @@ StudentskaSluzba project[
                         read
                         update
                     )]
-                username username[
+                ime ime[
                     visible(
                         read
                         update
                     )]
-                passwordHash passwordHash[
+                prezime prezime[
+                    visible(
+                        read
+                        update
+                    )]
+                index index[
+                    visible(
+                        read
+                        update
+                    )]
+                trenutnoStanjeRacuna trenutnoStanjeRacuna[
+                    visible(
+                        read
+                        update
+                    )]
+                budzet budzet[
+                    visible(
+                        read
+                        update
+                    )]
+                tekuciSemestar tekuciSemestar[
+                    visible(
+                        read
+                        update
+                    )]
+                osvojeniBodovi osvojeniBodovi[
                     visible(
                         read
                         update
                     )]
             )
             UpdateStudentRequest dto[
-                model User](
+                model Student](
                 id integer[
                     max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-                passwordHash text[
-                    min 6
-                    max 128
-                    sensitive]
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                index text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
             )
             UpdateStudentResponse dto[
-                model User](
+                model Student](
                 id integer[
                     max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-                passwordHash text[
-                    min 6
-                    max 128
-                    sensitive]
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                index text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
             )
             deleteStudent delete[
                 delete /student/:id
-                query User.findById
+                query Student.findById
                 errors
                 request DeleteStudentRequest]
             DeleteStudentRequest dto(
@@ -422,9 +527,6 @@ StudentskaSluzba project[
                     max 9223372036854775807]
             )
         )
-        CREDENTIALS_ARE_INVALID unauthorized
-        ACCESS_TOKEN_IS_EXPIRED unauthorized
-        USER_ALREADY_EXIST dataConstraint
         accessTokenValidityInSeconds integer[
             key accessTokenValidityInSeconds
             production 300
@@ -433,144 +535,10 @@ StudentskaSluzba project[
             key refreshTokenValidityInSeconds
             production 3600
             test 3600]
-        AuthenticationApi api(
-            refreshToken refreshtoken[
-                request RefreshTokenRequest
-                post /refresh-token
-                query User.findById
-                response(
-                    User.id
-                    User.username
-                )
-                errors
-                response RefreshTokenResponse]
-            RefreshTokenRequest dto(
-                refreshToken text[
-                    sensitive
-                    max 255]
-            )
-            RefreshTokenResponse dto[
-                model User](
-                accessToken text[
-                    min 64
-                    max 64
-                    sensitive]
-                refreshToken text[
-                    min 64
-                    max 64
-                    sensitive]
-                id integer[
-                    max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-            )
-            signUp signup[
-                post /sign-up
-                query User.findById
-                response(
-                    User.id
-                    User.username
-                )
-                errors
-                request SignUpRequest
-                response SignUpResponse](
-                username username
-                password text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            SignUpRequest dto(
-                username text[
-                    min 3
-                    max 128]
-                password text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            SignUpResponse dto[
-                model User](
-                id integer[
-                    max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-            )
-            signIn signIn[
-                request SignInRequest
-                post /sign-in
-                query User.findById
-                response(
-                    User.id
-                    User.username
-                )
-                errors
-                response SignInResponse]
-            SignInRequest dto(
-                username text[
-                    min 3
-                    max 128]
-                password text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            SignInResponse dto[
-                model User](
-                accessToken text[
-                    min 64
-                    max 64
-                    sensitive]
-                refreshToken text[
-                    min 64
-                    max 64
-                    sensitive]
-                id integer[
-                    max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-            )
-            changePassword changepassword[
-                request ChangePasswordRequest
-                secured
-                post /change-password
-                query User.findById
-                response(
-                    User.id
-                    User.username
-                )
-                errors
-                response ChangePasswordResponse]
-            ChangePasswordRequest dto(
-                oldPassword text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-                newPassword text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            ChangePasswordResponse dto[
-                model User](
-                id integer[
-                    max 9223372036854775807]
-                username text[
-                    min 3
-                    max 128]
-            )
-        )
     )
     webapp client[
-        template js-angular
+        template js-angular[
+            theme bootstrap]
         connectedTo(
             backend.StudentApi.readStudent
             backend.StudentApi.createStudent
@@ -581,10 +549,6 @@ StudentskaSluzba project[
             backend.StudPredApi.updateStudPred
             backend.StudPredApi.deleteStudPred
             backend.StudPredApi.studPreds
-            backend.AuthenticationApi.refreshToken
-            backend.AuthenticationApi.signUp
-            backend.AuthenticationApi.signIn
-            backend.AuthenticationApi.changePassword
         )
         path /path
         home(
@@ -633,67 +597,6 @@ StudentskaSluzba project[
                         on success(
                             close
                             fire NoteUpdated
-                        )}
-                )}
-        )
-        signInPage page[
-            path /sign-in](
-            signInForm signInForm
-            signUp link{
-                on click(
-                    goto signUpPage
-                )}
-        )
-        signUpPage page[
-            path /sign-up](
-            signUpForm signUpForm
-            signIn link{
-                on click(
-                    goto signInPage
-                )}
-        )
-        changePasswordForm form[
-            submit backend.AuthenticationApi.changePassword
-            model(
-                oldPassword text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-                newPassword text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            visible(
-                oldPassword
-                newPassword
-            )](
-            oldPassword text[
-                input(
-                    model . oldPassword
-                )
-                min 6
-                max 32
-                regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                sensitive]
-            newPassword text[
-                input(
-                    model . newPassword
-                )
-                min 6
-                max 32
-                regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                sensitive]
-            submit button{
-                on click(
-                    call backend.AuthenticationApi.changePassword(
-                        model . oldPassword
-                        model . newPassword
-                    ){
-                        on success(
-                            goto signInPage
                         )}
                 )}
         )
@@ -748,84 +651,5 @@ StudentskaSluzba project[
                         )
                     )}
             )}
-        signInForm form[
-            submit backend.AuthenticationApi.signIn
-            model(
-                username text[
-                    min 3
-                    max 128]
-                password text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            visible(
-                username
-                password
-            )](
-            username text[
-                input(
-                    model . username
-                )
-                min 3
-                max 128]
-            password text[
-                input(
-                    model . password
-                )
-                min 6
-                max 32
-                regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                sensitive]
-            submit button{
-                on click(
-                    call backend.AuthenticationApi.signIn(
-                        model . username
-                        model . password
-                    )
-                )}
-        )
-        signUpForm form[
-            submit backend.AuthenticationApi.signUp
-            model(
-                username text[
-                    min 3
-                    max 128]
-                password text[
-                    min 6
-                    max 32
-                    regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                    sensitive]
-            )
-            visible(
-                username
-                password
-            )](
-            username text[
-                input(
-                    model . username
-                )
-                min 3
-                max 128]
-            password text[
-                input(
-                    model . password
-                )
-                min 6
-                max 32
-                regex "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$"
-                sensitive]
-            submit button{
-                on click(
-                    call backend.AuthenticationApi.signUp(
-                        model . username
-                        model . password
-                    ){
-                        on success(
-                            goto signInPage
-                        )}
-                )}
-        )
     )
 )

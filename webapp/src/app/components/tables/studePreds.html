@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'STUDE_PREDS_ID' | translate}}</th>
+                        <th>{{'STUDE_PREDS_STUDENT_ID' | translate}}</th>
+                        <th>{{'STUDE_PREDS_PREDMET_ID' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="item in model track by $index">
+                        <td>{{item.id}}</td>
+                        <td>{{item.studentId}}</td>
+                        <td>{{item.predmetId}}</td>
+                    </tr>
+                </tbody>
+                <tfoot data-ng-if="model.length == 0">
+                    <tr>
+                        <td colspan="100%" class="small text-muted text-center">{{'DATA_SET_EMPTY_NO_DATA' | translate}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row" data-ng-show="errorCode">
+    <div class="col-lg-12">
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="{{'ALERT_CLOSE' | translate}}">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{errorCode}}
+        </div>
+    </div>
+</div>
