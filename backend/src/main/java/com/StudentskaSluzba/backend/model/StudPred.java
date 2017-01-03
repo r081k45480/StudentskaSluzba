@@ -36,28 +36,14 @@ public class StudPred implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "studentId")
     private Student student;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "predmetId")
     private Predmet predmet;
-
-    public StudPred() {
-    }
-
-    public StudPred(Long id, Student student, Predmet predmet) {
-        this.id = id;
-        this.student = student;
-        this.predmet = predmet;
-    }
-
-    public StudPred(Student student, Predmet predmet) {
-        this.student = student;
-        this.predmet = predmet;
-    }
 
     public Long getId() {
         return id;
@@ -94,9 +80,9 @@ public class StudPred implements Serializable {
         final StudPred other = (StudPred) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if (((student == null || student.getId() == null) && (other.student != null && other.student.getId() != null)) || !student.getId().equals(other.student.getId()))
+        if ((student == null && other.student != null) || !student.equals(other.student))
             return false;
-        if (((predmet == null || predmet.getId() == null) && (other.predmet != null && other.predmet.getId() != null)) || !predmet.getId().equals(other.predmet.getId()))
+        if ((predmet == null && other.predmet != null) || !predmet.equals(other.predmet))
             return false;
         return true;
     }
@@ -106,14 +92,14 @@ public class StudPred implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((student == null || student.getId() == null) ? 0 : student.getId().hashCode());
-        result = prime * result + ((predmet == null || predmet.getId() == null) ? 0 : predmet.getId().hashCode());
+        result = prime * result + ((student == null) ? 0 : student.hashCode());
+        result = prime * result + ((predmet == null) ? 0 : predmet.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "StudPred[" + "id=" + id + ", student=" + (student == null ? student : student.getId()) + ", predmet=" + (predmet == null ? predmet : predmet.getId()) + "]";
+        return "StudPred[" + "id=" + id + ", student=" + student + ", predmet=" + predmet + "]";
     }
 
 }

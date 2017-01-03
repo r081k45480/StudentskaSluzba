@@ -59,26 +59,6 @@ public class Predmet implements Serializable {
     @Column(name = "imeProfesora")
     private String imeProfesora;
 
-    public Predmet() {
-    }
-
-    public Predmet(Long id, String naziv, Integer espb, Boolean obavezni, Integer predlozeniSemestar, String imeProfesora) {
-        this.id = id;
-        this.naziv = naziv;
-        this.espb = espb;
-        this.obavezni = obavezni;
-        this.predlozeniSemestar = predlozeniSemestar;
-        this.imeProfesora = imeProfesora;
-    }
-
-    public Predmet(String naziv, Integer espb, Boolean obavezni, Integer predlozeniSemestar, String imeProfesora) {
-        this.naziv = naziv;
-        this.espb = espb;
-        this.obavezni = obavezni;
-        this.predlozeniSemestar = predlozeniSemestar;
-        this.imeProfesora = imeProfesora;
-    }
-
     public Long getId() {
         return id;
     }

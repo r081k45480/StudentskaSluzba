@@ -56,11 +56,11 @@ public class StudPredApi {
     @Inject
     private StudentRepository studentRepository;
 
-    @RequestMapping(value = "/stud-pred/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/studPred/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
     public ResponseEntity<ReadStudPredResponse> readStudPred(@PathVariable Long id) {
-        log.debug("GET /stud-pred/{}", id);
+        log.debug("GET /studPred/{}", id);
         final Optional<StudPred> result = Optional.ofNullable(studPredRepository.findOne(id));
         if (result.isPresent()) {
             return ResponseEntity.ok().body(convertToReadStudPredResponse(result.get()));
@@ -68,31 +68,31 @@ public class StudPredApi {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/stud-pred", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/studPred", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
     public ResponseEntity<CreateStudPredResponse> createStudPred(@Valid @RequestBody CreateStudPredRequest request) throws URISyntaxException {
-        log.debug("POST /stud-pred {}", request);
+        log.debug("POST /studPred {}", request);
         final StudPred studPred = convertToStudPred(request);
         final StudPred result = studPredRepository.save(studPred);
-        return ResponseEntity.created(new URI("/stud-pred/" + result.getId())).body(convertToCreateStudPredResponse(result));
+        return ResponseEntity.created(new URI("/studPred/" + result.getId())).body(convertToCreateStudPredResponse(result));
     }
 
-    @RequestMapping(value = "/stud-pred/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/studPred/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
     public ResponseEntity<UpdateStudPredResponse> updateStudPred(@PathVariable Long id, @Valid @RequestBody RestUpdateStudPredRequest request) {
-        log.debug("PUT /stud-pred/{} {}", id, request);
+        log.debug("PUT /studPred/{} {}", id, request);
         final StudPred studPred = convertToStudPred(id, request);
         final StudPred result = studPredRepository.save(studPred);
         return ResponseEntity.ok().body(convertToUpdateStudPredResponse(result));
     }
 
-    @RequestMapping(value = "/stud-pred/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/studPred/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
     public ResponseEntity<Void> deleteStudPred(@PathVariable Long id) {
-        log.debug("DELETE /stud-pred/{}", id);
+        log.debug("DELETE /studPred/{}", id);
         studPredRepository.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -106,43 +106,47 @@ public class StudPredApi {
         return ResponseEntity.ok().body(result.stream().map(this::convertToStudPredsResponse).collect(Collectors.toList()));
     }
 
-    private ReadStudPredResponse convertToReadStudPredResponse(StudPred studPred) {
-        final ReadStudPredResponse readStudPredResponse = new ReadStudPredResponse();
-        readStudPredResponse.setId(studPred.getId());
-        readStudPredResponse.setStudentId(studPred.getStudent().getId());
-        readStudPredResponse.setPredmetId(studPred.getPredmet().getId());
-        return readStudPredResponse;
+    private ReadStudPredResponse convertToReadStudPredResponse(StudPred model) {
+        final ReadStudPredResponse dto = new ReadStudPredResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        return dto;
     }
 
-    private StudPred convertToStudPred(CreateStudPredRequest createStudPredRequest) {
+    private StudPred convertToStudPred(CreateStudPredRequest dto) {
         final StudPred studPred = new StudPred();
-        studPred.setStudent(studentRepository.findOne(createStudPredRequest.getStudentId()));
-        studPred.setPredmet(predmetRepository.findOne(createStudPredRequest.getPredmetId()));
+        final Student student = studentRepository.findOne(dto.getStudentId());
+        studPred.setStudent(student);
+        final Predmet predmet = predmetRepository.findOne(dto.getPredmetId());
+        studPred.setPredmet(predmet);
         return studPred;
     }
 
-    private CreateStudPredResponse convertToCreateStudPredResponse(StudPred studPred) {
-        final CreateStudPredResponse createStudPredResponse = new CreateStudPredResponse();
-        createStudPredResponse.setId(studPred.getId());
-        createStudPredResponse.setStudentId(studPred.getStudent().getId());
-        createStudPredResponse.setPredmetId(studPred.getPredmet().getId());
-        return createStudPredResponse;
+    private CreateStudPredResponse convertToCreateStudPredResponse(StudPred model) {
+        final CreateStudPredResponse dto = new CreateStudPredResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        return dto;
     }
 
-    private StudPred convertToStudPred(Long id, RestUpdateStudPredRequest restUpdateStudPredRequest) {
+    private StudPred convertToStudPred(Long id, RestUpdateStudPredRequest dto) {
         final StudPred studPred = new StudPred();
         studPred.setId(id);
-        studPred.setStudent(studentRepository.findOne(restUpdateStudPredRequest.getStudentId()));
-        studPred.setPredmet(predmetRepository.findOne(restUpdateStudPredRequest.getPredmetId()));
+        final Student student = studentRepository.findOne(dto.getStudentId());
+        studPred.setStudent(student);
+        final Predmet predmet = predmetRepository.findOne(dto.getPredmetId());
+        studPred.setPredmet(predmet);
         return studPred;
     }
 
-    private UpdateStudPredResponse convertToUpdateStudPredResponse(StudPred studPred) {
-        final UpdateStudPredResponse updateStudPredResponse = new UpdateStudPredResponse();
-        updateStudPredResponse.setId(studPred.getId());
-        updateStudPredResponse.setStudentId(studPred.getStudent().getId());
-        updateStudPredResponse.setPredmetId(studPred.getPredmet().getId());
-        return updateStudPredResponse;
+    private UpdateStudPredResponse convertToUpdateStudPredResponse(StudPred model) {
+        final UpdateStudPredResponse dto = new UpdateStudPredResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        return dto;
     }
 
     private StudPredsResponse convertToStudPredsResponse(StudPred model) {

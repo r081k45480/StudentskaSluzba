@@ -42,34 +42,18 @@
         $scope.model = {};
         $scope.model.budzet = false;
         $scope.errorCode = null;
+        $scope.submit = submit;
 
-        $scope.onClickSubmit = onClickSubmit;
-
-        function onClickSubmit(form) {
-            if (form.$invalid) {
-                form.$setSubmitted();
+        function submit(form) {
+            if (form !== undefined && form.$submitted && form.$invalid) {
                 return false;
             }
-            var request = {
-                ime: $scope.model.ime,
-                prezime: $scope.model.prezime,
-                index: $scope.model.index,
-                trenutnoStanjeRacuna: $scope.model.trenutnoStanjeRacuna,
-                budzet: $scope.model.budzet,
-                tekuciSemestar: $scope.model.tekuciSemestar,
-                osvojeniBodovi: $scope.model.osvojeniBodovi,
-                username: $scope.model.username,
-                password: $scope.model.password
-            };
-            signUp(request, function(response) {
+            authenticationApi.signUp($scope.model).then(onSuccess, onError);
+
+            function onSuccess(response) {
+                $state.go('signInPage');
                 $scope.errorCode = null;
-                $state.go('signInPage', {});
-            });
-
-        }
-
-        function signUp(request, successCallback) {
-            authenticationApi.signUp(request).then(successCallback, onError);
+            }
 
             function onError(response) {
                 if (response.status && response.statusText) {
@@ -78,7 +62,9 @@
                     $scope.errorCode = 'Unknown error';
                 }
             }
+
         }
+
     }
 
 })();

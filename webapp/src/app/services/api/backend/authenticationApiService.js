@@ -24,9 +24,9 @@
         .module('webapp')
         .service('authenticationApiService', authenticationApiService);
 
-    authenticationApiService.$inject = ['$http', 'sessionService', 'securityService'];
+    authenticationApiService.$inject = ['$http', 'sessionService'];
 
-    function authenticationApiService($http, sessionService, securityService) {
+    function authenticationApiService($http, sessionService) {
 
         var backendApiUrl = '';
 
@@ -43,6 +43,7 @@
 
         /** signUp 
          * request - SignUpRequest {
+         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -56,6 +57,7 @@
          *
          * response - SignUpResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -73,6 +75,7 @@
                 method: 'POST',
                 url: backendApiUrl + '/api/sign-up',
                 data: {
+                    stanjaIds: model.stanjaIds,
                     ime: model.ime,
                     prezime: model.prezime,
                     index: model.index,
@@ -82,12 +85,8 @@
                     osvojeniBodovi: model.osvojeniBodovi,
                     username: model.username,
                     password: model.password
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** signIn 
@@ -98,8 +97,8 @@
          *
          * response - SignInResponse {
          *   accessToken: String
-         *   refreshToken: String
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -119,12 +118,8 @@
                 data: {
                     username: model.username,
                     password: model.password
-                },
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
-
         }
 
         /** changePassword (secured)
@@ -135,6 +130,7 @@
          *
          * response - ChangePasswordResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -148,22 +144,17 @@
          *
          */
         function changePassword(model) {
-            function httpRequest() {
-                return $http({
-                    method: 'POST',
-                    url: backendApiUrl + '/api/change-password',
-                    data: {
-                        oldPassword: model.oldPassword,
-                        newPassword: model.newPassword
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': "Bearer " + sessionService.getSessionData().accessToken
-                    }
-                });
-            }
-            return securityService.securedCall(httpRequest);
-
+            return $http({
+                method: 'POST',
+                url: backendApiUrl + '/api/change-password',
+                data: {
+                    oldPassword: model.oldPassword,
+                    newPassword: model.newPassword
+                },
+                headers: {
+                    'Authorization': "Bearer " + sessionService.getSessionData().accessToken
+                }
+            });
         }
 
     }

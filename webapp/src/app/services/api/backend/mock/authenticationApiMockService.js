@@ -29,43 +29,14 @@
     function authenticationApiMockService($timeout) {
 
         return {
-            refreshToken: refreshToken,
             signUp: signUp,
             signIn: signIn,
             changePassword: changePassword
         };
 
-        /** refreshToken 
-         * request - RefreshTokenRequest {
-         *   refreshToken: String
-         * }
-         *
-         * response - RefreshTokenResponse {
-         *   accessToken: String
-         *   refreshToken: String
-         *   id: Int
-         *   ime: String
-         *   prezime: String
-         *   index: String
-         *   trenutnoStanjeRacuna: Decimal(10, 4)
-         *   budzet: Boolean
-         *   tekuciSemestar: Int
-         *   osvojeniBodovi: Int
-         *   role: UserRole
-         *   username: String
-         * }
-         *
-         */
-        function refreshToken(model) {
-            $timeout(function() {
-                successCallback({
-                    //TODO fill up mocked data values
-                }, 500);
-            });
-        }
-
         /** signUp 
          * request - SignUpRequest {
+         *   stanjaIds: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -79,6 +50,7 @@
          *
          * response - SignUpResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -107,8 +79,8 @@
          *
          * response - SignInResponse {
          *   accessToken: String
-         *   refreshToken: String
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String
@@ -137,6 +109,7 @@
          *
          * response - ChangePasswordResponse {
          *   id: Int
+         *   stanjaId: List[Int]
          *   ime: String
          *   prezime: String
          *   index: String

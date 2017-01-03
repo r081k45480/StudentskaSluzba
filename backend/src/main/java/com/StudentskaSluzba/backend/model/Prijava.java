@@ -36,28 +36,14 @@ public class Prijava implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "rokId")
     private Rok rok;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "studPredId")
     private StudPred studPred;
-
-    public Prijava() {
-    }
-
-    public Prijava(Long id, Rok rok, StudPred studPred) {
-        this.id = id;
-        this.rok = rok;
-        this.studPred = studPred;
-    }
-
-    public Prijava(Rok rok, StudPred studPred) {
-        this.rok = rok;
-        this.studPred = studPred;
-    }
 
     public Long getId() {
         return id;
@@ -94,9 +80,9 @@ public class Prijava implements Serializable {
         final Prijava other = (Prijava) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if (((rok == null || rok.getId() == null) && (other.rok != null && other.rok.getId() != null)) || !rok.getId().equals(other.rok.getId()))
+        if ((rok == null && other.rok != null) || !rok.equals(other.rok))
             return false;
-        if (((studPred == null || studPred.getId() == null) && (other.studPred != null && other.studPred.getId() != null)) || !studPred.getId().equals(other.studPred.getId()))
+        if ((studPred == null && other.studPred != null) || !studPred.equals(other.studPred))
             return false;
         return true;
     }
@@ -106,14 +92,14 @@ public class Prijava implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((rok == null || rok.getId() == null) ? 0 : rok.getId().hashCode());
-        result = prime * result + ((studPred == null || studPred.getId() == null) ? 0 : studPred.getId().hashCode());
+        result = prime * result + ((rok == null) ? 0 : rok.hashCode());
+        result = prime * result + ((studPred == null) ? 0 : studPred.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Prijava[" + "id=" + id + ", rok=" + (rok == null ? rok : rok.getId()) + ", studPred=" + (studPred == null ? studPred : studPred.getId()) + "]";
+        return "Prijava[" + "id=" + id + ", rok=" + rok + ", studPred=" + studPred + "]";
     }
 
 }

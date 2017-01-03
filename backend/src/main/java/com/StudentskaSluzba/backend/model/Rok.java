@@ -44,20 +44,6 @@ public class Rok implements Serializable {
     @Column(name = "naziv")
     private String naziv;
 
-    public Rok() {
-    }
-
-    public Rok(Long id, Integer godina, String naziv) {
-        this.id = id;
-        this.godina = godina;
-        this.naziv = naziv;
-    }
-
-    public Rok(Integer godina, String naziv) {
-        this.godina = godina;
-        this.naziv = naziv;
-    }
-
     public Long getId() {
         return id;
     }

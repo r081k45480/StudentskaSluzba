@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Inject
-    private JWTFilter jwtFilter;
+    private CustomProperties customProperties;
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -60,10 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().headers().frameOptions().disable().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().addFilterBefore(jwtFilter,
-                UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable().headers().frameOptions().disable().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .addFilterBefore(new JWTFilter(customProperties.getSecretKey()), UsernamePasswordAuthenticationFilter.class);
 
-        http.authorizeRequests().antMatchers("/management/**").hasAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("/management/**").hasAuthority("STUDENT");
     }
 
 }

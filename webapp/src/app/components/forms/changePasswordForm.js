@@ -41,27 +41,18 @@
 
         $scope.model = {};
         $scope.errorCode = null;
+        $scope.submit = submit;
 
-        $scope.onClickSubmit = onClickSubmit;
-
-        function onClickSubmit(form) {
-            if (form.$invalid) {
-                form.$setSubmitted();
+        function submit(form) {
+            if (form !== undefined && form.$submitted && form.$invalid) {
                 return false;
             }
-            var request = {
-                oldPassword: $scope.model.oldPassword,
-                newPassword: $scope.model.newPassword
-            };
-            changePassword(request, function(response) {
+            authenticationApi.changePassword($scope.model).then(onSuccess, onError);
+
+            function onSuccess(response) {
+                $state.go('signInPage');
                 $scope.errorCode = null;
-                $state.go('signInPage', {});
-            });
-
-        }
-
-        function changePassword(request, successCallback) {
-            authenticationApi.changePassword(request).then(successCallback, onError);
+            }
 
             function onError(response) {
                 if (response.status && response.statusText) {
@@ -70,7 +61,9 @@
                     $scope.errorCode = 'Unknown error';
                 }
             }
+
         }
+
     }
 
 })();

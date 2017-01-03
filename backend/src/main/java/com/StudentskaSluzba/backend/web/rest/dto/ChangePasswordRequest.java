@@ -30,21 +30,13 @@ public class ChangePasswordRequest implements Serializable {
 
     @NotNull
     @Size(min = 6, max = 32)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$")
     private String oldPassword;
 
     @NotNull
     @Size(min = 6, max = 32)
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z*&@%+/_'!#$^?:.(\\)\\[\\]{}~\\-]{8,}$")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$")
     private String newPassword;
-
-    public ChangePasswordRequest() {
-    }
-
-    public ChangePasswordRequest(String oldPassword, String newPassword) {
-        this.oldPassword = oldPassword;
-        this.newPassword = newPassword;
-    }
 
     public String getOldPassword() {
         return oldPassword;

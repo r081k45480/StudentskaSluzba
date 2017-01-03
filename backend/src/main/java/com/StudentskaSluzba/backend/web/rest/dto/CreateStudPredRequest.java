@@ -34,14 +34,6 @@ public class CreateStudPredRequest implements Serializable {
     @NotNull
     private Long predmetId;
 
-    public CreateStudPredRequest() {
-    }
-
-    public CreateStudPredRequest(Long studentId, Long predmetId) {
-        this.studentId = studentId;
-        this.predmetId = predmetId;
-    }
-
     public Long getStudentId() {
         return studentId;
     }

@@ -46,25 +46,9 @@ public class Stanje implements Serializable {
     private ZonedDateTime datum;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "studentId")
     private Student student;
-
-    public Stanje() {
-    }
-
-    public Stanje(Long id, BigDecimal iznos, ZonedDateTime datum, Student student) {
-        this.id = id;
-        this.iznos = iznos;
-        this.datum = datum;
-        this.student = student;
-    }
-
-    public Stanje(BigDecimal iznos, ZonedDateTime datum, Student student) {
-        this.iznos = iznos;
-        this.datum = datum;
-        this.student = student;
-    }
 
     public Long getId() {
         return id;
@@ -113,7 +97,7 @@ public class Stanje implements Serializable {
             return false;
         if ((datum == null && other.datum != null) || !datum.equals(other.datum))
             return false;
-        if (((student == null || student.getId() == null) && (other.student != null && other.student.getId() != null)) || !student.getId().equals(other.student.getId()))
+        if ((student == null && other.student != null) || !student.equals(other.student))
             return false;
         return true;
     }
@@ -125,13 +109,13 @@ public class Stanje implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((iznos == null) ? 0 : iznos.hashCode());
         result = prime * result + ((datum == null) ? 0 : datum.hashCode());
-        result = prime * result + ((student == null || student.getId() == null) ? 0 : student.getId().hashCode());
+        result = prime * result + ((student == null) ? 0 : student.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", datum=" + datum + ", student=" + (student == null ? student : student.getId()) + "]";
+        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", datum=" + datum + ", student=" + student + "]";
     }
 
 }

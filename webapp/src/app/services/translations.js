@@ -22,32 +22,6 @@
 
     angular
         .module('webapp')
-        .factory('translationService', translationService);
-
-    translationService.$inject = ['$translate'];
-
-    function translationService($translate) {
-        return {
-            listLanguages: listLanguages,
-            currentLanguage: currentLanguage,
-            changeLanguage: changeLanguage
-        };
-
-        function listLanguages() {
-            return ['en'];
-        }
-
-        function currentLanguage() {
-            return $translate.use();
-        }
-
-        function changeLanguage(key) {
-            $translate.use(key);
-        }
-    }
-
-    angular
-        .module('webapp')
         .config(function($translateProvider) {
 
             $translateProvider.translations('en', {
@@ -55,13 +29,13 @@
                 CANCEL: 'Cancel',
                 CHANGE_PASSWORD_FORM_NEW_PASSWORD: 'New password',
                 CHANGE_PASSWORD_FORM_NEW_PASSWORD_IS_REQUIRED: 'New password is required',
-                CHANGE_PASSWORD_FORM_NEW_PASSWORD_MAX: 'New password max {{max}}',
-                CHANGE_PASSWORD_FORM_NEW_PASSWORD_MIN: 'New password min {{min}}',
+                CHANGE_PASSWORD_FORM_NEW_PASSWORD_MAX: 'New password max',
+                CHANGE_PASSWORD_FORM_NEW_PASSWORD_MIN: 'New password min',
                 CHANGE_PASSWORD_FORM_NEW_PASSWORD_PATTERN: 'New password pattern',
                 CHANGE_PASSWORD_FORM_OLD_PASSWORD: 'Old password',
                 CHANGE_PASSWORD_FORM_OLD_PASSWORD_IS_REQUIRED: 'Old password is required',
-                CHANGE_PASSWORD_FORM_OLD_PASSWORD_MAX: 'Old password max {{max}}',
-                CHANGE_PASSWORD_FORM_OLD_PASSWORD_MIN: 'Old password min {{min}}',
+                CHANGE_PASSWORD_FORM_OLD_PASSWORD_MAX: 'Old password max',
+                CHANGE_PASSWORD_FORM_OLD_PASSWORD_MIN: 'Old password min',
                 CHANGE_PASSWORD_FORM_OLD_PASSWORD_PATTERN: 'Old password pattern',
                 CHANGE_PASSWORD_FORM_SUBMIT: 'Submit',
                 CREATE_NEW_NOTE: 'Create new note',
@@ -79,43 +53,45 @@
                 OK: 'Ok',
                 SIGN_IN_FORM_PASSWORD: 'Password',
                 SIGN_IN_FORM_PASSWORD_IS_REQUIRED: 'Password is required',
-                SIGN_IN_FORM_PASSWORD_MAX: 'Password max {{max}}',
-                SIGN_IN_FORM_PASSWORD_MIN: 'Password min {{min}}',
+                SIGN_IN_FORM_PASSWORD_MAX: 'Password max',
+                SIGN_IN_FORM_PASSWORD_MIN: 'Password min',
                 SIGN_IN_FORM_PASSWORD_PATTERN: 'Password pattern',
                 SIGN_IN_FORM_SUBMIT: 'Submit',
                 SIGN_IN_FORM_USERNAME: 'Username',
                 SIGN_IN_FORM_USERNAME_IS_REQUIRED: 'Username is required',
-                SIGN_IN_FORM_USERNAME_MAX: 'Username max {{max}}',
-                SIGN_IN_FORM_USERNAME_MIN: 'Username min {{min}}',
+                SIGN_IN_FORM_USERNAME_MAX: 'Username max',
+                SIGN_IN_FORM_USERNAME_MIN: 'Username min',
                 SIGN_IN_PAGE_SIGN_UP: 'Sign up',
                 SIGN_UP_FORM_BUDZET: 'Budzet',
                 SIGN_UP_FORM_IME: 'Ime',
                 SIGN_UP_FORM_IME_IS_REQUIRED: 'Ime is required',
-                SIGN_UP_FORM_IME_MAX: 'Ime max {{max}}',
+                SIGN_UP_FORM_IME_MAX: 'Ime max',
                 SIGN_UP_FORM_INDEX: 'Index',
                 SIGN_UP_FORM_INDEX_IS_REQUIRED: 'Index is required',
-                SIGN_UP_FORM_INDEX_MAX: 'Index max {{max}}',
+                SIGN_UP_FORM_INDEX_MAX: 'Index max',
                 SIGN_UP_FORM_OSVOJENI_BODOVI: 'Osvojeni bodovi',
                 SIGN_UP_FORM_OSVOJENI_BODOVI_IS_REQUIRED: 'Osvojeni bodovi is required',
-                SIGN_UP_FORM_OSVOJENI_BODOVI_MIN: 'Osvojeni bodovi min {{min}}',
+                SIGN_UP_FORM_OSVOJENI_BODOVI_MIN: 'Osvojeni bodovi min',
                 SIGN_UP_FORM_PASSWORD: 'Password',
                 SIGN_UP_FORM_PASSWORD_IS_REQUIRED: 'Password is required',
-                SIGN_UP_FORM_PASSWORD_MAX: 'Password max {{max}}',
-                SIGN_UP_FORM_PASSWORD_MIN: 'Password min {{min}}',
+                SIGN_UP_FORM_PASSWORD_MAX: 'Password max',
+                SIGN_UP_FORM_PASSWORD_MIN: 'Password min',
                 SIGN_UP_FORM_PASSWORD_PATTERN: 'Password pattern',
                 SIGN_UP_FORM_PREZIME: 'Prezime',
                 SIGN_UP_FORM_PREZIME_IS_REQUIRED: 'Prezime is required',
-                SIGN_UP_FORM_PREZIME_MAX: 'Prezime max {{max}}',
+                SIGN_UP_FORM_PREZIME_MAX: 'Prezime max',
+                SIGN_UP_FORM_STANJA_IDS: 'Stanja ids',
+                SIGN_UP_FORM_STANJA_IDS_IS_REQUIRED: 'Stanja ids is required',
                 SIGN_UP_FORM_SUBMIT: 'Submit',
                 SIGN_UP_FORM_TEKUCI_SEMESTAR: 'Tekuci semestar',
                 SIGN_UP_FORM_TEKUCI_SEMESTAR_IS_REQUIRED: 'Tekuci semestar is required',
-                SIGN_UP_FORM_TEKUCI_SEMESTAR_MIN: 'Tekuci semestar min {{min}}',
+                SIGN_UP_FORM_TEKUCI_SEMESTAR_MIN: 'Tekuci semestar min',
                 SIGN_UP_FORM_TRENUTNO_STANJE_RACUNA: 'Trenutno stanje racuna',
                 SIGN_UP_FORM_TRENUTNO_STANJE_RACUNA_IS_REQUIRED: 'Trenutno stanje racuna is required',
                 SIGN_UP_FORM_USERNAME: 'Username',
                 SIGN_UP_FORM_USERNAME_IS_REQUIRED: 'Username is required',
-                SIGN_UP_FORM_USERNAME_MAX: 'Username max {{max}}',
-                SIGN_UP_FORM_USERNAME_MIN: 'Username min {{min}}',
+                SIGN_UP_FORM_USERNAME_MAX: 'Username max',
+                SIGN_UP_FORM_USERNAME_MIN: 'Username min',
                 SIGN_UP_PAGE_SIGN_IN: 'Sign in',
                 STUDE_PREDS_ID: 'Id',
                 STUDE_PREDS_PREDMET_ID: 'Predmet id',
@@ -126,7 +102,5 @@
             $translateProvider.preferredLanguage('en');
 
             $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-
-            $translateProvider.useLocalStorage();
         });
 })();

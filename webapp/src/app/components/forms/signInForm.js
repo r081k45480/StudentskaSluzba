@@ -35,34 +35,40 @@
         .module('webapp')
         .controller('SignInFormController', SignInFormController);
 
-    SignInFormController.$inject = ['$scope', 'authenticationApi', 'sessionService'];
+    SignInFormController.$inject = ['$scope', 'sessionService', '$state', 'eventBus', 'authenticationApi'];
 
-    function SignInFormController($scope, authenticationApi, sessionService) {
+    function SignInFormController($scope, sessionService, $state, eventBus, authenticationApi) {
 
         $scope.model = {};
         $scope.errorCode = null;
+        $scope.submit = submit;
 
-        $scope.onClickSubmit = onClickSubmit;
-
-        function onClickSubmit(form) {
-            if (form.$invalid) {
-                form.$setSubmitted();
+        function submit(form) {
+            if (form !== undefined && form.$submitted && form.$invalid) {
                 return false;
             }
-            var request = {
-                username: $scope.model.username,
-                password: $scope.model.password
-            };
-            signIn(request, function(response) {
-                $scope.errorCode = null;
+            authenticationApi.signIn($scope.model).then(onSuccess, onError);
+
+            function onSuccess(response) {
+
                 sessionService.save(response.data);
-
-            });
-
-        }
-
-        function signIn(request, successCallback) {
-            authenticationApi.signIn(request).then(successCallback, onError);
+                eventBus.emitEvent('UserSignedIn', {
+                    accessToken: response.data.accessToken,
+                    id: response.data.id,
+                    stanjaId: response.data.stanjaId,
+                    ime: response.data.ime,
+                    prezime: response.data.prezime,
+                    index: response.data.index,
+                    trenutnoStanjeRacuna: response.data.trenutnoStanjeRacuna,
+                    budzet: response.data.budzet,
+                    tekuciSemestar: response.data.tekuciSemestar,
+                    osvojeniBodovi: response.data.osvojeniBodovi,
+                    role: response.data.role,
+                    username: response.data.username
+                });
+                $state.go('notesPage');
+                $scope.errorCode = null;
+            }
 
             function onError(response) {
                 if (response.status && response.statusText) {
@@ -71,7 +77,9 @@
                     $scope.errorCode = 'Unknown error';
                 }
             }
+
         }
+
     }
 
 })();

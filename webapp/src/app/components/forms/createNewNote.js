@@ -41,28 +41,19 @@
 
         $scope.model = {};
         $scope.errorCode = null;
+        $scope.submit = submit;
 
-        $scope.onClickSubmit = onClickSubmit;
-
-        function onClickSubmit(form) {
-            if (form.$invalid) {
-                form.$setSubmitted();
+        function submit(form) {
+            if (form !== undefined && form.$submitted && form.$invalid) {
                 return false;
             }
-            var request = {
-                studentId: $scope.model.studentId,
-                predmetId: $scope.model.predmetId
-            };
-            createStudPred(request, function(response) {
-                $scope.errorCode = null;
+            studPredApi.createStudPred($scope.model).then(onSuccess, onError);
+
+            function onSuccess(response) {
+                eventBus.emitEvent('NoteUpdated');
                 eventBus.emitEvent('ModalClose');
-                eventBus.emitEvent('NoteUpdated', {});
-            });
-
-        }
-
-        function createStudPred(request, successCallback) {
-            studPredApi.createStudPred(request).then(successCallback, onError);
+                $scope.errorCode = null;
+            }
 
             function onError(response) {
                 if (response.status && response.statusText) {
@@ -71,7 +62,9 @@
                     $scope.errorCode = 'Unknown error';
                 }
             }
+
         }
+
     }
 
 })();

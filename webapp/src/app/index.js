@@ -22,7 +22,7 @@
 
     angular
         .module('webapp', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router',
-            'ui.bootstrap', 'ngMessages', 'pascalprecht.translate', 'app.config', 'angular-jwt'
+            'ui.bootstrap', 'ngMessages', 'pascalprecht.translate', 'app.config'
         ])
         .config(appConfig)
 
@@ -48,7 +48,7 @@
                 controller: 'SignUpPageController'
             });
 
-        $urlRouterProvider.otherwise('/path/notes');
+        $urlRouterProvider.otherwise('/path/sign-in');
     }
 
     run.$inject = ['$rootScope', '$state', 'sessionService', '$log'];

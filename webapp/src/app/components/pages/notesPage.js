@@ -31,7 +31,7 @@
         $scope.onClickAddNote = onClickAddNote;
 
         function onClickAddNote() {
-            modalWindows.openCreateNewNote({});
+            modalWindows.openCreateNewNote();
         }
 
     }

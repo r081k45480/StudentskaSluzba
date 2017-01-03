@@ -24,9 +24,7 @@
         .module('webapp')
         .service('sessionService', sessionService);
 
-    sessionService.$inject = ['jwtHelper'];
-
-    function sessionService(jwtHelper) {
+    function sessionService() {
 
         /* jshint ignore:start */
         var publicStates = [];
@@ -41,15 +39,13 @@
             clear: clear,
             getSessionData: getSessionData,
             isLoggedIn: isLoggedIn,
-            canUserAccessState: canUserAccessState,
-            isValidAccessToken: isValidAccessToken,
-            isValidRefreshToken: isValidRefreshToken
+            canUserAccessState: canUserAccessState
         };
 
         function save(sessionData) {
             localStorage.setItem('accessToken', sessionData.accessToken);
-            localStorage.setItem('refreshToken', sessionData.refreshToken);
             localStorage.setItem('id', sessionData.id);
+            localStorage.setItem('stanjaId', sessionData.stanjaId);
             localStorage.setItem('ime', sessionData.ime);
             localStorage.setItem('prezime', sessionData.prezime);
             localStorage.setItem('index', sessionData.index);
@@ -63,8 +59,8 @@
 
         function clear() {
             localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
             localStorage.removeItem('id');
+            localStorage.removeItem('stanjaId');
             localStorage.removeItem('ime');
             localStorage.removeItem('prezime');
             localStorage.removeItem('index');
@@ -79,8 +75,8 @@
         function getSessionData() {
             return {
                 accessToken: localStorage.getItem('accessToken'),
-                refreshToken: localStorage.getItem('refreshToken'),
                 id: localStorage.getItem('id'),
+                stanjaId: localStorage.getItem('stanjaId'),
                 ime: localStorage.getItem('ime'),
                 prezime: localStorage.getItem('prezime'),
                 index: localStorage.getItem('index'),
@@ -93,22 +89,6 @@
             };
         }
 
-        function isValidAccessToken() {
-            var accessToken = localStorage.getItem('accessToken');
-            if (accessToken == undefined) return false;
-
-            var validUntil = jwtHelper.getTokenExpirationDate(accessToken);
-            return validUntil.getTime() > new Date().getTime() + 5000;
-        }
-
-        function isValidRefreshToken() {
-            var refreshToken = localStorage.getItem('refreshToken');
-            if (refreshToken == undefined) return false;
-
-            var validUntil = jwtHelper.getTokenExpirationDate(refreshToken);
-            return validUntil.getTime() > new Date().getTime();
-        }
-
         function isLoggedIn() {
             return localStorage.getItem("accessToken") !== null;
         }
@@ -119,11 +99,11 @@
             }
 
             var user = getSessionData();
-            if (!user.role) {
+            if (!user) {
                 return false;
             }
 
-            return isValidRefreshToken() && stateAccessRights[stateName][user.role];
+            return stateAccessRights[stateName][user.role];
         }
 
     }

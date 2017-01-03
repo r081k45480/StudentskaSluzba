@@ -5,7 +5,6 @@ backend/target/
 .metadata/
 .cache
 .idea/
-*.sifu.debug
 *.iml
 **/target/
 webapp/src/app/environmentConfig.js

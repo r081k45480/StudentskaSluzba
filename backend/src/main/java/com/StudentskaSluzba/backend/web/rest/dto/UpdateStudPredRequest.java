@@ -37,15 +37,6 @@ public class UpdateStudPredRequest implements Serializable {
     @NotNull
     private Long predmetId;
 
-    public UpdateStudPredRequest() {
-    }
-
-    public UpdateStudPredRequest(Long id, Long studentId, Long predmetId) {
-        this.id = id;
-        this.studentId = studentId;
-        this.predmetId = predmetId;
-    }
-
     public Long getId() {
         return id;
     }
