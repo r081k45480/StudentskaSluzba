@@ -6,39 +6,80 @@ StudentskaSluzba project[
   #SERVER
   backend server[
     template java-springboot
-    developer (Robert Sabo)
+    developer (Robert)
+    security (principal Student, type username)
   ](
 
-    #MODEL
-    Note model(
-      title text
-      content text
+    #####MODELs
+    Student model(
+      stanja list Stanje[oneToMany]
+      ime text
+      prezime text
+      index text[unique]
+      trenutnoStanjeRacuna decimal
+      budzet boolean
+      tekuciSemestar integer[min 1]
+      osvojeniBodovi integer[min 0]
+    )
+
+    Predmet model(
+      naziv text
+      espb integer[min 0]
+      obavezni boolean
+      predlozeniSemestar integer[min 1]
+      imeProfesora text
+    )
+
+    Stanje model(
+      #student Student # from [oneToMany]
+      iznos decimal
+      datum datetime
+    )
+
+    Rok model(
+      godina integer
+      naziv text
+    )
+
+    StudPred model(
+      student Student
+      predmet Predmet
+    )
+
+    Prijava model(
+      rok Rok
+      studPred StudPred
     )
 
     #API
-    NoteApi api(
-      note crud[model Note, rest]
-      notes find[from Note, rest]
+    StudentApi api(
+      student crud[model Student, rest]
+    )
+
+    StudPredApi api(
+        studPred crud[model StudPred, rest]
+        studPreds find[from StudPred, rest]
     )
   )
 
   #CLIENT
-  webApp client[
+  webapp client[
     template js-angular
     connectedTo backend
-    path /home
-    home notesPage
+    path /path
+    home signInPage
+    loggedin notesPage
   ](
     NoteUpdated event
 
     notesPage page[path /notes](
-      addNote button{on click open createNewNote}
-      notes table[load NoteApi.notes]{
+      studePreds table[load StudPredApi.studPreds]{
         on NoteUpdated reload
       }
+      addNote button{on click open createNewNote}
     )
 
-    createNewNote form[submit NoteApi.createNote]{
+    createNewNote form[submit StudPredApi.createStudPred]{
       on success (close, fire NoteUpdated)
     }
   )
