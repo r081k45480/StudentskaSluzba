@@ -8,20 +8,20 @@ StudentskaSluzba project[
             docker
         )
         security(
-            principal Student
+            principal User
             type(
                 username
             )
             signIn[
                 query findById
                 response(
-                    Student.id
-                    Student.username
+                    User.id
+                    User.username
                 )]
         )
         path /
         default model type mysql](
-        Student model[
+        User model[
             type mysql
             unique(
                 username
@@ -37,13 +37,13 @@ StudentskaSluzba project[
                 min 6
                 max 128
                 sensitive]
-            findAll find from Student as Student
-            countAll count from Student as Student
-            findById find from Student as Student where Student.id == id
-            getById get from Student as Student where Student.id == id
-            deleteById delete from Student as Student where Student.id == id
-            findByUsername find from Student as Student where Student.username == username
-            findByPasswordHash find from Student as Student where Student.passwordHash == passwordHash
+            findAll find from User as User
+            countAll count from User as User
+            findById find from User as User where User.id == id
+            getById get from User as User where User.id == id
+            deleteById delete from User as User where User.id == id
+            findByUsername find from User as User where User.username == username
+            findByPasswordHash find from User as User where User.passwordHash == passwordHash
         )
         Predmet model[
             type mysql](
@@ -108,7 +108,7 @@ StudentskaSluzba project[
             id integer[
                 primarykey
                 max 9223372036854775807]
-            student Student[
+            student User[
                 manyToOne studPred]
             predmet Predmet[
                 manyToOne studPred]
@@ -141,12 +141,12 @@ StudentskaSluzba project[
         StudentApi api(
             readStudent find[
                 get /student/:id
-                model Student
-                query Student.findById
+                model User
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
-                    Student.passwordHash
+                    User.id
+                    User.username
+                    User.passwordHash
                 )
                 errors
                 request ReadStudentRequest
@@ -156,7 +156,7 @@ StudentskaSluzba project[
                     max 9223372036854775807]
             )
             ReadStudentResponse dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
@@ -169,12 +169,12 @@ StudentskaSluzba project[
             )
             createStudent create[
                 post /student
-                model Student
-                query Student.findById
+                model User
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
-                    Student.passwordHash
+                    User.id
+                    User.username
+                    User.passwordHash
                 )
                 errors
                 request CreateStudentRequest
@@ -195,7 +195,7 @@ StudentskaSluzba project[
                     )]
             )
             CreateStudentRequest dto[
-                model Student](
+                model User](
                 username text[
                     min 3
                     max 128]
@@ -205,7 +205,7 @@ StudentskaSluzba project[
                     sensitive]
             )
             CreateStudentResponse dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
@@ -218,12 +218,12 @@ StudentskaSluzba project[
             )
             updateStudent update[
                 put /student/:id
-                model Student
-                query Student.findById
+                model User
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
-                    Student.passwordHash
+                    User.id
+                    User.username
+                    User.passwordHash
                 )
                 errors
                 request UpdateStudentRequest
@@ -245,7 +245,7 @@ StudentskaSluzba project[
                     )]
             )
             UpdateStudentRequest dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
@@ -257,7 +257,7 @@ StudentskaSluzba project[
                     sensitive]
             )
             UpdateStudentResponse dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
@@ -270,7 +270,7 @@ StudentskaSluzba project[
             )
             deleteStudent delete[
                 delete /student/:id
-                query Student.findById
+                query User.findById
                 errors
                 request DeleteStudentRequest]
             DeleteStudentRequest dto(
@@ -437,10 +437,10 @@ StudentskaSluzba project[
             refreshToken refreshtoken[
                 request RefreshTokenRequest
                 post /refresh-token
-                query Student.findById
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
+                    User.id
+                    User.username
                 )
                 errors
                 response RefreshTokenResponse]
@@ -450,7 +450,7 @@ StudentskaSluzba project[
                     max 255]
             )
             RefreshTokenResponse dto[
-                model Student](
+                model User](
                 accessToken text[
                     min 64
                     max 64
@@ -467,10 +467,10 @@ StudentskaSluzba project[
             )
             signUp signup[
                 post /sign-up
-                query Student.findById
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
+                    User.id
+                    User.username
                 )
                 errors
                 request SignUpRequest
@@ -493,7 +493,7 @@ StudentskaSluzba project[
                     sensitive]
             )
             SignUpResponse dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
@@ -503,10 +503,10 @@ StudentskaSluzba project[
             signIn signIn[
                 request SignInRequest
                 post /sign-in
-                query Student.findById
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
+                    User.id
+                    User.username
                 )
                 errors
                 response SignInResponse]
@@ -521,7 +521,7 @@ StudentskaSluzba project[
                     sensitive]
             )
             SignInResponse dto[
-                model Student](
+                model User](
                 accessToken text[
                     min 64
                     max 64
@@ -540,10 +540,10 @@ StudentskaSluzba project[
                 request ChangePasswordRequest
                 secured
                 post /change-password
-                query Student.findById
+                query User.findById
                 response(
-                    Student.id
-                    Student.username
+                    User.id
+                    User.username
                 )
                 errors
                 response ChangePasswordResponse]
@@ -560,7 +560,7 @@ StudentskaSluzba project[
                     sensitive]
             )
             ChangePasswordResponse dto[
-                model Student](
+                model User](
                 id integer[
                     max 9223372036854775807]
                 username text[
