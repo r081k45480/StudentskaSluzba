@@ -24,9 +24,9 @@
         .module('webapp')
         .controller('NotesPageController', NotesPageController);
 
-    NotesPageController.$inject = ['$scope', 'modalWindows', 'eventBus'];
+    NotesPageController.$inject = ['$scope', 'modalWindows', 'eventBus', 'sessionService'];
 
-    function NotesPageController($scope, modalWindows, eventBus) {
+    function NotesPageController($scope, modalWindows, eventBus, sessionService) {
 
         $scope.onClickAddNote = onClickAddNote;
 

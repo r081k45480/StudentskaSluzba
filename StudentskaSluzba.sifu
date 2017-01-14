@@ -34,6 +34,7 @@ StudentskaSluzba project[
     Stanje model(
       #student Student # from [oneToMany]
       iznos decimal
+      prethodnoStanje decimal
       datum datetime
     )
 
@@ -45,6 +46,10 @@ StudentskaSluzba project[
     StudPred model(
       student Student
       predmet Predmet
+      ocena optional integer [max 5]
+      datumPolozeno optional date
+      semestarPrvogSlusanja integer [min 1]
+      semestarPoslednjeSlusanja integer [min 1]
     )
 
     Prijava model(
