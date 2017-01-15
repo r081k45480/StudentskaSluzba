@@ -24,9 +24,9 @@
         .module('webapp')
         .controller('MainLayoutController', MainLayoutController);
 
-    MainLayoutController.$inject = ['$scope', '$state'];
+    MainLayoutController.$inject = ['$scope', '$state', 'sessionService'];
 
-    function MainLayoutController($scope, $state) {
+    function MainLayoutController($scope, $state, sessionService) {
 
         $scope.onClickNaslovna = onClickNaslovna;
         $scope.onClickPredmeti = onClickPredmeti;
