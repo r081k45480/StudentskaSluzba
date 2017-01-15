@@ -17,53 +17,41 @@
 * You should have received a copy of the GNU General Public License
 * along with StudentskaSluzba. If not, see <http://www.gnu.org/licenses/>.*
 **/
-package com.StudentskaSluzba.backend.model;
+package com.StudentskaSluzba.backend.web.rest.dto;
 
 import java.io.Serializable;
 
 import java.time.*;
 
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
 
 
-@Entity
-@Table(name = "StudPred")
-public class StudPred implements Serializable {
+public class NepolozeniPredmetiResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "studentId")
-    private Student student;
+    private Long studentId;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "predmetId")
-    private Predmet predmet;
+    private Long predmetId;
 
     @Max(10)
-    @Column(name = "ocena")
     private Integer ocena;
 
-    @Column(name = "datumPolozeno")
     private ZonedDateTime datumPolozeno;
 
     @NotNull
     @Min(1)
-    @Column(name = "semestarPrvogSlusanja")
     private Integer semestarPrvogSlusanja;
 
     @NotNull
     @Min(1)
-    @Column(name = "semestarPoslednjeSlusanja")
     private Integer semestarPoslednjeSlusanja;
 
     public Long getId() {
@@ -74,36 +62,36 @@ public class StudPred implements Serializable {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
-    public Predmet getPredmet() {
-        return predmet;
+    public Long getPredmetId() {
+        return predmetId;
     }
 
-    public void setPredmet(Predmet predmet) {
-        this.predmet = predmet;
+    public void setPredmetId(Long predmetId) {
+        this.predmetId = predmetId;
     }
 
-    public Optional<Integer> getOcena() {
-        return Optional.ofNullable(ocena);
+    public Integer getOcena() {
+        return ocena;
     }
 
-    public void setOcena(Optional<Integer> ocena) {
-        this.ocena = ocena.orElse(null);
+    public void setOcena(Integer ocena) {
+        this.ocena = ocena;
     }
 
-    public Optional<ZonedDateTime> getDatumPolozeno() {
-        return Optional.ofNullable(datumPolozeno);
+    public ZonedDateTime getDatumPolozeno() {
+        return datumPolozeno;
     }
 
-    public void setDatumPolozeno(Optional<ZonedDateTime> datumPolozeno) {
-        this.datumPolozeno = datumPolozeno.orElse(null);
+    public void setDatumPolozeno(ZonedDateTime datumPolozeno) {
+        this.datumPolozeno = datumPolozeno;
     }
 
     public Integer getSemestarPrvogSlusanja() {
@@ -130,12 +118,12 @@ public class StudPred implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final StudPred other = (StudPred) obj;
+        final NepolozeniPredmetiResponse other = (NepolozeniPredmetiResponse) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if ((student == null && other.student != null) || !student.equals(other.student))
+        if ((studentId == null && other.studentId != null) || !studentId.equals(other.studentId))
             return false;
-        if ((predmet == null && other.predmet != null) || !predmet.equals(other.predmet))
+        if ((predmetId == null && other.predmetId != null) || !predmetId.equals(other.predmetId))
             return false;
         if ((ocena == null && other.ocena != null) || !ocena.equals(other.ocena))
             return false;
@@ -153,8 +141,8 @@ public class StudPred implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((student == null) ? 0 : student.hashCode());
-        result = prime * result + ((predmet == null) ? 0 : predmet.hashCode());
+        result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
+        result = prime * result + ((predmetId == null) ? 0 : predmetId.hashCode());
         result = prime * result + ((ocena == null) ? 0 : ocena.hashCode());
         result = prime * result + ((datumPolozeno == null) ? 0 : datumPolozeno.hashCode());
         result = prime * result + ((semestarPrvogSlusanja == null) ? 0 : semestarPrvogSlusanja.hashCode());
@@ -164,8 +152,8 @@ public class StudPred implements Serializable {
 
     @Override
     public String toString() {
-        return "StudPred[" + "id=" + id + ", student=" + student + ", predmet=" + predmet + ", ocena=" + ocena + ", datumPolozeno=" + datumPolozeno + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja
-                + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + "]";
+        return "NepolozeniPredmetiResponse[" + "id=" + id + ", studentId=" + studentId + ", predmetId=" + predmetId + ", ocena=" + ocena + ", datumPolozeno=" + datumPolozeno
+                + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + "]";
     }
 
 }

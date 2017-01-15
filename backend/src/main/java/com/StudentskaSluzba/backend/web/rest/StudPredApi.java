@@ -40,6 +40,8 @@ import com.StudentskaSluzba.backend.web.rest.dto.*;
 
 import com.StudentskaSluzba.backend.repository.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @RestController
 @RequestMapping("/api/")
@@ -106,11 +108,24 @@ public class StudPredApi {
         return ResponseEntity.ok().body(result.stream().map(this::convertToStudPredsResponse).collect(Collectors.toList()));
     }
 
+    @RequestMapping(value = "/nepolozeni-predmeti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<NepolozeniPredmetiResponse>> nepolozeniPredmeti() {
+        log.debug("GET /nepolozeni-predmeti");
+        final List<StudPred> result = studPredRepository.nepolozeniPredmeti();
+        return ResponseEntity.ok().body(result.stream().map(this::convertToNepolozeniPredmetiResponse).collect(Collectors.toList()));
+    }
+
     private ReadStudPredResponse convertToReadStudPredResponse(StudPred model) {
         final ReadStudPredResponse dto = new ReadStudPredResponse();
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
         return dto;
     }
 
@@ -120,6 +135,10 @@ public class StudPredApi {
         studPred.setStudent(student);
         final Predmet predmet = predmetRepository.findOne(dto.getPredmetId());
         studPred.setPredmet(predmet);
+        studPred.setOcena(Optional.ofNullable(dto.getOcena()));
+        studPred.setDatumPolozeno(Optional.ofNullable(dto.getDatumPolozeno()));
+        studPred.setSemestarPrvogSlusanja(dto.getSemestarPrvogSlusanja());
+        studPred.setSemestarPoslednjeSlusanja(dto.getSemestarPoslednjeSlusanja());
         return studPred;
     }
 
@@ -128,6 +147,10 @@ public class StudPredApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
         return dto;
     }
 
@@ -138,6 +161,10 @@ public class StudPredApi {
         studPred.setStudent(student);
         final Predmet predmet = predmetRepository.findOne(dto.getPredmetId());
         studPred.setPredmet(predmet);
+        studPred.setOcena(Optional.ofNullable(dto.getOcena()));
+        studPred.setDatumPolozeno(Optional.ofNullable(dto.getDatumPolozeno()));
+        studPred.setSemestarPrvogSlusanja(dto.getSemestarPrvogSlusanja());
+        studPred.setSemestarPoslednjeSlusanja(dto.getSemestarPoslednjeSlusanja());
         return studPred;
     }
 
@@ -146,6 +173,10 @@ public class StudPredApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
         return dto;
     }
 
@@ -154,6 +185,22 @@ public class StudPredApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        return dto;
+    }
+
+    private NepolozeniPredmetiResponse convertToNepolozeniPredmetiResponse(StudPred model) {
+        final NepolozeniPredmetiResponse dto = new NepolozeniPredmetiResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
         return dto;
     }
 }

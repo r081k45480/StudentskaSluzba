@@ -50,6 +50,13 @@ public class StanjeRepositoryImpl implements StanjeRepositoryCustom {
     }
 
     @Override
+    public List<Stanje> findByPrethodnoStanje(BigDecimal prethodnoStanje) {
+        log.trace(".findByPrethodnoStanje(prethodnoStanje: {})", prethodnoStanje);
+        final QStanje stanje = QStanje.stanje;
+        return factory.select(stanje).from(stanje).where(stanje.prethodnoStanje.eq(prethodnoStanje)).fetch();
+    }
+
+    @Override
     public List<Stanje> findByDatum(ZonedDateTime datum) {
         log.trace(".findByDatum(datum: {})", datum);
         final QStanje stanje = QStanje.stanje;

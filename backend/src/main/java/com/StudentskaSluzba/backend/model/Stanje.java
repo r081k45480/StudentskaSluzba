@@ -42,6 +42,10 @@ public class Stanje implements Serializable {
     private BigDecimal iznos;
 
     @NotNull
+    @Column(name = "prethodnoStanje")
+    private BigDecimal prethodnoStanje;
+
+    @NotNull
     @Column(name = "datum")
     private ZonedDateTime datum;
 
@@ -59,6 +63,14 @@ public class Stanje implements Serializable {
 
     public void setIznos(BigDecimal iznos) {
         this.iznos = iznos;
+    }
+
+    public BigDecimal getPrethodnoStanje() {
+        return prethodnoStanje;
+    }
+
+    public void setPrethodnoStanje(BigDecimal prethodnoStanje) {
+        this.prethodnoStanje = prethodnoStanje;
     }
 
     public ZonedDateTime getDatum() {
@@ -82,6 +94,8 @@ public class Stanje implements Serializable {
             return false;
         if ((iznos == null && other.iznos != null) || !iznos.equals(other.iznos))
             return false;
+        if ((prethodnoStanje == null && other.prethodnoStanje != null) || !prethodnoStanje.equals(other.prethodnoStanje))
+            return false;
         if ((datum == null && other.datum != null) || !datum.equals(other.datum))
             return false;
         return true;
@@ -93,13 +107,14 @@ public class Stanje implements Serializable {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((iznos == null) ? 0 : iznos.hashCode());
+        result = prime * result + ((prethodnoStanje == null) ? 0 : prethodnoStanje.hashCode());
         result = prime * result + ((datum == null) ? 0 : datum.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", datum=" + datum + "]";
+        return "Stanje[" + "id=" + id + ", iznos=" + iznos + ", prethodnoStanje=" + prethodnoStanje + ", datum=" + datum + "]";
     }
 
 }

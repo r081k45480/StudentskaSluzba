@@ -22,7 +22,11 @@
 
     angular
         .module('webapp')
-        .constant('userRole', [
-            'STUDENT'
-        ]);
+        .controller('FinansijePageController', FinansijePageController);
+
+    FinansijePageController.$inject = [];
+
+    function FinansijePageController() {
+
+    }
 })();

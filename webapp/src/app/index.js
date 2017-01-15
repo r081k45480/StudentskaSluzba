@@ -32,10 +32,25 @@
 
     function appConfig($stateProvider, $urlRouterProvider) {
         $stateProvider
-            .state('notesPage', {
-                url: '/path/notes',
-                templateUrl: 'src/app/components/pages/notesPage.html',
-                controller: 'NotesPageController'
+            .state('MainLayout', {
+                url: '/path/main-layout',
+                templateUrl: 'src/app/components/pages/MainLayout.html',
+                controller: 'MainLayoutController'
+            })
+            .state('MainLayout.naslovnaPage', {
+                url: '/home',
+                templateUrl: 'src/app/components/pages/naslovnaPage.html',
+                controller: 'NaslovnaPageController'
+            })
+            .state('MainLayout.predmetiPage', {
+                url: '/nepolozeni',
+                templateUrl: 'src/app/components/pages/predmetiPage.html',
+                controller: 'PredmetiPageController'
+            })
+            .state('MainLayout.finansijePage', {
+                url: '/finansije',
+                templateUrl: 'src/app/components/pages/finansijePage.html',
+                controller: 'FinansijePageController'
             })
             .state('signInPage', {
                 url: '/path/sign-in',

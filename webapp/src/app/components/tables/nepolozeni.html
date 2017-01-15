@@ -4,9 +4,13 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'STUDE_PREDS_ID' | translate}}</th>
-                        <th>{{'STUDE_PREDS_STUDENT_ID' | translate}}</th>
-                        <th>{{'STUDE_PREDS_PREDMET_ID' | translate}}</th>
+                        <th>{{'NEPOLOZENI_ID' | translate}}</th>
+                        <th>{{'NEPOLOZENI_STUDENT_ID' | translate}}</th>
+                        <th>{{'NEPOLOZENI_PREDMET_ID' | translate}}</th>
+                        <th>{{'NEPOLOZENI_OCENA' | translate}}</th>
+                        <th>{{'NEPOLOZENI_DATUM_POLOZENO' | translate}}</th>
+                        <th>{{'NEPOLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
+                        <th>{{'NEPOLOZENI_SEMESTAR_POSLEDNJE_SLUSANJA' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -14,6 +18,10 @@
                         <td>{{item.id}}</td>
                         <td>{{item.studentId}}</td>
                         <td>{{item.predmetId}}</td>
+                        <td>{{item.ocena}}</td>
+                        <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
+                        <td>{{item.semestarPrvogSlusanja}}</td>
+                        <td>{{item.semestarPoslednjeSlusanja}}</td>
                     </tr>
                 </tbody>
                 <tfoot data-ng-if="model.length == 0">

@@ -22,37 +22,35 @@
 
     angular
         .module('webapp')
-        .directive('createNewNote', function() {
+        .directive('nepolozeni', function() {
             return {
                 restrict: 'E',
-                scope: {},
-                templateUrl: 'src/app/components/forms/createNewNote.html',
-                controller: 'CreateNewNoteController'
+                scope: {
+
+                },
+                templateUrl: 'src/app/components/tables/nepolozeni.html',
+                controller: 'NepolozeniController'
             };
         });
 
     angular
         .module('webapp')
-        .controller('CreateNewNoteController', CreateNewNoteController);
+        .controller('NepolozeniController', NepolozeniController);
 
-    CreateNewNoteController.$inject = ['$scope', 'eventBus', 'studPredApi'];
+    NepolozeniController.$inject = ['$scope', 'studPredApi'];
 
-    function CreateNewNoteController($scope, eventBus, studPredApi) {
-
-        $scope.model = {};
+    function NepolozeniController($scope, studPredApi) {
+        $scope.model = [];
         $scope.errorCode = null;
-        $scope.submit = submit;
 
-        function submit(form) {
-            if (form !== undefined && form.$submitted && form.$invalid) {
-                return false;
-            }
-            studPredApi.createStudPred($scope.model).then(onSuccess, onError);
+        load();
+
+        function load() {
+
+            studPredApi.nepolozeniPredmeti().then(onSuccess, onError);
 
             function onSuccess(response) {
-                eventBus.emitEvent('NoteUpdated');
-                eventBus.emitEvent('ModalClose');
-                $scope.errorCode = null;
+                $scope.model = response.data;
             }
 
             function onError(response) {
@@ -66,5 +64,4 @@
         }
 
     }
-
 })();
