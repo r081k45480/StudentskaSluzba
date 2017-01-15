@@ -985,7 +985,7 @@ StudentskaSluzba project[
         )
         path /path
         home signInPage
-        loggedin naslovnaPage
+        loggedin MainLayout
         i18n(
             en
         )](
@@ -993,7 +993,9 @@ StudentskaSluzba project[
             path /main-layout](
             naslovna button{
                 on click(
-                    goto naslovnaPage
+                    goto naslovnaPage(
+                        principal . id
+                    )
                 )}
             predmeti button{
                 on click(
@@ -1007,8 +1009,14 @@ StudentskaSluzba project[
         )
         studentChangedEvent event
         naslovnaPage page[
-            path /home](
-            updateStudentForm updateStudentForm
+            path /home
+            params(
+                userId integer
+            )](
+            UpdateTaskGroupForm UpdateTaskGroupForm[
+                bind(
+                    params . userId
+                )]
         )
         predmetiPage page[
             path /nepolozeni](
@@ -1099,7 +1107,8 @@ StudentskaSluzba project[
             on success(
                 goto signInPage
             )}
-        updateStudentForm form[
+        UpdateTaskGroupForm form[
+            load StudentApi.readStudent
             submit StudentApi.updateStudent
             model[
                 dto backend.StudentApi.UpdateStudentRequest](
@@ -1127,6 +1136,11 @@ StudentskaSluzba project[
                     min 6
                     max 128
                     sensitive]
+            )
+            params[
+                dto backend.StudentApi.ReadStudentRequest](
+                id integer[
+                    max 9223372036854775807]
             )
             visible(
                 id
@@ -1201,7 +1215,9 @@ StudentskaSluzba project[
             submit button
         ){
             on success(
-                goto naslovnaPage
+                goto naslovnaPage(
+                    success . id
+                )
             )}
         nepolozeni table[
             load StudPredApi.nepolozeniPredmeti
@@ -1312,7 +1328,7 @@ StudentskaSluzba project[
                     success . role
                     success . username
                 )
-                goto naslovnaPage
+                goto MainLayout
             )}
         signUpForm form[
             submit backend.AuthenticationApi.signUp

@@ -83,10 +83,10 @@ StudentskaSluzba project[
     connectedTo backend
     path /path
     home signInPage
-    loggedin naslovnaPage
+    loggedin MainLayout
   ](
     MainLayout page(
-      naslovna button{ on click goto naslovnaPage }
+      naslovna button{ on click goto naslovnaPage(principal.id) }
       predmeti button{ on click goto predmetiPage }
       finansije button{ on click goto finansijePage }
       placeholder
@@ -94,9 +94,9 @@ StudentskaSluzba project[
 
     studentChangedEvent event
 
-    naslovnaPage MainLayout[path /home](
-      updateStudentForm form[submit StudentApi.updateStudent]{
-        on success goto naslovnaPage
+    naslovnaPage MainLayout[path /home, params(userId integer)](
+      UpdateTaskGroupForm form[bind params.userId, load StudentApi.readStudent, submit StudentApi.updateStudent]{
+        on success goto naslovnaPage(success.id)
       }
     )
 

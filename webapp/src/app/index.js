@@ -38,7 +38,7 @@
                 controller: 'MainLayoutController'
             })
             .state('MainLayout.naslovnaPage', {
-                url: '/home',
+                url: '/home?userId',
                 templateUrl: 'src/app/components/pages/naslovnaPage.html',
                 controller: 'NaslovnaPageController'
             })

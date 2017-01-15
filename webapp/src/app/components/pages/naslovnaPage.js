@@ -24,9 +24,10 @@
         .module('webapp')
         .controller('NaslovnaPageController', NaslovnaPageController);
 
-    NaslovnaPageController.$inject = [];
+    NaslovnaPageController.$inject = ['$scope', '$stateParams'];
 
-    function NaslovnaPageController() {
+    function NaslovnaPageController($scope, $stateParams) {
+        $scope.userId = parseInt($stateParams.userId);
 
     }
 })();

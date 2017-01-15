@@ -22,27 +22,50 @@
 
     angular
         .module('webapp')
-        .directive('updateStudentForm', function() {
+        .directive('updateTaskGroupForm', function() {
             return {
                 restrict: 'E',
-                scope: {},
-                templateUrl: 'src/app/components/forms/updateStudentForm.html',
-                controller: 'UpdateStudentFormController'
+                scope: {
+                    id: '='
+                },
+                templateUrl: 'src/app/components/forms/updateTaskGroupForm.html',
+                controller: 'UpdateTaskGroupFormController'
             };
         });
 
     angular
         .module('webapp')
-        .controller('UpdateStudentFormController', UpdateStudentFormController);
+        .controller('UpdateTaskGroupFormController', UpdateTaskGroupFormController);
 
-    UpdateStudentFormController.$inject = ['$scope', '$state', 'studentApi'];
+    UpdateTaskGroupFormController.$inject = ['$scope', '$state', 'studentApi'];
 
-    function UpdateStudentFormController($scope, $state, studentApi) {
+    function UpdateTaskGroupFormController($scope, $state, studentApi) {
 
         $scope.model = {};
-        $scope.model.budzet = false;
         $scope.errorCode = null;
         $scope.submit = submit;
+
+        if ($scope.id) load($scope.id);
+
+        function load(id) {
+            var request = {
+                id: id
+            };
+            studentApi.readStudent(request).then(onSuccess, onError);
+
+            function onSuccess(response) {
+                $scope.model = response.data;
+            }
+
+            function onError(response) {
+                if (response.status && response.statusText) {
+                    $scope.errorCode = response.statusText;
+                } else {
+                    $scope.errorCode = 'Unknown error';
+                }
+            }
+
+        }
 
         function submit(form) {
             if (form !== undefined && form.$submitted && form.$invalid) {
@@ -51,7 +74,9 @@
             studentApi.updateStudent($scope.model).then(onSuccess, onError);
 
             function onSuccess(response) {
-                $state.go('MainLayout.naslovnaPage');
+                $state.go('MainLayout.naslovnaPage', {
+                    userId: response.data.id
+                });
                 $scope.errorCode = null;
             }
 
