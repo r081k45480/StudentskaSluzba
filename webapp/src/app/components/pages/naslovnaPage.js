@@ -24,10 +24,10 @@
         .module('webapp')
         .controller('NaslovnaPageController', NaslovnaPageController);
 
-    NaslovnaPageController.$inject = ['$scope', '$stateParams'];
+    NaslovnaPageController.$inject = ['$scope', '$stateParams', 'sessionService'];
 
-    function NaslovnaPageController($scope, $stateParams) {
-        $scope.userId = parseInt($stateParams.userId);
+    function NaslovnaPageController($scope, $stateParams, sessionService) {
+        $scope.userId = parseInt(sessionService.getSessionData().id);
 
     }
 })();

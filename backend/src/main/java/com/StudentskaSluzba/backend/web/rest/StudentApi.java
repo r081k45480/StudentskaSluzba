@@ -51,9 +51,10 @@ public class StudentApi {
     @RequestMapping(value = "/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<ReadStudentResponse> readStudent(@PathVariable Long id) {
+    public ResponseEntity<ReadStudentResponse> readStudent(@PathVariable Object id) {
         log.debug("GET /student/{}", id);
-        final Optional<Student> result = Optional.ofNullable(studentRepository.findOne(id));
+		Long idl = Long.valueOf(id.toString());
+        final Optional<Student> result = Optional.ofNullable(studentRepository.findOne(idl));
         if (result.isPresent()) {
             return ResponseEntity.ok().body(convertToReadStudentResponse(result.get()));
         }

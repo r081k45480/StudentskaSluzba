@@ -32,8 +32,14 @@
         $scope.onClickPredmeti = onClickPredmeti;
         $scope.onClickFinansije = onClickFinansije;
 
+		onInit()
+		
+		function onInit(){
+			onClickNaslovna;
+		}
+		
         function onClickNaslovna() {
-            $state.go('MainLayout.naslovnaPage', {});
+            $state.go('MainLayout.naslovnaPage');
         }
 
         function onClickPredmeti() {
