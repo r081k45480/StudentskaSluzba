@@ -46,10 +46,14 @@ StudentskaSluzba project[
     StudPred model(
       student Student
       predmet Predmet
-      ocena optional integer [max 5]
+      ocena optional integer [max 10]
       datumPolozeno optional date
       semestarPrvogSlusanja integer [min 1]
       semestarPoslednjeSlusanja integer [min 1]
+
+      nepolozeniPredmeti find
+      from StudPred
+      where StudPred.ocena is not null
     )
 
     Prijava model(
@@ -65,6 +69,11 @@ StudentskaSluzba project[
     StudPredApi api(
         studPred crud[model StudPred, rest]
         studPreds find[from StudPred, rest]
+
+        nepolozeniPredmeti find[
+          query StudPred.nepolozeniPredmeti
+          rest /nepolozeni-predmeti
+        ]
     )
   )
 
@@ -74,19 +83,28 @@ StudentskaSluzba project[
     connectedTo backend
     path /path
     home signInPage
-    loggedin notesPage
+    loggedin naslovnaPage
   ](
-    NoteUpdated event
-
-    notesPage page[path /notes](
-      studePreds table[load StudPredApi.studPreds]{
-        on NoteUpdated reload
-      }
-      addNote button{on click open createNewNote}
+    MainLayout page(
+      naslovna button{ on click goto naslovnaPage }
+      predmeti button{ on click goto predmetiPage }
+      finansije button{ on click goto finansijePage }
+      placeholder
     )
 
-    createNewNote form[submit StudPredApi.createStudPred]{
-      on success (close, fire NoteUpdated)
-    }
+    studentChangedEvent event
+
+    naslovnaPage MainLayout[path /home](
+      updateStudentForm form[submit StudentApi.updateStudent]{
+        on success goto naslovnaPage
+      }
+    )
+
+    predmetiPage MainLayout[path /nepolozeni](
+      nepolozeni table[load StudPredApi.nepolozeniPredmeti]
+    )
+
+    finansijePage MainLayout[path /finansije](
+    )
   )
 )
