@@ -22,7 +22,27 @@
 
     angular
         .module('webapp')
-        .constant('userRole', [
-            'STUDENT'
-        ]);
+        .controller('MainLayoutController', MainLayoutController);
+
+    MainLayoutController.$inject = ['$scope', '$state'];
+
+    function MainLayoutController($scope, $state) {
+
+        $scope.onClickNaslovna = onClickNaslovna;
+        $scope.onClickPredmeti = onClickPredmeti;
+        $scope.onClickFinansije = onClickFinansije;
+
+        function onClickNaslovna() {
+            $state.go('MainLayout.naslovnaPage');
+        }
+
+        function onClickPredmeti() {
+            $state.go('MainLayout.predmetiPage');
+        }
+
+        function onClickFinansije() {
+            $state.go('MainLayout.finansijePage');
+        }
+
+    }
 })();

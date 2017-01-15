@@ -119,6 +119,9 @@ StudentskaSluzba project[
             iznos decimal[
                 precision 10
                 scale 4]
+            prethodnoStanje decimal[
+                precision 10
+                scale 4]
             datum datetime
             findAll find from Stanje as Stanje
             countAll count from Stanje as Stanje
@@ -126,6 +129,7 @@ StudentskaSluzba project[
             getById get from Stanje as Stanje where Stanje.id == id
             deleteById delete from Stanje as Stanje where Stanje.id == id
             findByIznos find from Stanje as Stanje where Stanje.iznos == iznos
+            findByPrethodnoStanje find from Stanje as Stanje where Stanje.prethodnoStanje == prethodnoStanje
             findByDatum find from Stanje as Stanje where Stanje.datum == datum
         )
         Rok model[
@@ -153,6 +157,14 @@ StudentskaSluzba project[
                 manyToOne]
             predmet Predmet[
                 manyToOne]
+            ocena optional integer[
+                max 10]
+            datumPolozeno optional date
+            semestarPrvogSlusanja integer[
+                min 1]
+            semestarPoslednjeSlusanja integer[
+                min 1]
+            nepolozeniPredmeti find from StudPred as StudPred where StudPred.ocena is not null
             findAll find from StudPred as StudPred
             countAll count from StudPred as StudPred
             findById find from StudPred as StudPred where StudPred.id == id
@@ -160,6 +172,12 @@ StudentskaSluzba project[
             deleteById delete from StudPred as StudPred where StudPred.id == id
             findByStudent find from StudPred as StudPred where StudPred.student.id == studentId
             findByPredmet find from StudPred as StudPred where StudPred.predmet.id == predmetId
+            findByOcena find from StudPred as StudPred where StudPred.ocena == ocena
+            findByOcenaMandatory find from StudPred as StudPred where mandatory StudPred.ocena == ocena
+            findByDatumPolozeno find from StudPred as StudPred where StudPred.datumPolozeno == datumPolozeno
+            findByDatumPolozenoMandatory find from StudPred as StudPred where mandatory StudPred.datumPolozeno == datumPolozeno
+            findBySemestarPrvogSlusanja find from StudPred as StudPred where StudPred.semestarPrvogSlusanja == semestarPrvogSlusanja
+            findBySemestarPoslednjeSlusanja find from StudPred as StudPred where StudPred.semestarPoslednjeSlusanja == semestarPoslednjeSlusanja
             studPreds find from StudPred as StudPred
         )
         Prijava model[
@@ -500,6 +518,10 @@ StudentskaSluzba project[
                     StudPred.id
                     StudPred.student.id
                     StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
                 )
                 errors
                 request ReadStudPredRequest
@@ -515,6 +537,13 @@ StudentskaSluzba project[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             createStudPred create[
                 post /studPred
@@ -524,6 +553,10 @@ StudentskaSluzba project[
                     StudPred.id
                     StudPred.student.id
                     StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
                 )
                 errors
                 request CreateStudPredRequest
@@ -542,12 +575,39 @@ StudentskaSluzba project[
                         create
                         read
                     )]
+                ocena ocena[
+                    visible(
+                        create
+                        read
+                    )]
+                datumPolozeno datumPolozeno[
+                    visible(
+                        create
+                        read
+                    )]
+                semestarPrvogSlusanja semestarPrvogSlusanja[
+                    visible(
+                        create
+                        read
+                    )]
+                semestarPoslednjeSlusanja semestarPoslednjeSlusanja[
+                    visible(
+                        create
+                        read
+                    )]
             )
             CreateStudPredRequest dto(
                 studentId integer[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             CreateStudPredResponse dto(
                 id integer[
@@ -556,6 +616,13 @@ StudentskaSluzba project[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             updateStudPred update[
                 put /studPred/:id
@@ -565,6 +632,10 @@ StudentskaSluzba project[
                     StudPred.id
                     StudPred.student.id
                     StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
                 )
                 errors
                 request UpdateStudPredRequest
@@ -584,6 +655,26 @@ StudentskaSluzba project[
                         read
                         update
                     )]
+                ocena ocena[
+                    visible(
+                        read
+                        update
+                    )]
+                datumPolozeno datumPolozeno[
+                    visible(
+                        read
+                        update
+                    )]
+                semestarPrvogSlusanja semestarPrvogSlusanja[
+                    visible(
+                        read
+                        update
+                    )]
+                semestarPoslednjeSlusanja semestarPoslednjeSlusanja[
+                    visible(
+                        read
+                        update
+                    )]
             )
             UpdateStudPredRequest dto(
                 id integer[
@@ -592,6 +683,13 @@ StudentskaSluzba project[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             UpdateStudPredResponse dto(
                 id integer[
@@ -600,6 +698,13 @@ StudentskaSluzba project[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             deleteStudPred delete[
                 delete /studPred/:id
@@ -618,6 +723,10 @@ StudentskaSluzba project[
                     StudPred.id
                     StudPred.student.id
                     StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
                 )
                 response list StudPredsResponse]
             StudPredsResponse dto(
@@ -627,6 +736,42 @@ StudentskaSluzba project[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
+            )
+            nepolozeniPredmeti find[
+                query StudPred.nepolozeniPredmeti
+                get /nepolozeni-predmeti
+                errors
+                response(
+                    StudPred.id
+                    StudPred.student.id
+                    StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
+                )
+                response list NepolozeniPredmetiResponse]
+            NepolozeniPredmetiResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                studentId integer[
+                    max 9223372036854775807]
+                predmetId integer[
+                    max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
         )
         CREDENTIALS_ARE_INVALID unauthorized
@@ -833,54 +978,44 @@ StudentskaSluzba project[
             backend.StudPredApi.updateStudPred
             backend.StudPredApi.deleteStudPred
             backend.StudPredApi.studPreds
+            backend.StudPredApi.nepolozeniPredmeti
             backend.AuthenticationApi.signUp
             backend.AuthenticationApi.signIn
             backend.AuthenticationApi.changePassword
         )
         path /path
         home signInPage
-        loggedin notesPage
+        loggedin naslovnaPage
         i18n(
             en
         )](
-        NoteUpdated event
-        notesPage page[
-            path /notes](
-            studePreds studePreds
-            addNote button{
+        MainLayout page[
+            path /main-layout](
+            naslovna button{
                 on click(
-                    open createNewNote
+                    goto naslovnaPage
                 )}
+            predmeti button{
+                on click(
+                    goto predmetiPage
+                )}
+            finansije button{
+                on click(
+                    goto finansijePage
+                )}
+            placeholder
         )
-        createNewNote form[
-            submit StudPredApi.createStudPred
-            model[
-                dto backend.StudPredApi.CreateStudPredRequest](
-                studentId integer[
-                    max 9223372036854775807]
-                predmetId integer[
-                    max 9223372036854775807]
-            )
-            visible(
-                studentId
-                predmetId
-            )](
-            studentId integer[
-                bind(
-                    model . studentId
-                )
-                max 9223372036854775807]
-            predmetId integer[
-                bind(
-                    model . predmetId
-                )
-                max 9223372036854775807]
-            submit button
-        ){
-            on success(
-                close
-                fire NoteUpdated
-            )}
+        studentChangedEvent event
+        naslovnaPage page[
+            path /home](
+            updateStudentForm updateStudentForm
+        )
+        predmetiPage page[
+            path /nepolozeni](
+            nepolozeni nepolozeni
+        )
+        finansijePage page[
+            path /finansije]
         signInPage page[
             path /sign-in](
             signInForm signInForm
@@ -964,21 +1099,136 @@ StudentskaSluzba project[
             on success(
                 goto signInPage
             )}
-        studePreds table[
-            load StudPredApi.studPreds
+        updateStudentForm form[
+            submit StudentApi.updateStudent
             model[
-                dto backend.StudPredApi.StudPredsResponse](
+                dto backend.StudentApi.UpdateStudentRequest](
+                id integer[
+                    max 9223372036854775807]
+                ime text[
+                    max 255]
+                prezime text[
+                    max 255]
+                indeks text[
+                    max 255]
+                trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+                budzet boolean
+                tekuciSemestar integer[
+                    min 1]
+                osvojeniBodovi integer[
+                    min 0]
+                role backend.UserRole
+                username text[
+                    min 3
+                    max 128]
+                passwordHash text[
+                    min 6
+                    max 128
+                    sensitive]
+            )
+            visible(
+                id
+                ime
+                prezime
+                indeks
+                trenutnoStanjeRacuna
+                budzet
+                tekuciSemestar
+                osvojeniBodovi
+                role
+                username
+                passwordHash
+            )](
+            id integer[
+                bind(
+                    model . id
+                )
+                max 9223372036854775807]
+            ime text[
+                bind(
+                    model . ime
+                )
+                max 255]
+            prezime text[
+                bind(
+                    model . prezime
+                )
+                max 255]
+            indeks text[
+                bind(
+                    model . indeks
+                )
+                max 255]
+            trenutnoStanjeRacuna decimal[
+                bind(
+                    model . trenutnoStanjeRacuna
+                )
+                precision 10
+                scale 4]
+            budzet boolean[
+                bind(
+                    model . budzet
+                )]
+            tekuciSemestar integer[
+                bind(
+                    model . tekuciSemestar
+                )
+                min 1]
+            osvojeniBodovi integer[
+                bind(
+                    model . osvojeniBodovi
+                )
+                min 0]
+            role UserRoleDropDown[
+                bind(
+                    model . role
+                )]
+            username text[
+                bind(
+                    model . username
+                )
+                min 3
+                max 128]
+            passwordHash text[
+                bind(
+                    model . passwordHash
+                )
+                min 6
+                max 128
+                sensitive]
+            submit button
+        ){
+            on success(
+                goto naslovnaPage
+            )}
+        nepolozeni table[
+            load StudPredApi.nepolozeniPredmeti
+            model[
+                dto backend.StudPredApi.NepolozeniPredmetiResponse](
                 id integer[
                     max 9223372036854775807]
                 studentId integer[
                     max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
             )
             visible(
                 id
                 studentId
                 predmetId
+                ocena
+                datumPolozeno
+                semestarPrvogSlusanja
+                semestarPoslednjeSlusanja
             )](
             id integer[
                 bind(
@@ -995,10 +1245,26 @@ StudentskaSluzba project[
                     model . predmetId
                 )
                 max 9223372036854775807]
-        ){
-            on NoteUpdated(
-                reload
-            )}
+            ocena optional integer[
+                bind(
+                    model . ocena
+                )
+                max 10]
+            datumPolozeno optional date[
+                bind(
+                    model . datumPolozeno
+                )]
+            semestarPrvogSlusanja integer[
+                bind(
+                    model . semestarPrvogSlusanja
+                )
+                min 1]
+            semestarPoslednjeSlusanja integer[
+                bind(
+                    model . semestarPoslednjeSlusanja
+                )
+                min 1]
+        )
         signInForm form[
             submit backend.AuthenticationApi.signIn
             model[
@@ -1046,7 +1312,7 @@ StudentskaSluzba project[
                     success . role
                     success . username
                 )
-                goto notesPage
+                goto naslovnaPage
             )}
         signUpForm form[
             submit backend.AuthenticationApi.signUp
@@ -1140,5 +1406,7 @@ StudentskaSluzba project[
             on success(
                 goto signInPage
             )}
+        UserRoleDropDown dropdown[
+            enum backend.UserRole]
     )
 )

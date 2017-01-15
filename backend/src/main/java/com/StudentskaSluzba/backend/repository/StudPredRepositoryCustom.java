@@ -19,16 +19,32 @@
 **/
 package com.StudentskaSluzba.backend.repository;
 
+import java.time.*;
 import java.util.List;
+import java.util.Optional;
 
 import com.StudentskaSluzba.backend.model.*;
 
 
 public interface StudPredRepositoryCustom {
 
+    List<StudPred> nepolozeniPredmeti();
+
     List<StudPred> findByStudent(Long studentId);
 
     List<StudPred> findByPredmet(Long predmetId);
+
+    List<StudPred> findByOcena(Optional<Integer> ocena);
+
+    List<StudPred> findByOcenaMandatory(Integer ocena);
+
+    List<StudPred> findByDatumPolozeno(Optional<ZonedDateTime> datumPolozeno);
+
+    List<StudPred> findByDatumPolozenoMandatory(ZonedDateTime datumPolozeno);
+
+    List<StudPred> findBySemestarPrvogSlusanja(Integer semestarPrvogSlusanja);
+
+    List<StudPred> findBySemestarPoslednjeSlusanja(Integer semestarPoslednjeSlusanja);
 
     List<StudPred> studPreds();
 

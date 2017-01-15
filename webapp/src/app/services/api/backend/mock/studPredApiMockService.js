@@ -33,7 +33,8 @@
             createStudPred: createStudPred,
             updateStudPred: updateStudPred,
             deleteStudPred: deleteStudPred,
-            studPreds: studPreds
+            studPreds: studPreds,
+            nepolozeniPredmeti: nepolozeniPredmeti
         };
 
         /** readStudPred 
@@ -43,6 +44,10 @@
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -58,12 +63,20 @@
          * request - CreateStudPredRequest {
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          * response - CreateStudPredResponse {
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -79,12 +92,20 @@
          * request - RestUpdateStudPredRequest {
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          * response - UpdateStudPredResponse {
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -120,11 +141,39 @@
          *     id: Int
          *     studentId: Int
          *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
          *   }
          * ]
          *
          */
         function studPreds() {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** nepolozeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   NepolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function nepolozeniPredmeti() {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values

@@ -28,7 +28,10 @@
 
         /* jshint ignore:start */
         var publicStates = [];
-        publicStates['notesPage'] = true;
+        publicStates['MainLayout'] = true;
+        publicStates['MainLayout.naslovnaPage'] = true;
+        publicStates['MainLayout.predmetiPage'] = true;
+        publicStates['MainLayout.finansijePage'] = true;
         publicStates['signInPage'] = true;
         publicStates['signUpPage'] = true;
 

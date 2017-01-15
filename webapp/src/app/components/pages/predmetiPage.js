@@ -22,7 +22,11 @@
 
     angular
         .module('webapp')
-        .constant('userRole', [
-            'STUDENT'
-        ]);
+        .controller('PredmetiPageController', PredmetiPageController);
+
+    PredmetiPageController.$inject = [];
+
+    function PredmetiPageController() {
+
+    }
 })();

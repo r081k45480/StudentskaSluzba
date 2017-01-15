@@ -22,7 +22,11 @@
 
     angular
         .module('webapp')
-        .constant('userRole', [
-            'STUDENT'
-        ]);
+        .controller('NaslovnaPageController', NaslovnaPageController);
+
+    NaslovnaPageController.$inject = [];
+
+    function NaslovnaPageController() {
+
+    }
 })();

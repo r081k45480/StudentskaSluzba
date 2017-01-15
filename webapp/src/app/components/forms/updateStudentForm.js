@@ -22,36 +22,37 @@
 
     angular
         .module('webapp')
-        .directive('studePreds', function() {
+        .directive('updateStudentForm', function() {
             return {
                 restrict: 'E',
-                scope: {
-
-                },
-                templateUrl: 'src/app/components/tables/studePreds.html',
-                controller: 'StudePredsController'
+                scope: {},
+                templateUrl: 'src/app/components/forms/updateStudentForm.html',
+                controller: 'UpdateStudentFormController'
             };
         });
 
     angular
         .module('webapp')
-        .controller('StudePredsController', StudePredsController);
+        .controller('UpdateStudentFormController', UpdateStudentFormController);
 
-    StudePredsController.$inject = ['$scope', 'eventBus', 'studPredApi'];
+    UpdateStudentFormController.$inject = ['$scope', '$state', 'studentApi'];
 
-    function StudePredsController($scope, eventBus, studPredApi) {
-        $scope.model = [];
+    function UpdateStudentFormController($scope, $state, studentApi) {
+
+        $scope.model = {};
+        $scope.model.budzet = false;
         $scope.errorCode = null;
-        $scope.onNoteUpdated = eventBus.onEvent('NoteUpdated', onNoteUpdated);
+        $scope.submit = submit;
 
-        load();
-
-        function load() {
-
-            studPredApi.studPreds().then(onSuccess, onError);
+        function submit(form) {
+            if (form !== undefined && form.$submitted && form.$invalid) {
+                return false;
+            }
+            studentApi.updateStudent($scope.model).then(onSuccess, onError);
 
             function onSuccess(response) {
-                $scope.model = response.data;
+                $state.go('MainLayout.naslovnaPage');
+                $scope.errorCode = null;
             }
 
             function onError(response) {
@@ -64,9 +65,6 @@
 
         }
 
-        function onNoteUpdated(event, payload) {
-            load();
-        }
-
     }
+
 })();

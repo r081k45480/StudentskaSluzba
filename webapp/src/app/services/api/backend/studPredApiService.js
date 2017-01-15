@@ -36,7 +36,8 @@
             createStudPred: createStudPred,
             updateStudPred: updateStudPred,
             deleteStudPred: deleteStudPred,
-            studPreds: studPreds
+            studPreds: studPreds,
+            nepolozeniPredmeti: nepolozeniPredmeti
         };
 
         function init(backendUrl) {
@@ -50,6 +51,10 @@
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -57,19 +62,32 @@
             return $http({
                 method: 'GET',
                 url: backendApiUrl + '/api/studPred/' + model.id + ''
-            });
+            }).then(convertReadStudPredResponse);
+        }
+
+        function convertReadStudPredResponse(response) {
+            response.data.datumPolozeno = response.data.datumPolozeno ? new Date(response.data.datumPolozeno) : null;
+            return response;
         }
 
         /** createStudPred 
          * request - CreateStudPredRequest {
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          * response - CreateStudPredResponse {
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -79,21 +97,38 @@
                 url: backendApiUrl + '/api/studPred',
                 data: {
                     studentId: model.studentId,
-                    predmetId: model.predmetId
+                    predmetId: model.predmetId,
+                    ocena: model.ocena,
+                    datumPolozeno: model.datumPolozeno,
+                    semestarPrvogSlusanja: model.semestarPrvogSlusanja,
+                    semestarPoslednjeSlusanja: model.semestarPoslednjeSlusanja
                 }
-            });
+            }).then(convertCreateStudPredResponse);
+        }
+
+        function convertCreateStudPredResponse(response) {
+            response.data.datumPolozeno = response.data.datumPolozeno ? new Date(response.data.datumPolozeno) : null;
+            return response;
         }
 
         /** updateStudPred 
          * request - RestUpdateStudPredRequest {
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          * response - UpdateStudPredResponse {
          *   id: Int
          *   studentId: Int
          *   predmetId: Int
+         *   ocena: Optional[Int]
+         *   datumPolozeno: Optional[DateTime]
+         *   semestarPrvogSlusanja: Int
+         *   semestarPoslednjeSlusanja: Int
          * }
          *
          */
@@ -103,9 +138,18 @@
                 url: backendApiUrl + '/api/studPred/' + model.id + '',
                 data: {
                     studentId: model.studentId,
-                    predmetId: model.predmetId
+                    predmetId: model.predmetId,
+                    ocena: model.ocena,
+                    datumPolozeno: model.datumPolozeno,
+                    semestarPrvogSlusanja: model.semestarPrvogSlusanja,
+                    semestarPoslednjeSlusanja: model.semestarPoslednjeSlusanja
                 }
-            });
+            }).then(convertUpdateStudPredResponse);
+        }
+
+        function convertUpdateStudPredResponse(response) {
+            response.data.datumPolozeno = response.data.datumPolozeno ? new Date(response.data.datumPolozeno) : null;
+            return response;
         }
 
         /** deleteStudPred 
@@ -134,6 +178,10 @@
          *     id: Int
          *     studentId: Int
          *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
          *   }
          * ]
          *
@@ -142,8 +190,44 @@
             return $http({
                 method: 'GET',
                 url: backendApiUrl + '/api/stud-preds'
-            });
+            }).then(convertStudPredsResponse);
         }
 
+        function convertStudPredsResponse(response) {
+            response.data.forEach(function(item) {
+                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
+            });
+            return response;
+        }
+
+        /** nepolozeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   NepolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function nepolozeniPredmeti() {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/nepolozeni-predmeti'
+            }).then(convertNepolozeniPredmetiResponse);
+        }
+
+        function convertNepolozeniPredmetiResponse(response) {
+            response.data.forEach(function(item) {
+                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
+            });
+            return response;
+        }
     }
 })();

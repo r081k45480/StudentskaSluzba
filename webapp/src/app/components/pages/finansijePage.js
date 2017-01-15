@@ -22,17 +22,11 @@
 
     angular
         .module('webapp')
-        .controller('NotesPageController', NotesPageController);
+        .controller('FinansijePageController', FinansijePageController);
 
-    NotesPageController.$inject = ['$scope', 'modalWindows', 'eventBus'];
+    FinansijePageController.$inject = [];
 
-    function NotesPageController($scope, modalWindows, eventBus) {
-
-        $scope.onClickAddNote = onClickAddNote;
-
-        function onClickAddNote() {
-            modalWindows.openCreateNewNote();
-        }
+    function FinansijePageController() {
 
     }
 })();

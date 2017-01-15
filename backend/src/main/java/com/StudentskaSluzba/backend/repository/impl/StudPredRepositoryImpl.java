@@ -19,7 +19,9 @@
 **/
 package com.StudentskaSluzba.backend.repository.impl;
 
+import java.time.*;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,13 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
     private JPQLQueryFactory factory;
 
     @Override
+    public List<StudPred> nepolozeniPredmeti() {
+        log.trace(".nepolozeniPredmeti()");
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.ocena.isNotNull()).fetch();
+    }
+
+    @Override
     public List<StudPred> findByStudent(Long studentId) {
         log.trace(".findByStudent(studentId: {})", studentId);
         final QStudPred studPred = QStudPred.studPred;
@@ -52,6 +61,48 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".findByPredmet(predmetId: {})", predmetId);
         final QStudPred studPred = QStudPred.studPred;
         return factory.select(studPred).from(studPred).where(studPred.predmet.id.eq(predmetId)).fetch();
+    }
+
+    @Override
+    public List<StudPred> findByOcena(Optional<Integer> ocena) {
+        log.trace(".findByOcena(ocena: {})", ocena);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(ocena.isPresent() ? studPred.ocena.eq(ocena.get()) : null).fetch();
+    }
+
+    @Override
+    public List<StudPred> findByOcenaMandatory(Integer ocena) {
+        log.trace(".findByOcenaMandatory(ocena: {})", ocena);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.ocena.eq(ocena)).fetch();
+    }
+
+    @Override
+    public List<StudPred> findByDatumPolozeno(Optional<ZonedDateTime> datumPolozeno) {
+        log.trace(".findByDatumPolozeno(datumPolozeno: {})", datumPolozeno);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(datumPolozeno.isPresent() ? studPred.datumPolozeno.eq(datumPolozeno.get()) : null).fetch();
+    }
+
+    @Override
+    public List<StudPred> findByDatumPolozenoMandatory(ZonedDateTime datumPolozeno) {
+        log.trace(".findByDatumPolozenoMandatory(datumPolozeno: {})", datumPolozeno);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.datumPolozeno.eq(datumPolozeno)).fetch();
+    }
+
+    @Override
+    public List<StudPred> findBySemestarPrvogSlusanja(Integer semestarPrvogSlusanja) {
+        log.trace(".findBySemestarPrvogSlusanja(semestarPrvogSlusanja: {})", semestarPrvogSlusanja);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.semestarPrvogSlusanja.eq(semestarPrvogSlusanja)).fetch();
+    }
+
+    @Override
+    public List<StudPred> findBySemestarPoslednjeSlusanja(Integer semestarPoslednjeSlusanja) {
+        log.trace(".findBySemestarPoslednjeSlusanja(semestarPoslednjeSlusanja: {})", semestarPoslednjeSlusanja);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.semestarPoslednjeSlusanja.eq(semestarPoslednjeSlusanja)).fetch();
     }
 
     @Override

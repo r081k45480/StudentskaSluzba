@@ -21,6 +21,10 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 
 import java.io.Serializable;
 
+import java.time.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.validation.constraints.*;
 
 
@@ -36,6 +40,19 @@ public class UpdateStudPredRequest implements Serializable {
 
     @NotNull
     private Long predmetId;
+
+    @Max(10)
+    private Integer ocena;
+
+    private ZonedDateTime datumPolozeno;
+
+    @NotNull
+    @Min(1)
+    private Integer semestarPrvogSlusanja;
+
+    @NotNull
+    @Min(1)
+    private Integer semestarPoslednjeSlusanja;
 
     public Long getId() {
         return id;
@@ -61,6 +78,38 @@ public class UpdateStudPredRequest implements Serializable {
         this.predmetId = predmetId;
     }
 
+    public Integer getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(Integer ocena) {
+        this.ocena = ocena;
+    }
+
+    public ZonedDateTime getDatumPolozeno() {
+        return datumPolozeno;
+    }
+
+    public void setDatumPolozeno(ZonedDateTime datumPolozeno) {
+        this.datumPolozeno = datumPolozeno;
+    }
+
+    public Integer getSemestarPrvogSlusanja() {
+        return semestarPrvogSlusanja;
+    }
+
+    public void setSemestarPrvogSlusanja(Integer semestarPrvogSlusanja) {
+        this.semestarPrvogSlusanja = semestarPrvogSlusanja;
+    }
+
+    public Integer getSemestarPoslednjeSlusanja() {
+        return semestarPoslednjeSlusanja;
+    }
+
+    public void setSemestarPoslednjeSlusanja(Integer semestarPoslednjeSlusanja) {
+        this.semestarPoslednjeSlusanja = semestarPoslednjeSlusanja;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -76,6 +125,14 @@ public class UpdateStudPredRequest implements Serializable {
             return false;
         if ((predmetId == null && other.predmetId != null) || !predmetId.equals(other.predmetId))
             return false;
+        if ((ocena == null && other.ocena != null) || !ocena.equals(other.ocena))
+            return false;
+        if ((datumPolozeno == null && other.datumPolozeno != null) || !datumPolozeno.equals(other.datumPolozeno))
+            return false;
+        if ((semestarPrvogSlusanja == null && other.semestarPrvogSlusanja != null) || !semestarPrvogSlusanja.equals(other.semestarPrvogSlusanja))
+            return false;
+        if ((semestarPoslednjeSlusanja == null && other.semestarPoslednjeSlusanja != null) || !semestarPoslednjeSlusanja.equals(other.semestarPoslednjeSlusanja))
+            return false;
         return true;
     }
 
@@ -86,12 +143,17 @@ public class UpdateStudPredRequest implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
         result = prime * result + ((predmetId == null) ? 0 : predmetId.hashCode());
+        result = prime * result + ((ocena == null) ? 0 : ocena.hashCode());
+        result = prime * result + ((datumPolozeno == null) ? 0 : datumPolozeno.hashCode());
+        result = prime * result + ((semestarPrvogSlusanja == null) ? 0 : semestarPrvogSlusanja.hashCode());
+        result = prime * result + ((semestarPoslednjeSlusanja == null) ? 0 : semestarPoslednjeSlusanja.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "UpdateStudPredRequest[" + "id=" + id + ", studentId=" + studentId + ", predmetId=" + predmetId + "]";
+        return "UpdateStudPredRequest[" + "id=" + id + ", studentId=" + studentId + ", predmetId=" + predmetId + ", ocena=" + ocena + ", datumPolozeno=" + datumPolozeno + ", semestarPrvogSlusanja="
+                + semestarPrvogSlusanja + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + "]";
     }
 
 }

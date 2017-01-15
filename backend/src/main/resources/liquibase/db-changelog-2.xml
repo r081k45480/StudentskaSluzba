@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="generator" id="2">
+        <!--ADD COLUMNS-->
+        <addColumn tableName="Stanje">
+            <column name="prethodnoStanje" type="DECIMAL(10, 4)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="StudPred">
+            <column name="ocena" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="StudPred">
+            <column name="datumPolozeno" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="StudPred">
+            <column name="semestarPrvogSlusanja" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="StudPred">
+            <column name="semestarPoslednjeSlusanja" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
