@@ -65,7 +65,7 @@
                     role: response.data.role,
                     username: response.data.username
                 });
-                $state.go('MainLayout.naslovnaPage');
+                $state.go('MainLayout');
                 $scope.errorCode = null;
             }
 

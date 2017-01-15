@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-lg-12">
+        <form name="UpdateTaskGroupForm" role="form" novalidate ng-submit="submit(UpdateTaskGroupForm)">
+            <div class="form-group">
+                <label for="ime">{{'UPDATE_TASK_GROUP_FORM_IME' | translate}}</label>
+                <input type="text" id="ime" name="ime" class="form-control" ng-model="model.ime" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="UpdateTaskGroupForm.ime.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.ime.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_IME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!UpdateTaskGroupForm.ime.$pristine">{{'UPDATE_TASK_GROUP_FORM_IME_MAX' | translate:'{ max: 255 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="prezime">{{'UPDATE_TASK_GROUP_FORM_PREZIME' | translate}}</label>
+                <input type="text" id="prezime" name="prezime" class="form-control" ng-model="model.prezime" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="UpdateTaskGroupForm.prezime.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.prezime.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_PREZIME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!UpdateTaskGroupForm.prezime.$pristine">{{'UPDATE_TASK_GROUP_FORM_PREZIME_MAX' | translate:'{ max: 255 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="indeks">{{'UPDATE_TASK_GROUP_FORM_INDEKS' | translate}}</label>
+                <input type="text" id="indeks" name="indeks" class="form-control" ng-model="model.indeks" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" maxlength="255" required />
+                <div ng-messages="UpdateTaskGroupForm.indeks.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.indeks.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_INDEKS_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="maxlength" ng-if="!UpdateTaskGroupForm.indeks.$pristine">{{'UPDATE_TASK_GROUP_FORM_INDEKS_MAX' | translate:'{ max: 255 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="trenutnoStanjeRacuna">{{'UPDATE_TASK_GROUP_FORM_TRENUTNO_STANJE_RACUNA' | translate}}</label>
+                <input type="number" id="trenutnoStanjeRacuna" name="trenutnoStanjeRacuna" class="form-control" ng-model="model.trenutnoStanjeRacuna" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="UpdateTaskGroupForm.trenutnoStanjeRacuna.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.trenutnoStanjeRacuna.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_TRENUTNO_STANJE_RACUNA_IS_REQUIRED' | translate}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="budzet">{{'UPDATE_TASK_GROUP_FORM_BUDZET' | translate}}</label>
+                <input type="checkbox" id="budzet" name="budzet" class="form-control" ng-model="model.budzet" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }">
+            </div>
+            <div class="form-group">
+                <label for="tekuciSemestar">{{'UPDATE_TASK_GROUP_FORM_TEKUCI_SEMESTAR' | translate}}</label>
+                <input type="number" id="tekuciSemestar" name="tekuciSemestar" class="form-control" ng-model="model.tekuciSemestar" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="UpdateTaskGroupForm.tekuciSemestar.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.tekuciSemestar.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_TEKUCI_SEMESTAR_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!UpdateTaskGroupForm.tekuciSemestar.$pristine">{{'UPDATE_TASK_GROUP_FORM_TEKUCI_SEMESTAR_MIN' | translate:'{ min: 1 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="osvojeniBodovi">{{'UPDATE_TASK_GROUP_FORM_OSVOJENI_BODOVI' | translate}}</label>
+                <input type="number" id="osvojeniBodovi" name="osvojeniBodovi" class="form-control" ng-model="model.osvojeniBodovi" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
+                <div ng-messages="UpdateTaskGroupForm.osvojeniBodovi.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.osvojeniBodovi.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_OSVOJENI_BODOVI_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!UpdateTaskGroupForm.osvojeniBodovi.$pristine">{{'UPDATE_TASK_GROUP_FORM_OSVOJENI_BODOVI_MIN' | translate:'{ min: 0 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="role">{{'UPDATE_TASK_GROUP_FORM_ROLE' | translate}}</label>
+                <user-role-drop-down html-id="role" html-name="role" selected-id="model.role" html-required="true"> </user-role-drop-down>
+                <div ng-messages="UpdateTaskGroupForm.role.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.role.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_ROLE_IS_REQUIRED' | translate}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">{{'UPDATE_TASK_GROUP_FORM_USERNAME' | translate}}</label>
+                <input type="text" id="username" name="username" class="form-control" ng-model="model.username" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" minlength="3" maxlength="128" required />
+                <div ng-messages="UpdateTaskGroupForm.username.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.username.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_USERNAME_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!UpdateTaskGroupForm.username.$pristine">{{'UPDATE_TASK_GROUP_FORM_USERNAME_MIN' | translate:'{ min: 3 }'}}</div>
+                    <div ng-message="maxlength" ng-if="!UpdateTaskGroupForm.username.$pristine">{{'UPDATE_TASK_GROUP_FORM_USERNAME_MAX' | translate:'{ max: 128 }'}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordHash">{{'UPDATE_TASK_GROUP_FORM_PASSWORD_HASH' | translate}}</label>
+                <input type="password" id="passwordHash" name="passwordHash" class="form-control" ng-model="model.passwordHash" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" minlength="6" maxlength="128" required />
+                <div ng-messages="UpdateTaskGroupForm.passwordHash.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.passwordHash.$pristine">
+                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_PASSWORD_HASH_IS_REQUIRED' | translate}}</div>
+                    <div ng-message="minlength" ng-if="!UpdateTaskGroupForm.passwordHash.$pristine">{{'UPDATE_TASK_GROUP_FORM_PASSWORD_HASH_MIN' | translate:'{ min: 6 }'}}</div>
+                    <div ng-message="maxlength" ng-if="!UpdateTaskGroupForm.passwordHash.$pristine">{{'UPDATE_TASK_GROUP_FORM_PASSWORD_HASH_MAX' | translate:'{ max: 128 }'}}</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {{'UPDATE_TASK_GROUP_FORM_SUBMIT' | translate}}
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row" ng-show="errorCode">
+    <div class="col-lg-12">
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="{{'ALERT_CLOSE' | translate}}">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{errorCode}}
+        </div>
+    </div>
+</div>
