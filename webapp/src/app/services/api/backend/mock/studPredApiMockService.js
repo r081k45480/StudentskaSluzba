@@ -167,7 +167,18 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
          *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -192,6 +203,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -216,6 +232,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -240,6 +261,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *

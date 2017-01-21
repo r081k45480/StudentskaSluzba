@@ -168,9 +168,9 @@ StudentskaSluzba project[
             semestarPoslednjeSlusanja integer[
                 min 1]
             nepolozeniPredmeti find from StudPred as StudPred join Predmet as Predmet on StudPred with StudPred.predmet where StudPred.ocena is not null and StudPred.student.id == userId
-            prijavljeniPredmeti find from StudPred as StudPred where StudPred.student.id == userId
-            polozeniPredmeti find from StudPred as StudPred where StudPred.student.id == userId
-            neslusaniPredmeti find from StudPred as StudPred where StudPred.student.id == userId
+            prijavljeniPredmeti find from StudPred as StudPred join Predmet as Predmet on StudPred with StudPred.predmet where StudPred.student.id == userId
+            polozeniPredmeti find from StudPred as StudPred join Predmet as Predmet on StudPred with StudPred.predmet where StudPred.student.id == userId
+            neslusaniPredmeti find from StudPred as StudPred join Predmet as Predmet on StudPred with StudPred.predmet where StudPred.student.id == userId
             findAll find from StudPred as StudPred
             countAll count from StudPred as StudPred
             findById find from StudPred as StudPred where StudPred.id == id
@@ -770,20 +770,51 @@ StudentskaSluzba project[
             )
             nepolozeniPredmeti find[
                 query StudPred.nepolozeniPredmeti
-                response(
-                    StudPred.predmet.id
-                )
                 get /nepolozeni-predmeti
                 errors
                 request NepolozeniPredmetiRequest
+                response(
+                    StudPred.id
+                    StudPred.student.id
+                    StudPred.predmet.id
+                    StudPred.ocena
+                    StudPred.datumPolozeno
+                    StudPred.semestarPrvogSlusanja
+                    StudPred.semestarPoslednjeSlusanja
+                    Predmet.naziv
+                    Predmet.espb
+                    Predmet.obavezni
+                    Predmet.predlozeniSemestar
+                    Predmet.imeProfesora
+                )
                 response list NepolozeniPredmetiResponse]
             NepolozeniPredmetiRequest dto(
                 userId integer[
                     max 9223372036854775807]
             )
             NepolozeniPredmetiResponse dto(
+                id integer[
+                    max 9223372036854775807]
+                studentId integer[
+                    max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             prijavljeniPredmeti find[
                 query StudPred.prijavljeniPredmeti
@@ -798,6 +829,11 @@ StudentskaSluzba project[
                     StudPred.datumPolozeno
                     StudPred.semestarPrvogSlusanja
                     StudPred.semestarPoslednjeSlusanja
+                    Predmet.naziv
+                    Predmet.espb
+                    Predmet.obavezni
+                    Predmet.predlozeniSemestar
+                    Predmet.imeProfesora
                 )
                 response list PrijavljeniPredmetiResponse]
             PrijavljeniPredmetiRequest dto(
@@ -818,6 +854,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             polozeniPredmeti find[
                 query StudPred.polozeniPredmeti
@@ -832,6 +877,11 @@ StudentskaSluzba project[
                     StudPred.datumPolozeno
                     StudPred.semestarPrvogSlusanja
                     StudPred.semestarPoslednjeSlusanja
+                    Predmet.naziv
+                    Predmet.espb
+                    Predmet.obavezni
+                    Predmet.predlozeniSemestar
+                    Predmet.imeProfesora
                 )
                 response list PolozeniPredmetiResponse]
             PolozeniPredmetiRequest dto(
@@ -852,6 +902,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             neslusaniPredmeti find[
                 query StudPred.neslusaniPredmeti
@@ -866,6 +925,11 @@ StudentskaSluzba project[
                     StudPred.datumPolozeno
                     StudPred.semestarPrvogSlusanja
                     StudPred.semestarPoslednjeSlusanja
+                    Predmet.naziv
+                    Predmet.espb
+                    Predmet.obavezni
+                    Predmet.predlozeniSemestar
+                    Predmet.imeProfesora
                 )
                 response list NeslusaniPredmetiResponse]
             NeslusaniPredmetiRequest dto(
@@ -886,6 +950,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             prijaviPredmet custom[
                 request PrijaviPredmetRequest
@@ -1641,17 +1714,101 @@ StudentskaSluzba project[
             )
             model[
                 dto backend.StudPredApi.NepolozeniPredmetiResponse](
+                id integer[
+                    max 9223372036854775807]
+                studentId integer[
+                    max 9223372036854775807]
                 predmetId integer[
                     max 9223372036854775807]
+                ocena optional integer[
+                    max 10]
+                datumPolozeno optional date
+                semestarPrvogSlusanja integer[
+                    min 1]
+                semestarPoslednjeSlusanja integer[
+                    min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             visible(
+                id
+                studentId
                 predmetId
+                ocena
+                datumPolozeno
+                semestarPrvogSlusanja
+                semestarPoslednjeSlusanja
+                predmetNaziv
+                predmetEspb
+                predmetObavezni
+                predmetPredlozeniSemestar
+                predmetImeProfesora
             )](
+            id integer[
+                bind(
+                    model . id
+                )
+                max 9223372036854775807]
+            studentId integer[
+                bind(
+                    model . studentId
+                )
+                max 9223372036854775807]
             predmetId integer[
                 bind(
                     model . predmetId
                 )
                 max 9223372036854775807]
+            ocena optional integer[
+                bind(
+                    model . ocena
+                )
+                max 10]
+            datumPolozeno optional date[
+                bind(
+                    model . datumPolozeno
+                )]
+            semestarPrvogSlusanja integer[
+                bind(
+                    model . semestarPrvogSlusanja
+                )
+                min 1]
+            semestarPoslednjeSlusanja integer[
+                bind(
+                    model . semestarPoslednjeSlusanja
+                )
+                min 1]
+            predmetNaziv text[
+                bind(
+                    model . predmetNaziv
+                )
+                max 255]
+            predmetEspb integer[
+                bind(
+                    model . predmetEspb
+                )
+                min 0]
+            predmetObavezni boolean[
+                bind(
+                    model . predmetObavezni
+                )]
+            predmetPredlozeniSemestar integer[
+                bind(
+                    model . predmetPredlozeniSemestar
+                )
+                min 1]
+            predmetImeProfesora text[
+                bind(
+                    model . predmetImeProfesora
+                )
+                max 255]
             prijavi button{
                 on click(
                     call StudPredApi.prijaviPredmet(
@@ -1688,6 +1845,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             visible(
                 id
@@ -1697,6 +1863,11 @@ StudentskaSluzba project[
                 datumPolozeno
                 semestarPrvogSlusanja
                 semestarPoslednjeSlusanja
+                predmetNaziv
+                predmetEspb
+                predmetObavezni
+                predmetPredlozeniSemestar
+                predmetImeProfesora
             )](
             id integer[
                 bind(
@@ -1732,6 +1903,30 @@ StudentskaSluzba project[
                     model . semestarPoslednjeSlusanja
                 )
                 min 1]
+            predmetNaziv text[
+                bind(
+                    model . predmetNaziv
+                )
+                max 255]
+            predmetEspb integer[
+                bind(
+                    model . predmetEspb
+                )
+                min 0]
+            predmetObavezni boolean[
+                bind(
+                    model . predmetObavezni
+                )]
+            predmetPredlozeniSemestar integer[
+                bind(
+                    model . predmetPredlozeniSemestar
+                )
+                min 1]
+            predmetImeProfesora text[
+                bind(
+                    model . predmetImeProfesora
+                )
+                max 255]
         ){
             on predmetChangedEvent(
                 reload
@@ -1758,6 +1953,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             visible(
                 id
@@ -1767,6 +1971,11 @@ StudentskaSluzba project[
                 datumPolozeno
                 semestarPrvogSlusanja
                 semestarPoslednjeSlusanja
+                predmetNaziv
+                predmetEspb
+                predmetObavezni
+                predmetPredlozeniSemestar
+                predmetImeProfesora
             )](
             id integer[
                 bind(
@@ -1802,6 +2011,30 @@ StudentskaSluzba project[
                     model . semestarPoslednjeSlusanja
                 )
                 min 1]
+            predmetNaziv text[
+                bind(
+                    model . predmetNaziv
+                )
+                max 255]
+            predmetEspb integer[
+                bind(
+                    model . predmetEspb
+                )
+                min 0]
+            predmetObavezni boolean[
+                bind(
+                    model . predmetObavezni
+                )]
+            predmetPredlozeniSemestar integer[
+                bind(
+                    model . predmetPredlozeniSemestar
+                )
+                min 1]
+            predmetImeProfesora text[
+                bind(
+                    model . predmetImeProfesora
+                )
+                max 255]
         ){
             on predmetChangedEvent(
                 reload
@@ -1828,6 +2061,15 @@ StudentskaSluzba project[
                     min 1]
                 semestarPoslednjeSlusanja integer[
                     min 1]
+                predmetNaziv text[
+                    max 255]
+                predmetEspb integer[
+                    min 0]
+                predmetObavezni boolean
+                predmetPredlozeniSemestar integer[
+                    min 1]
+                predmetImeProfesora text[
+                    max 255]
             )
             visible(
                 id
@@ -1837,6 +2079,11 @@ StudentskaSluzba project[
                 datumPolozeno
                 semestarPrvogSlusanja
                 semestarPoslednjeSlusanja
+                predmetNaziv
+                predmetEspb
+                predmetObavezni
+                predmetPredlozeniSemestar
+                predmetImeProfesora
             )](
             id integer[
                 bind(
@@ -1872,6 +2119,30 @@ StudentskaSluzba project[
                     model . semestarPoslednjeSlusanja
                 )
                 min 1]
+            predmetNaziv text[
+                bind(
+                    model . predmetNaziv
+                )
+                max 255]
+            predmetEspb integer[
+                bind(
+                    model . predmetEspb
+                )
+                min 0]
+            predmetObavezni boolean[
+                bind(
+                    model . predmetObavezni
+                )]
+            predmetPredlozeniSemestar integer[
+                bind(
+                    model . predmetPredlozeniSemestar
+                )
+                min 1]
+            predmetImeProfesora text[
+                bind(
+                    model . predmetImeProfesora
+                )
+                max 255]
             slusaj button{
                 on click(
                     call StudPredApi.slusajPredmet(

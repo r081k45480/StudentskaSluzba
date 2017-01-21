@@ -11,6 +11,11 @@
                         <th>{{'NESLUSANI_DATUM_POLOZENO' | translate}}</th>
                         <th>{{'NESLUSANI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
                         <th>{{'NESLUSANI_SEMESTAR_POSLEDNJE_SLUSANJA' | translate}}</th>
+                        <th>{{'NESLUSANI_PREDMET_NAZIV' | translate}}</th>
+                        <th>{{'NESLUSANI_PREDMET_ESPB' | translate}}</th>
+                        <th>{{'NESLUSANI_PREDMET_OBAVEZNI' | translate}}</th>
+                        <th>{{'NESLUSANI_PREDMET_PREDLOZENI_SEMESTAR' | translate}}</th>
+                        <th>{{'NESLUSANI_PREDMET_IME_PROFESORA' | translate}}</th>
                         <th>{{'NESLUSANI_SLUSAJ' | translate}}</th>
                     </tr>
                 </thead>
@@ -23,6 +28,11 @@
                         <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
                         <td>{{item.semestarPrvogSlusanja}}</td>
                         <td>{{item.semestarPoslednjeSlusanja}}</td>
+                        <td>{{item.predmetNaziv}}</td>
+                        <td>{{item.predmetEspb}}</td>
+                        <td>{{item.predmetObavezni}}</td>
+                        <td>{{item.predmetPredlozeniSemestar}}</td>
+                        <td>{{item.predmetImeProfesora}}</td>
                         <td>
                             <button type="button" class="btn btn-primary" ng-click="onClickSlusaj(item)">{{'NESLUSANI_SLUSAJ' | translate}}</button>
                         </td>

@@ -32,11 +32,11 @@ public interface StudPredRepositoryCustom {
 
     List<StudPredPredmetTuple> nepolozeniPredmeti(Long userId);
 
-    List<StudPred> prijavljeniPredmeti(Long userId);
+    List<StudPredPredmetTuple> prijavljeniPredmeti(Long userId);
 
-    List<StudPred> polozeniPredmeti(Long userId);
+    List<StudPredPredmetTuple> polozeniPredmeti(Long userId);
 
-    List<StudPred> neslusaniPredmeti(Long userId);
+    List<StudPredPredmetTuple> neslusaniPredmeti(Long userId);
 
     List<StudPred> findByStudent(Long studentId);
 

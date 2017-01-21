@@ -210,7 +210,18 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
          *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -222,7 +233,14 @@
                 params: {
                     userId: model.userId
                 }
+            }).then(convertNepolozeniPredmetiResponse);
+        }
+
+        function convertNepolozeniPredmetiResponse(response) {
+            response.data.forEach(function(item) {
+                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
             });
+            return response;
         }
 
         /** prijavljeniPredmeti 
@@ -237,6 +255,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -270,6 +293,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
@@ -303,6 +331,11 @@
          *     datumPolozeno: Optional[DateTime]
          *     semestarPrvogSlusanja: Int
          *     semestarPoslednjeSlusanja: Int
+         *     predmetNaziv: String
+         *     predmetEspb: Int
+         *     predmetObavezni: Boolean
+         *     predmetPredlozeniSemestar: Int
+         *     predmetImeProfesora: String
          *   }
          * ]
          *
