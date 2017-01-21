@@ -43,6 +43,13 @@ public class StanjeRepositoryImpl implements StanjeRepositoryCustom {
     private JPQLQueryFactory factory;
 
     @Override
+    public List<Stanje> findByStudent(Long studentId) {
+        log.trace(".findByStudent(studentId: {})", studentId);
+        final QStanje stanje = QStanje.stanje;
+        return factory.select(stanje).from(stanje).where(stanje.student.id.eq(studentId)).fetch();
+    }
+
+    @Override
     public List<Stanje> findByIznos(BigDecimal iznos) {
         log.trace(".findByIznos(iznos: {})", iznos);
         final QStanje stanje = QStanje.stanje;

@@ -20,23 +20,24 @@
 package com.StudentskaSluzba.backend.web.rest.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.validation.constraints.*;
 
 
-public class NepolozeniPredmetiResponse implements Serializable {
+public class TrenutnoStanjeResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    private Long predmetId;
+    private BigDecimal trenutnoStanjeRacuna;
 
-    public Long getPredmetId() {
-        return predmetId;
+    public BigDecimal getTrenutnoStanjeRacuna() {
+        return trenutnoStanjeRacuna;
     }
 
-    public void setPredmetId(Long predmetId) {
-        this.predmetId = predmetId;
+    public void setTrenutnoStanjeRacuna(BigDecimal trenutnoStanjeRacuna) {
+        this.trenutnoStanjeRacuna = trenutnoStanjeRacuna;
     }
 
     @Override
@@ -47,8 +48,8 @@ public class NepolozeniPredmetiResponse implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final NepolozeniPredmetiResponse other = (NepolozeniPredmetiResponse) obj;
-        if ((predmetId == null && other.predmetId != null) || !predmetId.equals(other.predmetId))
+        final TrenutnoStanjeResponse other = (TrenutnoStanjeResponse) obj;
+        if ((trenutnoStanjeRacuna == null && other.trenutnoStanjeRacuna != null) || !trenutnoStanjeRacuna.equals(other.trenutnoStanjeRacuna))
             return false;
         return true;
     }
@@ -57,13 +58,13 @@ public class NepolozeniPredmetiResponse implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((predmetId == null) ? 0 : predmetId.hashCode());
+        result = prime * result + ((trenutnoStanjeRacuna == null) ? 0 : trenutnoStanjeRacuna.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "NepolozeniPredmetiResponse[" + "predmetId=" + predmetId + "]";
+        return "TrenutnoStanjeResponse[" + "trenutnoStanjeRacuna=" + trenutnoStanjeRacuna + "]";
     }
 
 }

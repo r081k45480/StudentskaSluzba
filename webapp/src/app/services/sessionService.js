@@ -30,7 +30,10 @@
         var publicStates = [];
         publicStates['MainLayout'] = true;
         publicStates['MainLayout.naslovnaPage'] = true;
-        publicStates['MainLayout.predmetiPage'] = true;
+        publicStates['MainLayout.PredmetiPage'] = true;
+        publicStates['MainLayout.PredmetiPage.nepolozeniPage'] = true;
+        publicStates['MainLayout.PredmetiPage.polozeniPage'] = true;
+        publicStates['MainLayout.PredmetiPage.neslusaniPage'] = true;
         publicStates['MainLayout.finansijePage'] = true;
         publicStates['signInPage'] = true;
         publicStates['signUpPage'] = true;

@@ -39,6 +39,7 @@ import com.StudentskaSluzba.backend.model.*;
 import com.StudentskaSluzba.backend.web.rest.dto.*;
 
 import com.StudentskaSluzba.backend.repository.*;
+import com.StudentskaSluzba.backend.repository.tuple.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -111,10 +112,53 @@ public class StudPredApi {
     @RequestMapping(value = "/nepolozeni-predmeti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<NepolozeniPredmetiResponse>> nepolozeniPredmeti() {
+    public ResponseEntity<List<NepolozeniPredmetiResponse>> nepolozeniPredmeti(@RequestParam("userId") Long userId) {
         log.debug("GET /nepolozeni-predmeti");
-        final List<StudPred> result = studPredRepository.nepolozeniPredmeti();
+        final List<StudPredPredmetTuple> result = studPredRepository.nepolozeniPredmeti(userId);
         return ResponseEntity.ok().body(result.stream().map(this::convertToNepolozeniPredmetiResponse).collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/prijavljeni-predmeti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<PrijavljeniPredmetiResponse>> prijavljeniPredmeti(@RequestParam("userId") Long userId) {
+        log.debug("GET /prijavljeni-predmeti");
+        final List<StudPred> result = studPredRepository.prijavljeniPredmeti(userId);
+        return ResponseEntity.ok().body(result.stream().map(this::convertToPrijavljeniPredmetiResponse).collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/polozeni-predmeti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<PolozeniPredmetiResponse>> polozeniPredmeti(@RequestParam("userId") Long userId) {
+        log.debug("GET /polozeni-predmeti");
+        final List<StudPred> result = studPredRepository.polozeniPredmeti(userId);
+        return ResponseEntity.ok().body(result.stream().map(this::convertToPolozeniPredmetiResponse).collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/neslusani-predmeti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<NeslusaniPredmetiResponse>> neslusaniPredmeti(@RequestParam("userId") Long userId) {
+        log.debug("GET /neslusani-predmeti");
+        final List<StudPred> result = studPredRepository.neslusaniPredmeti(userId);
+        return ResponseEntity.ok().body(result.stream().map(this::convertToNeslusaniPredmetiResponse).collect(Collectors.toList()));
+    }
+
+    @RequestMapping(value = "/prijavi", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> prijaviPredmet(@Valid @RequestBody PrijaviPredmetRequest request) {
+        log.debug("POST /prijavi {}", request);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @RequestMapping(value = "/slusaj", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> slusajPredmet(@Valid @RequestBody SlusajPredmetRequest request) {
+        log.debug("POST /slusaj {}", request);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     private ReadStudPredResponse convertToReadStudPredResponse(StudPred model) {
@@ -192,8 +236,38 @@ public class StudPredApi {
         return dto;
     }
 
-    private NepolozeniPredmetiResponse convertToNepolozeniPredmetiResponse(StudPred model) {
+    private NepolozeniPredmetiResponse convertToNepolozeniPredmetiResponse(StudPredPredmetTuple model) {
         final NepolozeniPredmetiResponse dto = new NepolozeniPredmetiResponse();
+        dto.setPredmetId(model.getStudPred().getPredmet().getId());
+        return dto;
+    }
+
+    private PrijavljeniPredmetiResponse convertToPrijavljeniPredmetiResponse(StudPred model) {
+        final PrijavljeniPredmetiResponse dto = new PrijavljeniPredmetiResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        return dto;
+    }
+
+    private PolozeniPredmetiResponse convertToPolozeniPredmetiResponse(StudPred model) {
+        final PolozeniPredmetiResponse dto = new PolozeniPredmetiResponse();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudent().getId());
+        dto.setPredmetId(model.getPredmet().getId());
+        dto.setOcena(model.getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        return dto;
+    }
+
+    private NeslusaniPredmetiResponse convertToNeslusaniPredmetiResponse(StudPred model) {
+        final NeslusaniPredmetiResponse dto = new NeslusaniPredmetiResponse();
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setPredmetId(model.getPredmet().getId());

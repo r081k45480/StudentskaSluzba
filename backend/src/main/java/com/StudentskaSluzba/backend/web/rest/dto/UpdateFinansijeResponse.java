@@ -17,41 +17,32 @@
 * You should have received a copy of the GNU General Public License
 * along with StudentskaSluzba. If not, see <http://www.gnu.org/licenses/>.*
 **/
-package com.StudentskaSluzba.backend.model;
+package com.StudentskaSluzba.backend.web.rest.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
 
 
-@Entity
-@Table(name = "Stanje")
-public class Stanje implements Serializable {
+public class UpdateFinansijeResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "studentId")
-    private Student student;
+    private Long studentId;
 
     @NotNull
-    @Column(name = "iznos")
     private BigDecimal iznos;
 
     @NotNull
-    @Column(name = "prethodnoStanje")
     private BigDecimal prethodnoStanje;
 
     @NotNull
-    @Column(name = "datum")
     private ZonedDateTime datum;
 
     public Long getId() {
@@ -62,12 +53,12 @@ public class Stanje implements Serializable {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
     public BigDecimal getIznos() {
@@ -102,10 +93,10 @@ public class Stanje implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final Stanje other = (Stanje) obj;
+        final UpdateFinansijeResponse other = (UpdateFinansijeResponse) obj;
         if ((id == null && other.id != null) || !id.equals(other.id))
             return false;
-        if ((student == null && other.student != null) || !student.equals(other.student))
+        if ((studentId == null && other.studentId != null) || !studentId.equals(other.studentId))
             return false;
         if ((iznos == null && other.iznos != null) || !iznos.equals(other.iznos))
             return false;
@@ -121,7 +112,7 @@ public class Stanje implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((student == null) ? 0 : student.hashCode());
+        result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
         result = prime * result + ((iznos == null) ? 0 : iznos.hashCode());
         result = prime * result + ((prethodnoStanje == null) ? 0 : prethodnoStanje.hashCode());
         result = prime * result + ((datum == null) ? 0 : datum.hashCode());
@@ -130,7 +121,7 @@ public class Stanje implements Serializable {
 
     @Override
     public String toString() {
-        return "Stanje[" + "id=" + id + ", student=" + student + ", iznos=" + iznos + ", prethodnoStanje=" + prethodnoStanje + ", datum=" + datum + "]";
+        return "UpdateFinansijeResponse[" + "id=" + id + ", studentId=" + studentId + ", iznos=" + iznos + ", prethodnoStanje=" + prethodnoStanje + ", datum=" + datum + "]";
     }
 
 }

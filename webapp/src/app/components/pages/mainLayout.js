@@ -43,11 +43,11 @@
         }
 
         function onClickPredmeti() {
-            $state.go('MainLayout.predmetiPage');
+            $state.go('MainLayout.PredmetiPage', {});
         }
 
         function onClickFinansije() {
-            $state.go('MainLayout.finansijePage');
+            $state.go('MainLayout.finansijePage', {});
         }
 
     }

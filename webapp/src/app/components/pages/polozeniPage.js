@@ -22,33 +22,12 @@
 
     angular
         .module('webapp')
-        .controller('PredmetiPageController', PredmetiPageController);
+        .controller('PolozeniPageController', PolozeniPageController);
 
-    PredmetiPageController.$inject = ['$scope', '$state', '$stateParams'];
+    PolozeniPageController.$inject = ['$scope', '$stateParams'];
 
-    function PredmetiPageController($scope, $state, $stateParams) {
+    function PolozeniPageController($scope, $stateParams) {
         $scope.userId = parseInt($stateParams.userId);
-        $scope.onClickNepolozeni = onClickNepolozeni;
-        $scope.onClickPolozeni = onClickPolozeni;
-        $scope.onClickNeslusani = onClickNeslusani;
-
-        function onClickNepolozeni() {
-            $state.go('MainLayout.PredmetiPage.nepolozeniPage', {
-                userId: $scope.userId
-            });
-        }
-
-        function onClickPolozeni() {
-            $state.go('MainLayout.PredmetiPage.polozeniPage', {
-                userId: $scope.userId
-            });
-        }
-
-        function onClickNeslusani() {
-            $state.go('MainLayout.PredmetiPage.neslusaniPage', {
-                userId: $scope.userId
-            });
-        }
 
     }
 })();

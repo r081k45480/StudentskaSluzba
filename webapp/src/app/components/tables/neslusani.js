@@ -22,28 +22,28 @@
 
     angular
         .module('webapp')
-        .directive('nepolozeni', function() {
+        .directive('neslusani', function() {
             return {
                 restrict: 'E',
                 scope: {
                     userId: '='
                 },
-                templateUrl: 'src/app/components/tables/nepolozeni.html',
-                controller: 'NepolozeniController'
+                templateUrl: 'src/app/components/tables/neslusani.html',
+                controller: 'NeslusaniController'
             };
         });
 
     angular
         .module('webapp')
-        .controller('NepolozeniController', NepolozeniController);
+        .controller('NeslusaniController', NeslusaniController);
 
-    NepolozeniController.$inject = ['$scope', 'eventBus', 'studPredApi'];
+    NeslusaniController.$inject = ['$scope', 'eventBus', 'studPredApi'];
 
-    function NepolozeniController($scope, eventBus, studPredApi) {
+    function NeslusaniController($scope, eventBus, studPredApi) {
         $scope.model = [];
         $scope.errorCode = null;
         $scope.onpredmetChangedEvent = eventBus.onEvent('predmetChangedEvent', onpredmetChangedEvent);
-        $scope.onClickPrijavi = onClickPrijavi;
+        $scope.onClickSlusaj = onClickSlusaj;
 
         if ($scope.userId) load($scope.userId);
 
@@ -51,7 +51,7 @@
             var request = {
                 userId: userId
             };
-            studPredApi.nepolozeniPredmeti(request).then(onSuccess, onError);
+            studPredApi.neslusaniPredmeti(request).then(onSuccess, onError);
 
             function onSuccess(response) {
                 $scope.model = response.data;
@@ -71,18 +71,21 @@
             load();
         }
 
-        function onClickPrijavi(item) {
-            prijaviPredmet($scope.userId);
+        function onClickSlusaj(item) {
+            slusajPredmet($scope.userId);
         }
 
-        function prijaviPredmet(userId, predmetId) {
+        function slusajPredmet(userId, predmetId) {
             var request = {
                 userId: userId,
                 predmetId: predmetId
             };
-            studPredApi.prijaviPredmet(request).then(onSuccess, onError);
+            studPredApi.slusajPredmet(request).then(onSuccess, onError);
 
             function onSuccess(response) {
+                response.data.forEach(function(item) {
+                    item.datumPolozeno = new Date(item.datumPolozeno);
+                });
                 eventBus.emitEvent('predmetChangedEvent');
                 $scope.errorCode = null;
             }

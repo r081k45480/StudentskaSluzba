@@ -17,23 +17,27 @@
 * You should have received a copy of the GNU General Public License
 * along with StudentskaSluzba. If not, see <http://www.gnu.org/licenses/>.*
 **/
-package com.StudentskaSluzba.backend.repository;
-
-import java.math.BigDecimal;
-import java.time.*;
-import java.util.List;
+package com.StudentskaSluzba.backend.repository.tuple;
 
 import com.StudentskaSluzba.backend.model.*;
 
 
-public interface StanjeRepositoryCustom {
+public class StudPredPredmetTuple {
 
-    List<Stanje> findByStudent(Long studentId);
+    private final StudPred studPred;
+    private final Predmet predmet;
 
-    List<Stanje> findByIznos(BigDecimal iznos);
+    public StudPredPredmetTuple(StudPred studPred, Predmet predmet) {
+        this.studPred = studPred;
+        this.predmet = predmet;
+    }
 
-    List<Stanje> findByPrethodnoStanje(BigDecimal prethodnoStanje);
+    public StudPred getStudPred() {
+        return studPred;
+    }
 
-    List<Stanje> findByDatum(ZonedDateTime datum);
+    public Predmet getPredmet() {
+        return predmet;
+    }
 
 }

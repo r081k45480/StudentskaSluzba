@@ -34,7 +34,12 @@
             updateStudPred: updateStudPred,
             deleteStudPred: deleteStudPred,
             studPreds: studPreds,
-            nepolozeniPredmeti: nepolozeniPredmeti
+            nepolozeniPredmeti: nepolozeniPredmeti,
+            prijavljeniPredmeti: prijavljeniPredmeti,
+            polozeniPredmeti: polozeniPredmeti,
+            neslusaniPredmeti: neslusaniPredmeti,
+            prijaviPredmet: prijaviPredmet,
+            slusajPredmet: slusajPredmet
         };
 
         /** readStudPred 
@@ -162,6 +167,24 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
+         *     predmetId: Int
+         *   }
+         * ]
+         *
+         */
+        function nepolozeniPredmeti(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** prijavljeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   PrijavljeniPredmetiResponse {
          *     id: Int
          *     studentId: Int
          *     predmetId: Int
@@ -173,7 +196,89 @@
          * ]
          *
          */
-        function nepolozeniPredmeti() {
+        function prijavljeniPredmeti(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** polozeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   PolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function polozeniPredmeti(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** neslusaniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   NeslusaniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function neslusaniPredmeti(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** prijaviPredmet 
+         * request - PrijaviPredmetRequest {
+         *   userId: Int
+         *   predmetId: Int
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function prijaviPredmet(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** slusajPredmet 
+         * request - SlusajPredmetRequest {
+         *   userId: Int
+         *   predmetId: Int
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function slusajPredmet(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values

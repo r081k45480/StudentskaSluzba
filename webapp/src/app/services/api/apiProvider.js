@@ -80,6 +80,35 @@
 
     angular
         .module('webapp')
+        .provider('finansijeApi', finansijeApi)
+        .config(finansijeApiProvider);
+
+    function finansijeApi() {
+        var isMocked = false;
+
+        var $get = ['finansijeApiService', 'finansijeApiMockService', 'clientConfigurationValues', function(finansijeApiService, finansijeApiMockService, clientConfigurationValues) {
+            if (this.isMocked) {
+                return finansijeApiMockService;
+            } else {
+                if (clientConfigurationValues.remoteBackendUrl) {
+                    finansijeApiService.init(clientConfigurationValues.remoteBackendUrl);
+                }
+                return finansijeApiService;
+            }
+        }];
+
+        return {
+            isMocked: isMocked,
+            $get: $get
+        };
+    }
+
+    function finansijeApiProvider(clientConfigurationValues, finansijeApiProvider) {
+        finansijeApiProvider.isMocked = clientConfigurationValues.useServerMock;
+    }
+
+    angular
+        .module('webapp')
         .provider('studPredApi', studPredApi)
         .config(studPredApiProvider);
 

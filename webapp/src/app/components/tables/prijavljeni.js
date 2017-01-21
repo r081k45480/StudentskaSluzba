@@ -22,28 +22,27 @@
 
     angular
         .module('webapp')
-        .directive('nepolozeni', function() {
+        .directive('prijavljeni', function() {
             return {
                 restrict: 'E',
                 scope: {
                     userId: '='
                 },
-                templateUrl: 'src/app/components/tables/nepolozeni.html',
-                controller: 'NepolozeniController'
+                templateUrl: 'src/app/components/tables/prijavljeni.html',
+                controller: 'PrijavljeniController'
             };
         });
 
     angular
         .module('webapp')
-        .controller('NepolozeniController', NepolozeniController);
+        .controller('PrijavljeniController', PrijavljeniController);
 
-    NepolozeniController.$inject = ['$scope', 'eventBus', 'studPredApi'];
+    PrijavljeniController.$inject = ['$scope', 'eventBus', 'studPredApi'];
 
-    function NepolozeniController($scope, eventBus, studPredApi) {
+    function PrijavljeniController($scope, eventBus, studPredApi) {
         $scope.model = [];
         $scope.errorCode = null;
         $scope.onpredmetChangedEvent = eventBus.onEvent('predmetChangedEvent', onpredmetChangedEvent);
-        $scope.onClickPrijavi = onClickPrijavi;
 
         if ($scope.userId) load($scope.userId);
 
@@ -51,7 +50,7 @@
             var request = {
                 userId: userId
             };
-            studPredApi.nepolozeniPredmeti(request).then(onSuccess, onError);
+            studPredApi.prijavljeniPredmeti(request).then(onSuccess, onError);
 
             function onSuccess(response) {
                 $scope.model = response.data;
@@ -69,32 +68,6 @@
 
         function onpredmetChangedEvent(event, payload) {
             load();
-        }
-
-        function onClickPrijavi(item) {
-            prijaviPredmet($scope.userId);
-        }
-
-        function prijaviPredmet(userId, predmetId) {
-            var request = {
-                userId: userId,
-                predmetId: predmetId
-            };
-            studPredApi.prijaviPredmet(request).then(onSuccess, onError);
-
-            function onSuccess(response) {
-                eventBus.emitEvent('predmetChangedEvent');
-                $scope.errorCode = null;
-            }
-
-            function onError(response) {
-                if (response.status && response.statusText) {
-                    $scope.errorCode = response.statusText;
-                } else {
-                    $scope.errorCode = 'Unknown error';
-                }
-            }
-
         }
 
     }

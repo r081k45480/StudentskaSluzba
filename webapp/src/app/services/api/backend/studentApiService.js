@@ -35,7 +35,8 @@
             readStudent: readStudent,
             createStudent: createStudent,
             updateStudent: updateStudent,
-            deleteStudent: deleteStudent
+            deleteStudent: deleteStudent,
+            trenutnoStanje: trenutnoStanje
         };
 
         function init(backendUrl) {
@@ -176,6 +177,24 @@
                 method: 'DELETE',
                 url: backendApiUrl + '/api/student/' + model.id + '',
                 data: {
+                    id: model.id
+                }
+            });
+        }
+
+        /** trenutnoStanje 
+         * request - Unit
+         *
+         * response - TrenutnoStanjeResponse {
+         *   trenutnoStanjeRacuna: Decimal(10, 4)
+         * }
+         *
+         */
+        function trenutnoStanje(model) {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/trenutno-stanje',
+                params: {
                     id: model.id
                 }
             });
