@@ -58,14 +58,17 @@ StudentskaSluzba project[
 
       prijavljeniPredmeti find
       from StudPred
+      join Predmet on StudPred with StudPred.predmet
       where StudPred.student == user
 
       polozeniPredmeti find
       from StudPred
+      join Predmet on StudPred with StudPred.predmet
       where StudPred.student == user
 
       neslusaniPredmeti find
       from StudPred
+      join Predmet on StudPred with StudPred.predmet
       where StudPred.student == user
 
     )
@@ -94,16 +97,13 @@ StudentskaSluzba project[
 
         nepolozeniPredmeti find[
           query StudPred.nepolozeniPredmeti
-          response(
-            StudPred.predmet
-          )
           rest /nepolozeni-predmeti
         ]
 
         prijavljeniPredmeti find[
           query StudPred.prijavljeniPredmeti
           rest /prijavljeni-predmeti
-        ]
+      ]
 
         polozeniPredmeti find[
           query StudPred.polozeniPredmeti

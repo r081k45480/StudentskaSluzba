@@ -8,3 +8,5 @@ backend/target/
 *.iml
 **/target/
 webapp/src/app/environmentConfig.js
+backend/src/main/config/Robert Sabo/application-dev.yml
+backend/src/main/config/Robert Sabo/logback-spring.xml
