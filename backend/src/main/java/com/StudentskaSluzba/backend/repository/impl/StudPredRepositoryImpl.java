@@ -55,24 +55,30 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
     }
 
     @Override
-    public List<StudPred> prijavljeniPredmeti(Long userId) {
+    public List<StudPredPredmetTuple> prijavljeniPredmeti(Long userId) {
         log.trace(".prijavljeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
-        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
+        final QPredmet predmet = QPredmet.predmet;
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
+                .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
     @Override
-    public List<StudPred> polozeniPredmeti(Long userId) {
+    public List<StudPredPredmetTuple> polozeniPredmeti(Long userId) {
         log.trace(".polozeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
-        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
+        final QPredmet predmet = QPredmet.predmet;
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
+                .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
     @Override
-    public List<StudPred> neslusaniPredmeti(Long userId) {
+    public List<StudPredPredmetTuple> neslusaniPredmeti(Long userId) {
         log.trace(".neslusaniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
-        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
+        final QPredmet predmet = QPredmet.predmet;
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
+                .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
     @Override

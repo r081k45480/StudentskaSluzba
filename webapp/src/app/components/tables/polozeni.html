@@ -11,6 +11,11 @@
                         <th>{{'POLOZENI_DATUM_POLOZENO' | translate}}</th>
                         <th>{{'POLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
                         <th>{{'POLOZENI_SEMESTAR_POSLEDNJE_SLUSANJA' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_NAZIV' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_ESPB' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_OBAVEZNI' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_PREDLOZENI_SEMESTAR' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_IME_PROFESORA' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +27,11 @@
                         <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
                         <td>{{item.semestarPrvogSlusanja}}</td>
                         <td>{{item.semestarPoslednjeSlusanja}}</td>
+                        <td>{{item.predmetNaziv}}</td>
+                        <td>{{item.predmetEspb}}</td>
+                        <td>{{item.predmetObavezni}}</td>
+                        <td>{{item.predmetPredlozeniSemestar}}</td>
+                        <td>{{item.predmetImeProfesora}}</td>
                     </tr>
                 </tbody>
                 <tfoot data-ng-if="model.length == 0">

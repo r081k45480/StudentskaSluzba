@@ -54,6 +54,25 @@ public class PrijavljeniPredmetiResponse implements Serializable {
     @Min(1)
     private Integer semestarPoslednjeSlusanja;
 
+    @NotNull
+    @Size(max = 255)
+    private String predmetNaziv;
+
+    @NotNull
+    @Min(0)
+    private Integer predmetEspb;
+
+    @NotNull
+    private Boolean predmetObavezni;
+
+    @NotNull
+    @Min(1)
+    private Integer predmetPredlozeniSemestar;
+
+    @NotNull
+    @Size(max = 255)
+    private String predmetImeProfesora;
+
     public Long getId() {
         return id;
     }
@@ -110,6 +129,46 @@ public class PrijavljeniPredmetiResponse implements Serializable {
         this.semestarPoslednjeSlusanja = semestarPoslednjeSlusanja;
     }
 
+    public String getPredmetNaziv() {
+        return predmetNaziv;
+    }
+
+    public void setPredmetNaziv(String predmetNaziv) {
+        this.predmetNaziv = predmetNaziv;
+    }
+
+    public Integer getPredmetEspb() {
+        return predmetEspb;
+    }
+
+    public void setPredmetEspb(Integer predmetEspb) {
+        this.predmetEspb = predmetEspb;
+    }
+
+    public Boolean getPredmetObavezni() {
+        return predmetObavezni;
+    }
+
+    public void setPredmetObavezni(Boolean predmetObavezni) {
+        this.predmetObavezni = predmetObavezni;
+    }
+
+    public Integer getPredmetPredlozeniSemestar() {
+        return predmetPredlozeniSemestar;
+    }
+
+    public void setPredmetPredlozeniSemestar(Integer predmetPredlozeniSemestar) {
+        this.predmetPredlozeniSemestar = predmetPredlozeniSemestar;
+    }
+
+    public String getPredmetImeProfesora() {
+        return predmetImeProfesora;
+    }
+
+    public void setPredmetImeProfesora(String predmetImeProfesora) {
+        this.predmetImeProfesora = predmetImeProfesora;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -133,6 +192,16 @@ public class PrijavljeniPredmetiResponse implements Serializable {
             return false;
         if ((semestarPoslednjeSlusanja == null && other.semestarPoslednjeSlusanja != null) || !semestarPoslednjeSlusanja.equals(other.semestarPoslednjeSlusanja))
             return false;
+        if ((predmetNaziv == null && other.predmetNaziv != null) || !predmetNaziv.equals(other.predmetNaziv))
+            return false;
+        if ((predmetEspb == null && other.predmetEspb != null) || !predmetEspb.equals(other.predmetEspb))
+            return false;
+        if ((predmetObavezni == null && other.predmetObavezni != null) || !predmetObavezni.equals(other.predmetObavezni))
+            return false;
+        if ((predmetPredlozeniSemestar == null && other.predmetPredlozeniSemestar != null) || !predmetPredlozeniSemestar.equals(other.predmetPredlozeniSemestar))
+            return false;
+        if ((predmetImeProfesora == null && other.predmetImeProfesora != null) || !predmetImeProfesora.equals(other.predmetImeProfesora))
+            return false;
         return true;
     }
 
@@ -147,13 +216,19 @@ public class PrijavljeniPredmetiResponse implements Serializable {
         result = prime * result + ((datumPolozeno == null) ? 0 : datumPolozeno.hashCode());
         result = prime * result + ((semestarPrvogSlusanja == null) ? 0 : semestarPrvogSlusanja.hashCode());
         result = prime * result + ((semestarPoslednjeSlusanja == null) ? 0 : semestarPoslednjeSlusanja.hashCode());
+        result = prime * result + ((predmetNaziv == null) ? 0 : predmetNaziv.hashCode());
+        result = prime * result + ((predmetEspb == null) ? 0 : predmetEspb.hashCode());
+        result = prime * result + ((predmetObavezni == null) ? 0 : predmetObavezni.hashCode());
+        result = prime * result + ((predmetPredlozeniSemestar == null) ? 0 : predmetPredlozeniSemestar.hashCode());
+        result = prime * result + ((predmetImeProfesora == null) ? 0 : predmetImeProfesora.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
         return "PrijavljeniPredmetiResponse[" + "id=" + id + ", studentId=" + studentId + ", predmetId=" + predmetId + ", ocena=" + ocena + ", datumPolozeno=" + datumPolozeno
-                + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + "]";
+                + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + ", predmetNaziv=" + predmetNaziv + ", predmetEspb=" + predmetEspb
+                + ", predmetObavezni=" + predmetObavezni + ", predmetPredlozeniSemestar=" + predmetPredlozeniSemestar + ", predmetImeProfesora=" + predmetImeProfesora + "]";
     }
 
 }

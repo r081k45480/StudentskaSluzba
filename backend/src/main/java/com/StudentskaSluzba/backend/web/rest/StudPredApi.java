@@ -123,7 +123,7 @@ public class StudPredApi {
     @Transactional(readOnly = true)
     public ResponseEntity<List<PrijavljeniPredmetiResponse>> prijavljeniPredmeti(@RequestParam("userId") Long userId) {
         log.debug("GET /prijavljeni-predmeti");
-        final List<StudPred> result = studPredRepository.prijavljeniPredmeti(userId);
+        final List<StudPredPredmetTuple> result = studPredRepository.prijavljeniPredmeti(userId);
         return ResponseEntity.ok().body(result.stream().map(this::convertToPrijavljeniPredmetiResponse).collect(Collectors.toList()));
     }
 
@@ -132,7 +132,7 @@ public class StudPredApi {
     @Transactional(readOnly = true)
     public ResponseEntity<List<PolozeniPredmetiResponse>> polozeniPredmeti(@RequestParam("userId") Long userId) {
         log.debug("GET /polozeni-predmeti");
-        final List<StudPred> result = studPredRepository.polozeniPredmeti(userId);
+        final List<StudPredPredmetTuple> result = studPredRepository.polozeniPredmeti(userId);
         return ResponseEntity.ok().body(result.stream().map(this::convertToPolozeniPredmetiResponse).collect(Collectors.toList()));
     }
 
@@ -141,7 +141,7 @@ public class StudPredApi {
     @Transactional(readOnly = true)
     public ResponseEntity<List<NeslusaniPredmetiResponse>> neslusaniPredmeti(@RequestParam("userId") Long userId) {
         log.debug("GET /neslusani-predmeti");
-        final List<StudPred> result = studPredRepository.neslusaniPredmeti(userId);
+        final List<StudPredPredmetTuple> result = studPredRepository.neslusaniPredmeti(userId);
         return ResponseEntity.ok().body(result.stream().map(this::convertToNeslusaniPredmetiResponse).collect(Collectors.toList()));
     }
 
@@ -238,43 +238,69 @@ public class StudPredApi {
 
     private NepolozeniPredmetiResponse convertToNepolozeniPredmetiResponse(StudPredPredmetTuple model) {
         final NepolozeniPredmetiResponse dto = new NepolozeniPredmetiResponse();
+        dto.setId(model.getStudPred().getId());
+        dto.setStudentId(model.getStudPred().getStudent().getId());
         dto.setPredmetId(model.getStudPred().getPredmet().getId());
+        dto.setOcena(model.getStudPred().getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetNaziv(model.getPredmet().getNaziv());
+        dto.setPredmetEspb(model.getPredmet().getEspb());
+        dto.setPredmetObavezni(model.getPredmet().getObavezni());
+        dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
+        dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
         return dto;
     }
 
-    private PrijavljeniPredmetiResponse convertToPrijavljeniPredmetiResponse(StudPred model) {
+    private PrijavljeniPredmetiResponse convertToPrijavljeniPredmetiResponse(StudPredPredmetTuple model) {
         final PrijavljeniPredmetiResponse dto = new PrijavljeniPredmetiResponse();
-        dto.setId(model.getId());
-        dto.setStudentId(model.getStudent().getId());
-        dto.setPredmetId(model.getPredmet().getId());
-        dto.setOcena(model.getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        dto.setId(model.getStudPred().getId());
+        dto.setStudentId(model.getStudPred().getStudent().getId());
+        dto.setPredmetId(model.getStudPred().getPredmet().getId());
+        dto.setOcena(model.getStudPred().getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetNaziv(model.getPredmet().getNaziv());
+        dto.setPredmetEspb(model.getPredmet().getEspb());
+        dto.setPredmetObavezni(model.getPredmet().getObavezni());
+        dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
+        dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
         return dto;
     }
 
-    private PolozeniPredmetiResponse convertToPolozeniPredmetiResponse(StudPred model) {
+    private PolozeniPredmetiResponse convertToPolozeniPredmetiResponse(StudPredPredmetTuple model) {
         final PolozeniPredmetiResponse dto = new PolozeniPredmetiResponse();
-        dto.setId(model.getId());
-        dto.setStudentId(model.getStudent().getId());
-        dto.setPredmetId(model.getPredmet().getId());
-        dto.setOcena(model.getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        dto.setId(model.getStudPred().getId());
+        dto.setStudentId(model.getStudPred().getStudent().getId());
+        dto.setPredmetId(model.getStudPred().getPredmet().getId());
+        dto.setOcena(model.getStudPred().getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetNaziv(model.getPredmet().getNaziv());
+        dto.setPredmetEspb(model.getPredmet().getEspb());
+        dto.setPredmetObavezni(model.getPredmet().getObavezni());
+        dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
+        dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
         return dto;
     }
 
-    private NeslusaniPredmetiResponse convertToNeslusaniPredmetiResponse(StudPred model) {
+    private NeslusaniPredmetiResponse convertToNeslusaniPredmetiResponse(StudPredPredmetTuple model) {
         final NeslusaniPredmetiResponse dto = new NeslusaniPredmetiResponse();
-        dto.setId(model.getId());
-        dto.setStudentId(model.getStudent().getId());
-        dto.setPredmetId(model.getPredmet().getId());
-        dto.setOcena(model.getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getSemestarPoslednjeSlusanja());
+        dto.setId(model.getStudPred().getId());
+        dto.setStudentId(model.getStudPred().getStudent().getId());
+        dto.setPredmetId(model.getStudPred().getPredmet().getId());
+        dto.setOcena(model.getStudPred().getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
+        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetNaziv(model.getPredmet().getNaziv());
+        dto.setPredmetEspb(model.getPredmet().getEspb());
+        dto.setPredmetObavezni(model.getPredmet().getObavezni());
+        dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
+        dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
         return dto;
     }
 }
