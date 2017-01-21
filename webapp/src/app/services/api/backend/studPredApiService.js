@@ -37,7 +37,12 @@
             updateStudPred: updateStudPred,
             deleteStudPred: deleteStudPred,
             studPreds: studPreds,
-            nepolozeniPredmeti: nepolozeniPredmeti
+            nepolozeniPredmeti: nepolozeniPredmeti,
+            prijavljeniPredmeti: prijavljeniPredmeti,
+            polozeniPredmeti: polozeniPredmeti,
+            neslusaniPredmeti: neslusaniPredmeti,
+            prijaviPredmet: prijaviPredmet,
+            slusajPredmet: slusajPredmet
         };
 
         function init(backendUrl) {
@@ -205,6 +210,26 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
+         *     predmetId: Int
+         *   }
+         * ]
+         *
+         */
+        function nepolozeniPredmeti(model) {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/nepolozeni-predmeti',
+                params: {
+                    userId: model.userId
+                }
+            });
+        }
+
+        /** prijavljeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   PrijavljeniPredmetiResponse {
          *     id: Int
          *     studentId: Int
          *     predmetId: Int
@@ -216,18 +241,128 @@
          * ]
          *
          */
-        function nepolozeniPredmeti() {
+        function prijavljeniPredmeti(model) {
             return $http({
                 method: 'GET',
-                url: backendApiUrl + '/api/nepolozeni-predmeti'
-            }).then(convertNepolozeniPredmetiResponse);
+                url: backendApiUrl + '/api/prijavljeni-predmeti',
+                params: {
+                    userId: model.userId
+                }
+            }).then(convertPrijavljeniPredmetiResponse);
         }
 
-        function convertNepolozeniPredmetiResponse(response) {
+        function convertPrijavljeniPredmetiResponse(response) {
             response.data.forEach(function(item) {
                 item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
             });
             return response;
         }
+
+        /** polozeniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   PolozeniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function polozeniPredmeti(model) {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/polozeni-predmeti',
+                params: {
+                    userId: model.userId
+                }
+            }).then(convertPolozeniPredmetiResponse);
+        }
+
+        function convertPolozeniPredmetiResponse(response) {
+            response.data.forEach(function(item) {
+                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
+            });
+            return response;
+        }
+
+        /** neslusaniPredmeti 
+         * request - Unit
+         *
+         * response - List [
+         *   NeslusaniPredmetiResponse {
+         *     id: Int
+         *     studentId: Int
+         *     predmetId: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
+         *     semestarPrvogSlusanja: Int
+         *     semestarPoslednjeSlusanja: Int
+         *   }
+         * ]
+         *
+         */
+        function neslusaniPredmeti(model) {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/neslusani-predmeti',
+                params: {
+                    userId: model.userId
+                }
+            }).then(convertNeslusaniPredmetiResponse);
+        }
+
+        function convertNeslusaniPredmetiResponse(response) {
+            response.data.forEach(function(item) {
+                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
+            });
+            return response;
+        }
+
+        /** prijaviPredmet 
+         * request - PrijaviPredmetRequest {
+         *   userId: Int
+         *   predmetId: Int
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function prijaviPredmet(model) {
+            return $http({
+                method: 'POST',
+                url: backendApiUrl + '/api/prijavi',
+                data: {
+                    userId: model.userId,
+                    predmetId: model.predmetId
+                }
+            });
+        }
+
+        /** slusajPredmet 
+         * request - SlusajPredmetRequest {
+         *   userId: Int
+         *   predmetId: Int
+         * }
+         *
+         * response - Unit
+         *
+         */
+        function slusajPredmet(model) {
+            return $http({
+                method: 'POST',
+                url: backendApiUrl + '/api/slusaj',
+                data: {
+                    userId: model.userId,
+                    predmetId: model.predmetId
+                }
+            });
+        }
+
     }
 })();

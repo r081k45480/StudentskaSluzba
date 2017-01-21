@@ -89,6 +89,18 @@ public class StudentApi {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/trenutno-stanje", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<TrenutnoStanjeResponse> trenutnoStanje(@RequestParam("id") Long id) {
+        log.debug("GET /trenutno-stanje");
+        final Optional<Student> result = Optional.ofNullable(studentRepository.findOne(id));
+        if (result.isPresent()) {
+            return ResponseEntity.ok().body(convertToTrenutnoStanjeResponse(result.get()));
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     private ReadStudentResponse convertToReadStudentResponse(Student model) {
         final ReadStudentResponse dto = new ReadStudentResponse();
         dto.setId(model.getId());
@@ -165,6 +177,12 @@ public class StudentApi {
         dto.setRole(model.getRole());
         dto.setUsername(model.getUsername());
         dto.setPasswordHash(model.getPasswordHash());
+        return dto;
+    }
+
+    private TrenutnoStanjeResponse convertToTrenutnoStanjeResponse(Student model) {
+        final TrenutnoStanjeResponse dto = new TrenutnoStanjeResponse();
+        dto.setTrenutnoStanjeRacuna(model.getTrenutnoStanjeRacuna());
         return dto;
     }
 }

@@ -32,7 +32,7 @@ StudentskaSluzba project[
     )
 
     Stanje model(
-      #student Student # from [oneToMany]
+      student Student # from [oneToMany]
       iznos decimal
       prethodnoStanje decimal
       datum datetime
@@ -53,7 +53,21 @@ StudentskaSluzba project[
 
       nepolozeniPredmeti find
       from StudPred
-      where StudPred.ocena is not null
+      join Predmet on StudPred with StudPred.predmet
+      where StudPred.ocena is not null and StudPred.student == user
+
+      prijavljeniPredmeti find
+      from StudPred
+      where StudPred.student == user
+
+      polozeniPredmeti find
+      from StudPred
+      where StudPred.student == user
+
+      neslusaniPredmeti find
+      from StudPred
+      where StudPred.student == user
+
     )
 
     Prijava model(
@@ -64,6 +78,14 @@ StudentskaSluzba project[
     #API
     StudentApi api(
       student crud[model Student, rest]
+
+      trenutnoStanje find[
+        query Student.findById
+        response(
+          Student.trenutnoStanjeRacuna
+        )
+        rest /trenutno-stanje
+      ]
     )
 
     StudPredApi api(
@@ -72,8 +94,51 @@ StudentskaSluzba project[
 
         nepolozeniPredmeti find[
           query StudPred.nepolozeniPredmeti
+          response(
+            StudPred.predmet
+          )
           rest /nepolozeni-predmeti
         ]
+
+        prijavljeniPredmeti find[
+          query StudPred.prijavljeniPredmeti
+          rest /prijavljeni-predmeti
+        ]
+
+        polozeniPredmeti find[
+          query StudPred.polozeniPredmeti
+          rest /polozeni-predmeti
+        ]
+
+        neslusaniPredmeti find[
+          query StudPred.neslusaniPredmeti
+          rest /neslusani-predmeti
+        ]
+
+        prijaviPredmet custom[
+          request dto(
+            userId integer
+            predmetId integer
+          )
+          post /prijavi
+        ]
+
+        slusajPredmet custom[
+          request dto(
+            userId integer
+            predmetId integer
+          )
+          post /slusaj
+        ]
+    )
+
+    FinansijeApi api(
+      finansije crud[model Stanje, rest]
+
+      finansijeStudenta find[
+        query Stanje.findByStudent
+        rest /finansije-studenta
+      ]
     )
   )
 
@@ -87,8 +152,8 @@ StudentskaSluzba project[
   ](
     MainLayout page(
       naslovna button{ on click goto naslovnaPage(principal.id) }
-      predmeti button{ on click goto predmetiPage }
-      finansije button{ on click goto finansijePage }
+      predmeti button{ on click goto PredmetiPage(principal.id) }
+      finansije button{ on click goto finansijePage(principal.id) }
       placeholder
     )
 
@@ -100,11 +165,55 @@ StudentskaSluzba project[
       }
     )
 
-    predmetiPage MainLayout[path /nepolozeni](
-      nepolozeni table[load StudPredApi.nepolozeniPredmeti]
+    PredmetiPage MainLayout[path /predmeti, params(userId integer)](
+        nepolozeni button{ on click goto nepolozeniPage(params.userId) }
+        polozeni button{ on click goto polozeniPage(params.userId) }
+        neslusani button{ on click goto neslusaniPage(params.userId) }
+        placeholder
     )
 
-    finansijePage MainLayout[path /finansije](
+    predmetChangedEvent event
+
+    nepolozeniPage PredmetiPage[path /nepolozeni, params(userId integer)](
+      nepolozeni table[bind params.userId, load StudPredApi.nepolozeniPredmeti](
+        prijavi button{
+          on click call StudPredApi.prijaviPredmet(params.userId, item.predmetId){
+            on success fire predmetChangedEvent
+          }
+        }
+      ){
+        on predmetChangedEvent reload
+      }
+      prijavljeni table[bind params.userId, load StudPredApi.prijavljeniPredmeti]{
+        on predmetChangedEvent reload
+      }
+    )
+
+    polozeniPage PredmetiPage[path /polozeni, params(userId integer)](
+      polozeni table[bind params.userId, load StudPredApi.polozeniPredmeti]{
+        on predmetChangedEvent reload
+      }
+    )
+
+    neslusaniPage PredmetiPage[path /neslusani, params(userId integer)](
+      neslusani table[bind params.userId, load StudPredApi.neslusaniPredmeti](
+        slusaj button{
+          on click call StudPredApi.slusajPredmet(params.userId, item.id){
+            on success fire predmetChangedEvent
+          }
+        }
+      ){
+        on predmetChangedEvent reload
+      }
+    )
+
+    finansijePage MainLayout[path /finansije, params(userId integer)](
+      trenutnoStanje form[bind params.userId, model (stanje integer), load StudentApi.trenutnoStanje]{
+        on predmetChangedEvent reload
+      }
+      finanasijeTable table[bind params.userId, load FinansijeApi.finansijeStudenta]{
+        on predmetChangedEvent reload
+      }
     )
   )
 )

@@ -22,6 +22,7 @@ package com.StudentskaSluzba.backend.repository.impl;
 import java.time.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,9 @@ import javax.inject.Inject;
 import com.StudentskaSluzba.backend.model.*;
 
 import com.StudentskaSluzba.backend.repository.StudPredRepositoryCustom;
+import com.StudentskaSluzba.backend.repository.tuple.*;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQueryFactory;
 
 
@@ -43,10 +46,33 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
     private JPQLQueryFactory factory;
 
     @Override
-    public List<StudPred> nepolozeniPredmeti() {
-        log.trace(".nepolozeniPredmeti()");
+    public List<StudPredPredmetTuple> nepolozeniPredmeti(Long userId) {
+        log.trace(".nepolozeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
-        return factory.select(studPred).from(studPred).where(studPred.ocena.isNotNull()).fetch();
+        final QPredmet predmet = QPredmet.predmet;
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(new BooleanBuilder().and(studPred.ocena.isNotNull()).and(studPred.student.id.eq(userId)))
+                .fetch().stream().map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudPred> prijavljeniPredmeti(Long userId) {
+        log.trace(".prijavljeniPredmeti(userId: {})", userId);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
+    }
+
+    @Override
+    public List<StudPred> polozeniPredmeti(Long userId) {
+        log.trace(".polozeniPredmeti(userId: {})", userId);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
+    }
+
+    @Override
+    public List<StudPred> neslusaniPredmeti(Long userId) {
+        log.trace(".neslusaniPredmeti(userId: {})", userId);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.student.id.eq(userId)).fetch();
     }
 
     @Override

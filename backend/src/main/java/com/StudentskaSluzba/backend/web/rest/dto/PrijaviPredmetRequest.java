@@ -24,18 +24,29 @@ import java.io.Serializable;
 import javax.validation.constraints.*;
 
 
-public class NepolozeniPredmetiResponse implements Serializable {
+public class PrijaviPredmetRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    private Long predmetId;
+    private Integer userId;
 
-    public Long getPredmetId() {
+    @NotNull
+    private Integer predmetId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getPredmetId() {
         return predmetId;
     }
 
-    public void setPredmetId(Long predmetId) {
+    public void setPredmetId(Integer predmetId) {
         this.predmetId = predmetId;
     }
 
@@ -47,7 +58,9 @@ public class NepolozeniPredmetiResponse implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final NepolozeniPredmetiResponse other = (NepolozeniPredmetiResponse) obj;
+        final PrijaviPredmetRequest other = (PrijaviPredmetRequest) obj;
+        if ((userId == null && other.userId != null) || !userId.equals(other.userId))
+            return false;
         if ((predmetId == null && other.predmetId != null) || !predmetId.equals(other.predmetId))
             return false;
         return true;
@@ -57,13 +70,14 @@ public class NepolozeniPredmetiResponse implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
         result = prime * result + ((predmetId == null) ? 0 : predmetId.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "NepolozeniPredmetiResponse[" + "predmetId=" + predmetId + "]";
+        return "PrijaviPredmetRequest[" + "userId=" + userId + ", predmetId=" + predmetId + "]";
     }
 
 }

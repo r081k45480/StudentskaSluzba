@@ -42,13 +42,28 @@
                 templateUrl: 'src/app/components/pages/naslovnaPage.html',
                 controller: 'NaslovnaPageController'
             })
-            .state('MainLayout.predmetiPage', {
-                url: '/nepolozeni',
-                templateUrl: 'src/app/components/pages/predmetiPage.html',
+            .state('MainLayout.PredmetiPage', {
+                url: '/predmeti?userId',
+                templateUrl: 'src/app/components/pages/PredmetiPage.html',
                 controller: 'PredmetiPageController'
             })
+            .state('MainLayout.PredmetiPage.nepolozeniPage', {
+                url: '/nepolozeni?userId',
+                templateUrl: 'src/app/components/pages/nepolozeniPage.html',
+                controller: 'NepolozeniPageController'
+            })
+            .state('MainLayout.PredmetiPage.polozeniPage', {
+                url: '/polozeni?userId',
+                templateUrl: 'src/app/components/pages/polozeniPage.html',
+                controller: 'PolozeniPageController'
+            })
+            .state('MainLayout.PredmetiPage.neslusaniPage', {
+                url: '/neslusani?userId',
+                templateUrl: 'src/app/components/pages/neslusaniPage.html',
+                controller: 'NeslusaniPageController'
+            })
             .state('MainLayout.finansijePage', {
-                url: '/finansije',
+                url: '/finansije?userId',
                 templateUrl: 'src/app/components/pages/finansijePage.html',
                 controller: 'FinansijePageController'
             })

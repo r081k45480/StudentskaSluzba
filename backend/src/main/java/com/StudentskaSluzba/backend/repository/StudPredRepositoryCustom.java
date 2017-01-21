@@ -25,10 +25,18 @@ import java.util.Optional;
 
 import com.StudentskaSluzba.backend.model.*;
 
+import com.StudentskaSluzba.backend.repository.tuple.*;
+
 
 public interface StudPredRepositoryCustom {
 
-    List<StudPred> nepolozeniPredmeti();
+    List<StudPredPredmetTuple> nepolozeniPredmeti(Long userId);
+
+    List<StudPred> prijavljeniPredmeti(Long userId);
+
+    List<StudPred> polozeniPredmeti(Long userId);
+
+    List<StudPred> neslusaniPredmeti(Long userId);
 
     List<StudPred> findByStudent(Long studentId);
 

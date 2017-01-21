@@ -4,16 +4,24 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'NEPOLOZENI_PREDMET_ID' | translate}}</th>
-                        <th>{{'NEPOLOZENI_PRIJAVI' | translate}}</th>
+                        <th>{{'POLOZENI_ID' | translate}}</th>
+                        <th>{{'POLOZENI_STUDENT_ID' | translate}}</th>
+                        <th>{{'POLOZENI_PREDMET_ID' | translate}}</th>
+                        <th>{{'POLOZENI_OCENA' | translate}}</th>
+                        <th>{{'POLOZENI_DATUM_POLOZENO' | translate}}</th>
+                        <th>{{'POLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
+                        <th>{{'POLOZENI_SEMESTAR_POSLEDNJE_SLUSANJA' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in model">
+                        <td>{{item.id}}</td>
+                        <td>{{item.studentId}}</td>
                         <td>{{item.predmetId}}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" ng-click="onClickPrijavi(item)">{{'NEPOLOZENI_PRIJAVI' | translate}}</button>
-                        </td>
+                        <td>{{item.ocena}}</td>
+                        <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
+                        <td>{{item.semestarPrvogSlusanja}}</td>
+                        <td>{{item.semestarPoslednjeSlusanja}}</td>
                     </tr>
                 </tbody>
                 <tfoot data-ng-if="model.length == 0">

@@ -24,9 +24,10 @@
         .module('webapp')
         .controller('FinansijePageController', FinansijePageController);
 
-    FinansijePageController.$inject = [];
+    FinansijePageController.$inject = ['$scope', '$stateParams'];
 
-    function FinansijePageController() {
+    function FinansijePageController($scope, $stateParams) {
+        $scope.userId = parseInt($stateParams.userId);
 
     }
 })();

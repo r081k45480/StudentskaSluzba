@@ -32,7 +32,8 @@
             readStudent: readStudent,
             createStudent: createStudent,
             updateStudent: updateStudent,
-            deleteStudent: deleteStudent
+            deleteStudent: deleteStudent,
+            trenutnoStanje: trenutnoStanje
         };
 
         /** readStudent 
@@ -144,6 +145,22 @@
          *
          */
         function deleteStudent(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** trenutnoStanje 
+         * request - Unit
+         *
+         * response - TrenutnoStanjeResponse {
+         *   trenutnoStanjeRacuna: Decimal(10, 4)
+         * }
+         *
+         */
+        function trenutnoStanje(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values
