@@ -238,69 +238,49 @@ public class StudPredApi {
 
     private NepolozeniPredmetiResponse convertToNepolozeniPredmetiResponse(StudPredPredmetTuple model) {
         final NepolozeniPredmetiResponse dto = new NepolozeniPredmetiResponse();
-        dto.setId(model.getStudPred().getId());
-        dto.setStudentId(model.getStudPred().getStudent().getId());
-        dto.setPredmetId(model.getStudPred().getPredmet().getId());
-        dto.setOcena(model.getStudPred().getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetId(model.getPredmet().getId());
         dto.setPredmetNaziv(model.getPredmet().getNaziv());
         dto.setPredmetEspb(model.getPredmet().getEspb());
         dto.setPredmetObavezni(model.getPredmet().getObavezni());
         dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
         dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
         return dto;
     }
 
     private PrijavljeniPredmetiResponse convertToPrijavljeniPredmetiResponse(StudPredPredmetTuple model) {
         final PrijavljeniPredmetiResponse dto = new PrijavljeniPredmetiResponse();
-        dto.setId(model.getStudPred().getId());
-        dto.setStudentId(model.getStudPred().getStudent().getId());
-        dto.setPredmetId(model.getStudPred().getPredmet().getId());
-        dto.setOcena(model.getStudPred().getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
         dto.setPredmetNaziv(model.getPredmet().getNaziv());
         dto.setPredmetEspb(model.getPredmet().getEspb());
         dto.setPredmetObavezni(model.getPredmet().getObavezni());
         dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
         dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
         return dto;
     }
 
     private PolozeniPredmetiResponse convertToPolozeniPredmetiResponse(StudPredPredmetTuple model) {
         final PolozeniPredmetiResponse dto = new PolozeniPredmetiResponse();
-        dto.setId(model.getStudPred().getId());
-        dto.setStudentId(model.getStudPred().getStudent().getId());
-        dto.setPredmetId(model.getStudPred().getPredmet().getId());
-        dto.setOcena(model.getStudPred().getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetId(model.getPredmet().getId());
         dto.setPredmetNaziv(model.getPredmet().getNaziv());
         dto.setPredmetEspb(model.getPredmet().getEspb());
         dto.setPredmetObavezni(model.getPredmet().getObavezni());
-        dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
         dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
+        dto.setOcena(model.getStudPred().getOcena().orElse(null));
+        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
         return dto;
     }
 
     private NeslusaniPredmetiResponse convertToNeslusaniPredmetiResponse(StudPredPredmetTuple model) {
         final NeslusaniPredmetiResponse dto = new NeslusaniPredmetiResponse();
-        dto.setId(model.getStudPred().getId());
-        dto.setStudentId(model.getStudPred().getStudent().getId());
-        dto.setPredmetId(model.getStudPred().getPredmet().getId());
-        dto.setOcena(model.getStudPred().getOcena().orElse(null));
-        dto.setDatumPolozeno(model.getStudPred().getDatumPolozeno().orElse(null));
-        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
-        dto.setSemestarPoslednjeSlusanja(model.getStudPred().getSemestarPoslednjeSlusanja());
+        dto.setPredmetId(model.getPredmet().getId());
         dto.setPredmetNaziv(model.getPredmet().getNaziv());
         dto.setPredmetEspb(model.getPredmet().getEspb());
         dto.setPredmetObavezni(model.getPredmet().getObavezni());
         dto.setPredmetPredlozeniSemestar(model.getPredmet().getPredlozeniSemestar());
         dto.setPredmetImeProfesora(model.getPredmet().getImeProfesora());
+        dto.setSemestarPrvogSlusanja(model.getStudPred().getSemestarPrvogSlusanja());
         return dto;
     }
 }

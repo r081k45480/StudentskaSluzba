@@ -83,9 +83,6 @@
             studPredApi.slusajPredmet(request).then(onSuccess, onError);
 
             function onSuccess(response) {
-                response.data.forEach(function(item) {
-                    item.datumPolozeno = new Date(item.datumPolozeno);
-                });
                 eventBus.emitEvent('predmetChangedEvent');
                 $scope.errorCode = null;
             }

@@ -4,35 +4,25 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'NEPOLOZENI_ID' | translate}}</th>
-                        <th>{{'NEPOLOZENI_STUDENT_ID' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_ID' | translate}}</th>
-                        <th>{{'NEPOLOZENI_OCENA' | translate}}</th>
-                        <th>{{'NEPOLOZENI_DATUM_POLOZENO' | translate}}</th>
-                        <th>{{'NEPOLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
-                        <th>{{'NEPOLOZENI_SEMESTAR_POSLEDNJE_SLUSANJA' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_NAZIV' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_ESPB' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_OBAVEZNI' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_PREDLOZENI_SEMESTAR' | translate}}</th>
                         <th>{{'NEPOLOZENI_PREDMET_IME_PROFESORA' | translate}}</th>
+                        <th>{{'NEPOLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
                         <th>{{'NEPOLOZENI_PRIJAVI' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in model">
-                        <td>{{item.id}}</td>
-                        <td>{{item.studentId}}</td>
                         <td>{{item.predmetId}}</td>
-                        <td>{{item.ocena}}</td>
-                        <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
-                        <td>{{item.semestarPrvogSlusanja}}</td>
-                        <td>{{item.semestarPoslednjeSlusanja}}</td>
                         <td>{{item.predmetNaziv}}</td>
                         <td>{{item.predmetEspb}}</td>
                         <td>{{item.predmetObavezni}}</td>
                         <td>{{item.predmetPredlozeniSemestar}}</td>
                         <td>{{item.predmetImeProfesora}}</td>
+                        <td>{{item.semestarPrvogSlusanja}}</td>
                         <td>
                             <button type="button" class="btn btn-primary" ng-click="onClickPrijavi(item)">{{'NEPOLOZENI_PRIJAVI' | translate}}</button>
                         </td>
