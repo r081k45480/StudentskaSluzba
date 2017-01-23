@@ -50,7 +50,11 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".nepolozeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
         final QPredmet predmet = QPredmet.predmet;
-        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(new BooleanBuilder().and(studPred.ocena.isNull()).and(studPred.student.id.eq(userId)))
+        final QPrijava prijava = QPrijava.prijava;
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet)
+        .where(new BooleanBuilder().and(studPred.ocena.isNull()).and(studPred.student.id.eq(userId))
+                                  .and(studPred.id.notIn(
+                                  factory.select(prijava.studPred.id).from(prijava))))
                 .fetch().stream().map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
@@ -59,7 +63,16 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".prijavljeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
         final QPredmet predmet = QPredmet.predmet;
-        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
+        final QPrijava prijava = QPrijava.prijava;
+        return factory.select(studPred, predmet).from(studPred)
+                .innerJoin(studPred.predmet, predmet)
+                .where(studPred.student.id.eq(userId)
+                .and(
+                  studPred.id.in(
+                  factory.select(prijava.studPred.id).from(prijava)
+                )).and(
+                  predmet.id.eq(studPred.predmet.id)
+                )).fetch().stream()
                 .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
@@ -68,7 +81,8 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".polozeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
         final QPredmet predmet = QPredmet.predmet;
-        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet)
+        .where(studPred.student.id.eq(userId).and(studPred.ocena.isNotNull())).fetch().stream()
                 .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
@@ -77,8 +91,12 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".neslusaniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
         final QPredmet predmet = QPredmet.predmet;
-        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(studPred.student.id.eq(userId)).fetch().stream()
-                .map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
+        return factory.select(predmet).from(predmet).
+          where(predmet.id.notIn(
+            factory.select(studPred.predmet.id).from(studPred)
+              .where(studPred.student.id.eq(userId)
+          ))).fetch().stream()
+                .map(t -> new StudPredPredmetTuple(t)).collect(Collectors.toList());
     }
 
     @Override

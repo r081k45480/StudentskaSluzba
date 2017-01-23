@@ -3,7 +3,7 @@
         <form name="trenutnoStanje" role="form" novalidate ng-submit="submit(trenutnoStanje)">
             <div class="form-group">
                 <label for="stanje">{{'TRENUTNO_STANJE_STANJE' | translate}}</label>
-                <input type="number" id="stanje" name="stanje" class="form-control" ng-model="model.stanje" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" disabled>
+                <input type="number" id="stanje" name="stanje" class="form-control" ng-model="model.trenutnoStanjeRacuna" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" disabled>
                 <div ng-messages="trenutnoStanje.stanje.$error" ng-if="trenutnoStanje.$submitted || !trenutnoStanje.stanje.$pristine">
                     <div ng-message="required">{{'TRENUTNO_STANJE_STANJE_IS_REQUIRED' | translate}}</div>
                 </div>
