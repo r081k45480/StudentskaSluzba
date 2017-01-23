@@ -97,21 +97,57 @@ StudentskaSluzba project[
 
         nepolozeniPredmeti find[
           query StudPred.nepolozeniPredmeti
+          response (
+            Predmet.id
+            Predmet.naziv
+            Predmet.espb
+            Predmet.obavezni
+            Predmet.predlozeniSemestar
+            Predmet.imeProfesora
+            StudPred.semestarPrvogSlusanja
+          )
           rest /nepolozeni-predmeti
         ]
 
         prijavljeniPredmeti find[
           query StudPred.prijavljeniPredmeti
+          response (
+            Predmet.naziv
+            Predmet.espb
+            Predmet.obavezni
+            Predmet.predlozeniSemestar
+            Predmet.imeProfesora
+            StudPred.semestarPrvogSlusanja
+          )
           rest /prijavljeni-predmeti
       ]
 
         polozeniPredmeti find[
           query StudPred.polozeniPredmeti
+          response (
+            Predmet.id
+            Predmet.naziv
+            Predmet.espb
+            Predmet.obavezni
+            Predmet.imeProfesora
+            StudPred.semestarPrvogSlusanja
+            StudPred.ocena
+            StudPred.datumPolozeno
+          )
           rest /polozeni-predmeti
         ]
 
         neslusaniPredmeti find[
           query StudPred.neslusaniPredmeti
+          response (
+            Predmet.id
+            Predmet.naziv
+            Predmet.espb
+            Predmet.obavezni
+            Predmet.predlozeniSemestar
+            Predmet.imeProfesora
+            StudPred.semestarPrvogSlusanja
+          )
           rest /neslusani-predmeti
         ]
 
@@ -198,7 +234,7 @@ StudentskaSluzba project[
     neslusaniPage PredmetiPage[path /neslusani, params(userId integer)](
       neslusani table[bind params.userId, load StudPredApi.neslusaniPredmeti](
         slusaj button{
-          on click call StudPredApi.slusajPredmet(params.userId, item.id){
+          on click call StudPredApi.slusajPredmet(params.userId, item.predmetId){
             on success fire predmetChangedEvent
           }
         }

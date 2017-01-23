@@ -43,7 +43,6 @@
 
         $scope.model = {};
         $scope.errorCode = null;
-        $scope.submit = submit;
         $scope.onpredmetChangedEvent = eventBus.onEvent('predmetChangedEvent', onpredmetChangedEvent);
 
         if ($scope.id) load($scope.id);

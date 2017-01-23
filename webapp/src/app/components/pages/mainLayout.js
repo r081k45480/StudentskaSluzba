@@ -39,15 +39,21 @@
 		}
 		
         function onClickNaslovna() {
-            $state.go('MainLayout.naslovnaPage');
+            $state.go('MainLayout.naslovnaPage', {
+				userId : parseInt(sessionService.getSessionData().id)
+			});
         }
 
         function onClickPredmeti() {
-            $state.go('MainLayout.PredmetiPage', {});
+            $state.go('MainLayout.PredmetiPage', {
+				userId : parseInt(sessionService.getSessionData().id)
+			});
         }
 
         function onClickFinansije() {
-            $state.go('MainLayout.finansijePage', {});
+            $state.go('MainLayout.finansijePage', {
+				userId : parseInt(sessionService.getSessionData().id)
+			});
         }
 
     }

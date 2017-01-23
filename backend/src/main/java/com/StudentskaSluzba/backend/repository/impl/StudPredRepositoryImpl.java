@@ -1,19 +1,19 @@
 /**
 * Copyright 2016 dryTools doo
 * Email: contact@drytools.co
-* 
+*
 * This file is part of StudentskaSluzba.
-* 
+*
 * StudentskaSluzba is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
-* 
+*
 * StudentskaSluzba is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with StudentskaSluzba. If not, see <http://www.gnu.org/licenses/>.*
 **/
@@ -50,7 +50,7 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         log.trace(".nepolozeniPredmeti(userId: {})", userId);
         final QStudPred studPred = QStudPred.studPred;
         final QPredmet predmet = QPredmet.predmet;
-        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(new BooleanBuilder().and(studPred.ocena.isNotNull()).and(studPred.student.id.eq(userId)))
+        return factory.select(studPred, predmet).from(studPred).innerJoin(studPred.predmet, predmet).where(new BooleanBuilder().and(studPred.ocena.isNull()).and(studPred.student.id.eq(userId)))
                 .fetch().stream().map(t -> new StudPredPredmetTuple(t.get(studPred), t.get(predmet))).collect(Collectors.toList());
     }
 
