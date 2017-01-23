@@ -210,18 +210,13 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
@@ -233,14 +228,7 @@
                 params: {
                     userId: model.userId
                 }
-            }).then(convertNepolozeniPredmetiResponse);
-        }
-
-        function convertNepolozeniPredmetiResponse(response) {
-            response.data.forEach(function(item) {
-                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
             });
-            return response;
         }
 
         /** prijavljeniPredmeti 
@@ -248,18 +236,12 @@
          *
          * response - List [
          *   PrijavljeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
-         *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
@@ -271,14 +253,7 @@
                 params: {
                     userId: model.userId
                 }
-            }).then(convertPrijavljeniPredmetiResponse);
-        }
-
-        function convertPrijavljeniPredmetiResponse(response) {
-            response.data.forEach(function(item) {
-                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
             });
-            return response;
         }
 
         /** polozeniPredmeti 
@@ -286,18 +261,14 @@
          *
          * response - List [
          *   PolozeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
-         *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
          *   }
          * ]
          *
@@ -324,18 +295,13 @@
          *
          * response - List [
          *   NeslusaniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
@@ -347,14 +313,7 @@
                 params: {
                     userId: model.userId
                 }
-            }).then(convertNeslusaniPredmetiResponse);
-        }
-
-        function convertNeslusaniPredmetiResponse(response) {
-            response.data.forEach(function(item) {
-                item.datumPolozeno = item.datumPolozeno ? new Date(item.datumPolozeno) : null;
             });
-            return response;
         }
 
         /** prijaviPredmet 

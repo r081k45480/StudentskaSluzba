@@ -21,10 +21,6 @@ package com.StudentskaSluzba.backend.web.rest.dto;
 
 import java.io.Serializable;
 
-import java.time.*;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.validation.constraints.*;
 
 
@@ -33,26 +29,7 @@ public class NeslusaniPredmetiResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    private Long id;
-
-    @NotNull
-    private Long studentId;
-
-    @NotNull
     private Long predmetId;
-
-    @Max(10)
-    private Integer ocena;
-
-    private ZonedDateTime datumPolozeno;
-
-    @NotNull
-    @Min(1)
-    private Integer semestarPrvogSlusanja;
-
-    @NotNull
-    @Min(1)
-    private Integer semestarPoslednjeSlusanja;
 
     @NotNull
     @Size(max = 255)
@@ -73,21 +50,9 @@ public class NeslusaniPredmetiResponse implements Serializable {
     @Size(max = 255)
     private String predmetImeProfesora;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
+    @NotNull
+    @Min(1)
+    private Integer semestarPrvogSlusanja;
 
     public Long getPredmetId() {
         return predmetId;
@@ -95,38 +60,6 @@ public class NeslusaniPredmetiResponse implements Serializable {
 
     public void setPredmetId(Long predmetId) {
         this.predmetId = predmetId;
-    }
-
-    public Integer getOcena() {
-        return ocena;
-    }
-
-    public void setOcena(Integer ocena) {
-        this.ocena = ocena;
-    }
-
-    public ZonedDateTime getDatumPolozeno() {
-        return datumPolozeno;
-    }
-
-    public void setDatumPolozeno(ZonedDateTime datumPolozeno) {
-        this.datumPolozeno = datumPolozeno;
-    }
-
-    public Integer getSemestarPrvogSlusanja() {
-        return semestarPrvogSlusanja;
-    }
-
-    public void setSemestarPrvogSlusanja(Integer semestarPrvogSlusanja) {
-        this.semestarPrvogSlusanja = semestarPrvogSlusanja;
-    }
-
-    public Integer getSemestarPoslednjeSlusanja() {
-        return semestarPoslednjeSlusanja;
-    }
-
-    public void setSemestarPoslednjeSlusanja(Integer semestarPoslednjeSlusanja) {
-        this.semestarPoslednjeSlusanja = semestarPoslednjeSlusanja;
     }
 
     public String getPredmetNaziv() {
@@ -169,6 +102,14 @@ public class NeslusaniPredmetiResponse implements Serializable {
         this.predmetImeProfesora = predmetImeProfesora;
     }
 
+    public Integer getSemestarPrvogSlusanja() {
+        return semestarPrvogSlusanja;
+    }
+
+    public void setSemestarPrvogSlusanja(Integer semestarPrvogSlusanja) {
+        this.semestarPrvogSlusanja = semestarPrvogSlusanja;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -178,19 +119,7 @@ public class NeslusaniPredmetiResponse implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final NeslusaniPredmetiResponse other = (NeslusaniPredmetiResponse) obj;
-        if ((id == null && other.id != null) || !id.equals(other.id))
-            return false;
-        if ((studentId == null && other.studentId != null) || !studentId.equals(other.studentId))
-            return false;
         if ((predmetId == null && other.predmetId != null) || !predmetId.equals(other.predmetId))
-            return false;
-        if ((ocena == null && other.ocena != null) || !ocena.equals(other.ocena))
-            return false;
-        if ((datumPolozeno == null && other.datumPolozeno != null) || !datumPolozeno.equals(other.datumPolozeno))
-            return false;
-        if ((semestarPrvogSlusanja == null && other.semestarPrvogSlusanja != null) || !semestarPrvogSlusanja.equals(other.semestarPrvogSlusanja))
-            return false;
-        if ((semestarPoslednjeSlusanja == null && other.semestarPoslednjeSlusanja != null) || !semestarPoslednjeSlusanja.equals(other.semestarPoslednjeSlusanja))
             return false;
         if ((predmetNaziv == null && other.predmetNaziv != null) || !predmetNaziv.equals(other.predmetNaziv))
             return false;
@@ -202,6 +131,8 @@ public class NeslusaniPredmetiResponse implements Serializable {
             return false;
         if ((predmetImeProfesora == null && other.predmetImeProfesora != null) || !predmetImeProfesora.equals(other.predmetImeProfesora))
             return false;
+        if ((semestarPrvogSlusanja == null && other.semestarPrvogSlusanja != null) || !semestarPrvogSlusanja.equals(other.semestarPrvogSlusanja))
+            return false;
         return true;
     }
 
@@ -209,26 +140,20 @@ public class NeslusaniPredmetiResponse implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
         result = prime * result + ((predmetId == null) ? 0 : predmetId.hashCode());
-        result = prime * result + ((ocena == null) ? 0 : ocena.hashCode());
-        result = prime * result + ((datumPolozeno == null) ? 0 : datumPolozeno.hashCode());
-        result = prime * result + ((semestarPrvogSlusanja == null) ? 0 : semestarPrvogSlusanja.hashCode());
-        result = prime * result + ((semestarPoslednjeSlusanja == null) ? 0 : semestarPoslednjeSlusanja.hashCode());
         result = prime * result + ((predmetNaziv == null) ? 0 : predmetNaziv.hashCode());
         result = prime * result + ((predmetEspb == null) ? 0 : predmetEspb.hashCode());
         result = prime * result + ((predmetObavezni == null) ? 0 : predmetObavezni.hashCode());
         result = prime * result + ((predmetPredlozeniSemestar == null) ? 0 : predmetPredlozeniSemestar.hashCode());
         result = prime * result + ((predmetImeProfesora == null) ? 0 : predmetImeProfesora.hashCode());
+        result = prime * result + ((semestarPrvogSlusanja == null) ? 0 : semestarPrvogSlusanja.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "NeslusaniPredmetiResponse[" + "id=" + id + ", studentId=" + studentId + ", predmetId=" + predmetId + ", ocena=" + ocena + ", datumPolozeno=" + datumPolozeno
-                + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja + ", semestarPoslednjeSlusanja=" + semestarPoslednjeSlusanja + ", predmetNaziv=" + predmetNaziv + ", predmetEspb=" + predmetEspb
-                + ", predmetObavezni=" + predmetObavezni + ", predmetPredlozeniSemestar=" + predmetPredlozeniSemestar + ", predmetImeProfesora=" + predmetImeProfesora + "]";
+        return "NeslusaniPredmetiResponse[" + "predmetId=" + predmetId + ", predmetNaziv=" + predmetNaziv + ", predmetEspb=" + predmetEspb + ", predmetObavezni=" + predmetObavezni
+                + ", predmetPredlozeniSemestar=" + predmetPredlozeniSemestar + ", predmetImeProfesora=" + predmetImeProfesora + ", semestarPrvogSlusanja=" + semestarPrvogSlusanja + "]";
     }
 
 }

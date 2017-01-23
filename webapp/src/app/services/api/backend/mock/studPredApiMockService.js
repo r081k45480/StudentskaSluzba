@@ -167,18 +167,13 @@
          *
          * response - List [
          *   NepolozeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
@@ -196,18 +191,12 @@
          *
          * response - List [
          *   PrijavljeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
-         *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
@@ -225,18 +214,14 @@
          *
          * response - List [
          *   PolozeniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
-         *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
+         *     ocena: Optional[Int]
+         *     datumPolozeno: Optional[DateTime]
          *   }
          * ]
          *
@@ -254,18 +239,13 @@
          *
          * response - List [
          *   NeslusaniPredmetiResponse {
-         *     id: Int
-         *     studentId: Int
          *     predmetId: Int
-         *     ocena: Optional[Int]
-         *     datumPolozeno: Optional[DateTime]
-         *     semestarPrvogSlusanja: Int
-         *     semestarPoslednjeSlusanja: Int
          *     predmetNaziv: String
          *     predmetEspb: Int
          *     predmetObavezni: Boolean
          *     predmetPredlozeniSemestar: Int
          *     predmetImeProfesora: String
+         *     semestarPrvogSlusanja: Int
          *   }
          * ]
          *
