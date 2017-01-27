@@ -4,26 +4,25 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'POLOZENI_PREDMET_ID' | translate}}</th>
                         <th>{{'POLOZENI_PREDMET_NAZIV' | translate}}</th>
+						     <th>{{'POLOZENI_OCENA' | translate}}</th>
+                        <th>{{'POLOZENI_DATUM_POLOZENO' | translate}}</th>
+                   
                         <th>{{'POLOZENI_PREDMET_ESPB' | translate}}</th>
                         <th>{{'POLOZENI_PREDMET_OBAVEZNI' | translate}}</th>
                         <th>{{'POLOZENI_PREDMET_IME_PROFESORA' | translate}}</th>
                         <th>{{'POLOZENI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
-                        <th>{{'POLOZENI_OCENA' | translate}}</th>
-                        <th>{{'POLOZENI_DATUM_POLOZENO' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in model">
-                        <td>{{item.predmetId}}</td>
                         <td>{{item.predmetNaziv}}</td>
+						<td>{{item.ocena}}</td>
+                        <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
                         <td>{{item.predmetEspb}}</td>
                         <td>{{item.predmetObavezni}}</td>
                         <td>{{item.predmetImeProfesora}}</td>
                         <td>{{item.semestarPrvogSlusanja}}</td>
-                        <td>{{item.ocena}}</td>
-                        <td>{{item.datumPolozeno | date:'yyyy-MM-dd'}}</td>
                     </tr>
                 </tbody>
                 <tfoot data-ng-if="model.length == 0">

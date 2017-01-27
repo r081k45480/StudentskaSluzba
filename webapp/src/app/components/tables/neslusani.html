@@ -4,25 +4,21 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>{{'NESLUSANI_PREDMET_ID' | translate}}</th>
                         <th>{{'NESLUSANI_PREDMET_NAZIV' | translate}}</th>
                         <th>{{'NESLUSANI_PREDMET_ESPB' | translate}}</th>
                         <th>{{'NESLUSANI_PREDMET_OBAVEZNI' | translate}}</th>
                         <th>{{'NESLUSANI_PREDMET_PREDLOZENI_SEMESTAR' | translate}}</th>
                         <th>{{'NESLUSANI_PREDMET_IME_PROFESORA' | translate}}</th>
-                        <th>{{'NESLUSANI_SEMESTAR_PRVOG_SLUSANJA' | translate}}</th>
-                        <th>{{'NESLUSANI_SLUSAJ' | translate}}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in model">
-                        <td>{{item.predmetId}}</td>
                         <td>{{item.predmetNaziv}}</td>
                         <td>{{item.predmetEspb}}</td>
                         <td>{{item.predmetObavezni}}</td>
                         <td>{{item.predmetPredlozeniSemestar}}</td>
                         <td>{{item.predmetImeProfesora}}</td>
-                        <td>{{item.semestarPrvogSlusanja}}</td>
                         <td>
                             <button type="button" class="btn btn-primary" ng-click="onClickSlusaj(item)">{{'NESLUSANI_SLUSAJ' | translate}}</button>
                         </td>
