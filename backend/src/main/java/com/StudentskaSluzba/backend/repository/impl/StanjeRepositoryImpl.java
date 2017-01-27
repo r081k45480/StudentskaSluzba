@@ -57,6 +57,13 @@ public class StanjeRepositoryImpl implements StanjeRepositoryCustom {
     }
 
     @Override
+    public List<Stanje> findByOpis(String opis) {
+        log.trace(".findByOpis(opis: {})", opis);
+        final QStanje stanje = QStanje.stanje;
+        return factory.select(stanje).from(stanje).where(stanje.opis.eq(opis)).fetch();
+    }
+
+    @Override
     public List<Stanje> findByPrethodnoStanje(BigDecimal prethodnoStanje) {
         log.trace(".findByPrethodnoStanje(prethodnoStanje: {})", prethodnoStanje);
         final QStanje stanje = QStanje.stanje;

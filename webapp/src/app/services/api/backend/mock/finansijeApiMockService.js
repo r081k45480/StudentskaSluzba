@@ -43,6 +43,7 @@
          *   id: Int
          *   studentId: Int
          *   iznos: Decimal(10, 4)
+         *   opis: String
          *   prethodnoStanje: Decimal(10, 4)
          *   datum: DateTime
          * }
@@ -60,6 +61,7 @@
          * request - CreateFinansijeRequest {
          *   studentId: Int
          *   iznos: Decimal(10, 4)
+         *   opis: String
          *   prethodnoStanje: Decimal(10, 4)
          *   datum: DateTime
          * }
@@ -68,6 +70,7 @@
          *   id: Int
          *   studentId: Int
          *   iznos: Decimal(10, 4)
+         *   opis: String
          *   prethodnoStanje: Decimal(10, 4)
          *   datum: DateTime
          * }
@@ -85,6 +88,7 @@
          * request - RestUpdateFinansijeRequest {
          *   studentId: Int
          *   iznos: Decimal(10, 4)
+         *   opis: String
          *   prethodnoStanje: Decimal(10, 4)
          *   datum: DateTime
          * }
@@ -93,6 +97,7 @@
          *   id: Int
          *   studentId: Int
          *   iznos: Decimal(10, 4)
+         *   opis: String
          *   prethodnoStanje: Decimal(10, 4)
          *   datum: DateTime
          * }
@@ -130,6 +135,7 @@
          *     id: Int
          *     studentId: Int
          *     iznos: Decimal(10, 4)
+         *     opis: String
          *     prethodnoStanje: Decimal(10, 4)
          *     datum: DateTime
          *   }

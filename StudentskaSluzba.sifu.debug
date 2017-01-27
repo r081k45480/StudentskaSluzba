@@ -121,6 +121,8 @@ StudentskaSluzba project[
             iznos decimal[
                 precision 10
                 scale 4]
+            opis text[
+                max 255]
             prethodnoStanje decimal[
                 precision 10
                 scale 4]
@@ -132,6 +134,7 @@ StudentskaSluzba project[
             deleteById delete from Stanje as Stanje where Stanje.id == id
             findByStudent find from Stanje as Stanje where Stanje.student.id == studentId
             findByIznos find from Stanje as Stanje where Stanje.iznos == iznos
+            findByOpis find from Stanje as Stanje where Stanje.opis == opis
             findByPrethodnoStanje find from Stanje as Stanje where Stanje.prethodnoStanje == prethodnoStanje
             findByDatum find from Stanje as Stanje where Stanje.datum == datum
         )
@@ -928,6 +931,7 @@ StudentskaSluzba project[
                     Stanje.id
                     Stanje.student.id
                     Stanje.iznos
+                    Stanje.opis
                     Stanje.prethodnoStanje
                     Stanje.datum
                 )
@@ -946,6 +950,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -959,6 +965,7 @@ StudentskaSluzba project[
                     Stanje.id
                     Stanje.student.id
                     Stanje.iznos
+                    Stanje.opis
                     Stanje.prethodnoStanje
                     Stanje.datum
                 )
@@ -975,6 +982,11 @@ StudentskaSluzba project[
                         read
                     )]
                 iznos iznos[
+                    visible(
+                        create
+                        read
+                    )]
+                opis opis[
                     visible(
                         create
                         read
@@ -996,6 +1008,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1009,6 +1023,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1022,6 +1038,7 @@ StudentskaSluzba project[
                     Stanje.id
                     Stanje.student.id
                     Stanje.iznos
+                    Stanje.opis
                     Stanje.prethodnoStanje
                     Stanje.datum
                 )
@@ -1039,6 +1056,11 @@ StudentskaSluzba project[
                         update
                     )]
                 iznos iznos[
+                    visible(
+                        read
+                        update
+                    )]
+                opis opis[
                     visible(
                         read
                         update
@@ -1062,6 +1084,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1075,6 +1099,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1098,6 +1124,7 @@ StudentskaSluzba project[
                     Stanje.id
                     Stanje.student.id
                     Stanje.iznos
+                    Stanje.opis
                     Stanje.prethodnoStanje
                     Stanje.datum
                 )
@@ -1114,6 +1141,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1983,6 +2012,8 @@ StudentskaSluzba project[
                 iznos decimal[
                     precision 10
                     scale 4]
+                opis text[
+                    max 255]
                 prethodnoStanje decimal[
                     precision 10
                     scale 4]
@@ -1992,6 +2023,7 @@ StudentskaSluzba project[
                 id
                 studentId
                 iznos
+                opis
                 prethodnoStanje
                 datum
             )](
@@ -2011,6 +2043,11 @@ StudentskaSluzba project[
                 )
                 precision 10
                 scale 4]
+            opis text[
+                bind(
+                    model . opis
+                )
+                max 255]
             prethodnoStanje decimal[
                 bind(
                     model . prethodnoStanje

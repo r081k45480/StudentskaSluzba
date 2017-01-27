@@ -40,6 +40,10 @@ public class CreateFinansijeResponse implements Serializable {
     private BigDecimal iznos;
 
     @NotNull
+    @Size(max = 255)
+    private String opis;
+
+    @NotNull
     private BigDecimal prethodnoStanje;
 
     @NotNull
@@ -67,6 +71,14 @@ public class CreateFinansijeResponse implements Serializable {
 
     public void setIznos(BigDecimal iznos) {
         this.iznos = iznos;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
     }
 
     public BigDecimal getPrethodnoStanje() {
@@ -100,6 +112,8 @@ public class CreateFinansijeResponse implements Serializable {
             return false;
         if ((iznos == null && other.iznos != null) || !iznos.equals(other.iznos))
             return false;
+        if ((opis == null && other.opis != null) || !opis.equals(other.opis))
+            return false;
         if ((prethodnoStanje == null && other.prethodnoStanje != null) || !prethodnoStanje.equals(other.prethodnoStanje))
             return false;
         if ((datum == null && other.datum != null) || !datum.equals(other.datum))
@@ -114,6 +128,7 @@ public class CreateFinansijeResponse implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
         result = prime * result + ((iznos == null) ? 0 : iznos.hashCode());
+        result = prime * result + ((opis == null) ? 0 : opis.hashCode());
         result = prime * result + ((prethodnoStanje == null) ? 0 : prethodnoStanje.hashCode());
         result = prime * result + ((datum == null) ? 0 : datum.hashCode());
         return result;
@@ -121,7 +136,7 @@ public class CreateFinansijeResponse implements Serializable {
 
     @Override
     public String toString() {
-        return "CreateFinansijeResponse[" + "id=" + id + ", studentId=" + studentId + ", iznos=" + iznos + ", prethodnoStanje=" + prethodnoStanje + ", datum=" + datum + "]";
+        return "CreateFinansijeResponse[" + "id=" + id + ", studentId=" + studentId + ", iznos=" + iznos + ", opis=" + opis + ", prethodnoStanje=" + prethodnoStanje + ", datum=" + datum + "]";
     }
 
 }
