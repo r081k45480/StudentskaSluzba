@@ -34,6 +34,7 @@ StudentskaSluzba project[
     Stanje model(
       student Student # from [oneToMany]
       iznos decimal
+      opis text
       prethodnoStanje decimal
       datum datetime
     )

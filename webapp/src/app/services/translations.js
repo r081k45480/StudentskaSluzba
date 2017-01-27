@@ -44,6 +44,7 @@
                 FINANASIJE_TABLE_DATUM: 'Datum',
                 FINANASIJE_TABLE_ID: 'Id',
                 FINANASIJE_TABLE_IZNOS: 'Iznos',
+                FINANASIJE_TABLE_OPIS: 'Opis',
                 FINANASIJE_TABLE_PRETHODNO_STANJE: 'Prethodno stanje',
                 FINANASIJE_TABLE_STUDENT_ID: 'Student id',
                 MAIN_LAYOUT_FINANSIJE: 'Finansije',

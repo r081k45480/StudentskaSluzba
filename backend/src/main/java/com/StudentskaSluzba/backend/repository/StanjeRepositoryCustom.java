@@ -32,6 +32,8 @@ public interface StanjeRepositoryCustom {
 
     List<Stanje> findByIznos(BigDecimal iznos);
 
+    List<Stanje> findByOpis(String opis);
+
     List<Stanje> findByPrethodnoStanje(BigDecimal prethodnoStanje);
 
     List<Stanje> findByDatum(ZonedDateTime datum);

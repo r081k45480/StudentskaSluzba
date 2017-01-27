@@ -110,6 +110,7 @@ public class FinansijeApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setIznos(model.getIznos());
+        dto.setOpis(model.getOpis());
         dto.setPrethodnoStanje(model.getPrethodnoStanje());
         dto.setDatum(model.getDatum());
         return dto;
@@ -120,6 +121,7 @@ public class FinansijeApi {
         final Student student = studentRepository.findOne(dto.getStudentId());
         stanje.setStudent(student);
         stanje.setIznos(dto.getIznos());
+        stanje.setOpis(dto.getOpis());
         stanje.setPrethodnoStanje(dto.getPrethodnoStanje());
         stanje.setDatum(dto.getDatum());
         return stanje;
@@ -130,6 +132,7 @@ public class FinansijeApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setIznos(model.getIznos());
+        dto.setOpis(model.getOpis());
         dto.setPrethodnoStanje(model.getPrethodnoStanje());
         dto.setDatum(model.getDatum());
         return dto;
@@ -141,6 +144,7 @@ public class FinansijeApi {
         final Student student = studentRepository.findOne(dto.getStudentId());
         stanje.setStudent(student);
         stanje.setIznos(dto.getIznos());
+        stanje.setOpis(dto.getOpis());
         stanje.setPrethodnoStanje(dto.getPrethodnoStanje());
         stanje.setDatum(dto.getDatum());
         return stanje;
@@ -151,6 +155,7 @@ public class FinansijeApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setIznos(model.getIznos());
+        dto.setOpis(model.getOpis());
         dto.setPrethodnoStanje(model.getPrethodnoStanje());
         dto.setDatum(model.getDatum());
         return dto;
@@ -161,6 +166,7 @@ public class FinansijeApi {
         dto.setId(model.getId());
         dto.setStudentId(model.getStudent().getId());
         dto.setIznos(model.getIznos());
+        dto.setOpis(model.getOpis());
         dto.setPrethodnoStanje(model.getPrethodnoStanje());
         dto.setDatum(model.getDatum());
         return dto;
