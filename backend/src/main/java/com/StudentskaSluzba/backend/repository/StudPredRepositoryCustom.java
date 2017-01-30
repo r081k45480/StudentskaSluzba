@@ -42,6 +42,9 @@ public interface StudPredRepositoryCustom {
 
     List<StudPred> findByPredmet(Long predmetId);
 
+    StudPred findByPredmetAndStudent(Long predmetId, Long studentId);
+
+    
     List<StudPred> findByOcena(Optional<Integer> ocena);
 
     List<StudPred> findByOcenaMandatory(Integer ocena);

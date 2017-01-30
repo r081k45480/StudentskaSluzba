@@ -30,4 +30,5 @@ public interface RokRepositoryCustom {
 
     List<Rok> findByNaziv(String naziv);
 
+    Rok getTrenutniRok();
 }

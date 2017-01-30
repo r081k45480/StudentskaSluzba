@@ -53,12 +53,8 @@
                 </div>
             </div>
 			<div class="form-group">
-                <label for="osvojeniBodovi">Prosecna ocena</label>
-                <input type="text" id="osvojeniBodovi" name="osvojeniBodovi" class="form-control" ng-model="model.osvojeniBodovi" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
-                <div ng-messages="UpdateTaskGroupForm.osvojeniBodovi.$error" ng-if="UpdateTaskGroupForm.$submitted || !UpdateTaskGroupForm.osvojeniBodovi.$pristine">
-                    <div ng-message="required">{{'UPDATE_TASK_GROUP_FORM_OSVOJENI_BODOVI_IS_REQUIRED' | translate}}</div>
-                    <div ng-message="minlength" ng-if="!UpdateTaskGroupForm.osvojeniBodovi.$pristine">{{'UPDATE_TASK_GROUP_FORM_OSVOJENI_BODOVI_MIN' | translate:'{ min: 0 }'}}</div>
-                </div>
+                <label>Prosecna ocena</label>
+                <input disabled type="text" id="prosecanOcena" name="prosecnaOcena" class="form-control" ng-model="prosecnaOcena" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0 } }" required>
             </div>
             <div class="form-group">
                 <label for="role">{{'UPDATE_TASK_GROUP_FORM_ROLE' | translate}}</label>

@@ -19,6 +19,7 @@
 **/
 package com.StudentskaSluzba.backend.repository.impl;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -53,5 +54,12 @@ public class RokRepositoryImpl implements RokRepositoryCustom {
         final QRok rok = QRok.rok;
         return factory.select(rok).from(rok).where(rok.naziv.eq(naziv)).fetch();
     }
+
+	@Override
+	public Rok getTrenutniRok() {
+		log.trace(".getTrenutniRok()");
+        final QRok rok = QRok.rok;
+        return factory.select(rok).from(rok).orderBy(rok.id.desc()).fetchFirst();
+	}
 
 }

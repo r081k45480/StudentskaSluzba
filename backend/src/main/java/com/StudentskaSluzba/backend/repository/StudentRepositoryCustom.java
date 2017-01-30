@@ -31,7 +31,7 @@ import com.StudentskaSluzba.backend.repository.tuple.*;
 
 public interface StudentRepositoryCustom {
 
-    List<StudentStudPredTuple> prosecnaOcena();
+    Double prosecnaOcena(Integer userId);
 
     List<Student> findByIme(String ime);
 

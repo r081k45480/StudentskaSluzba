@@ -19,6 +19,7 @@
 **/
 package com.StudentskaSluzba.backend.web.rest;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -107,7 +108,8 @@ public class StudentApi {
     @Transactional
     public ResponseEntity<ProsecnaOcenaResponse> prosecnaOcena(@RequestParam("userId") Integer userId) {
         log.debug("GET /prosecna-ocena");
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        Double prosek = studentRepository.prosecnaOcena(userId);
+        return ResponseEntity.ok().body(new ProsecnaOcenaResponse(BigDecimal.valueOf(prosek)));
     }
 
     private ReadStudentResponse convertToReadStudentResponse(Student model) {

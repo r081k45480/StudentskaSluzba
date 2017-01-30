@@ -32,7 +32,16 @@ public class ProsecnaOcenaResponse implements Serializable {
     @NotNull
     private BigDecimal prosek;
 
-    public BigDecimal getProsek() {
+    public ProsecnaOcenaResponse() {
+		super();
+	}
+
+	public ProsecnaOcenaResponse(BigDecimal prosek) {
+		this();
+		this.prosek = prosek;
+	}
+
+	public BigDecimal getProsek() {
         return prosek;
     }
 

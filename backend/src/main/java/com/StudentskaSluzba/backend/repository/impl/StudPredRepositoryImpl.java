@@ -162,4 +162,12 @@ public class StudPredRepositoryImpl implements StudPredRepositoryCustom {
         return factory.select(studPred).from(studPred).fetch();
     }
 
+	@Override
+	public StudPred findByPredmetAndStudent(Long predmetId, Long studentId) {
+        log.trace(".findByPredmetAndStudent(predmetId: {}, studentId: {})", predmetId, studentId);
+        final QStudPred studPred = QStudPred.studPred;
+        return factory.select(studPred).from(studPred).where(studPred.predmet.id.eq(predmetId)
+        				.and(studPred.student.id.eq(studentId))).fetchFirst();
+	}
+
 }

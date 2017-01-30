@@ -19,8 +19,10 @@
 **/
 package com.StudentskaSluzba.backend.web.rest;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +60,15 @@ public class StudPredApi {
 
     @Inject
     private StudentRepository studentRepository;
+    
+    @Inject
+    private RokRepository rokRepository;
+    
+    @Inject
+    private PrijavaRepository prijavaRepository;
+    
+    @Inject
+    private StanjeRepository stanjeRepository;
 
     @RequestMapping(value = "/studPred/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -150,16 +161,88 @@ public class StudPredApi {
     @Transactional
     public ResponseEntity<Void> prijaviPredmet(@Valid @RequestBody PrijaviPredmetRequest request) {
         log.debug("POST /prijavi {}", request);
+        Rok trenutniRok = rokRepository.getTrenutniRok();
+        
+        Predmet predmet = predmetRepository.getOne(Long.valueOf(request.getPredmetId()));
+        Student student = studentRepository.getOne(Long.valueOf(request.getUserId()));
+        
+        StudPred studPred = studPredRepository.findByPredmetAndStudent(predmet.getId(), student.getId());
+
+        makePrijava(trenutniRok, studPred);
+        
+        proknjiziStanjePrijave(trenutniRok, predmet, student);
+        
         return ResponseEntity.ok().build();
     }
+
+	public void proknjiziStanjePrijave(Rok trenutniRok, Predmet predmet, Student student) {
+		Stanje stanje = new Stanje();
+        stanje.setDatum(ZonedDateTime.now());
+        stanje.setOpis("Prijava ispita '"+predmet.getNaziv()+"' za rok "+trenutniRok.getNaziv()+"("+trenutniRok.getGodina()+")");
+        stanje.setPrethodnoStanje(student.getTrenutnoStanjeRacuna());
+        
+        Double iznos = student.getBudzet() ? -100.0 : -2000.0 ;
+        
+        stanje.setIznos(BigDecimal.valueOf(iznos));
+        stanje.setStudent(student);
+        
+        stanjeRepository.save(stanje);
+        
+        student.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna().add(BigDecimal.valueOf(iznos)));
+        studentRepository.save(student);
+	}
+	public void proknjiziStanjeSlusanja(Predmet predmet, Student student) {
+		Stanje stanje = new Stanje();
+        stanje.setDatum(ZonedDateTime.now());
+        stanje.setOpis("Predat zahtev za slusanje predmeta '"+predmet.getNaziv()+"'");
+        stanje.setPrethodnoStanje(student.getTrenutnoStanjeRacuna());
+        
+        Double iznos = student.getBudzet() ? 0.0 : -1200.0 * predmet.getEspb() ;
+        
+        stanje.setIznos(BigDecimal.valueOf(iznos));
+        stanje.setStudent(student);
+        
+        stanjeRepository.save(stanje);
+        
+        student.setTrenutnoStanjeRacuna(student.getTrenutnoStanjeRacuna().add(BigDecimal.valueOf(iznos)));
+        studentRepository.save(student);
+	}
+
+	public void makePrijava(Rok trenutniRok, StudPred studPred) {
+		Prijava prijava = new Prijava();
+        
+        prijava.setStudPred(studPred);
+        prijava.setRok(trenutniRok);
+        
+        prijavaRepository.save(prijava);
+	}
 
     @RequestMapping(value = "/slusaj", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
     public ResponseEntity<Void> slusajPredmet(@Valid @RequestBody SlusajPredmetRequest request) {
         log.debug("POST /slusaj {}", request);
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+        Predmet predmet = predmetRepository.getOne(Long.valueOf(request.getPredmetId()));
+        Student student = studentRepository.getOne(Long.valueOf(request.getUserId()));
+        
+        makeStudPred(predmet, student);
+        
+        proknjiziStanjeSlusanja(predmet, student);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+	public void makeStudPred(Predmet predmet, Student student) {
+		StudPred studPred = new StudPred();
+        
+        studPred.setPredmet(predmet);
+        studPred.setSemestarPoslednjeSlusanja(student.getTekuciSemestar());
+        studPred.setSemestarPrvogSlusanja(student.getTekuciSemestar());
+        studPred.setStudent(student);
+        
+        studPredRepository.save(studPred);
+	}
 
     private ReadStudPredResponse convertToReadStudPredResponse(StudPred model) {
         final ReadStudPredResponse dto = new ReadStudPredResponse();

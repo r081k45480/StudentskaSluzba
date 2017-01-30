@@ -38,6 +38,8 @@ import com.StudentskaSluzba.backend.repository.tuple.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQueryFactory;
 
+import net.sf.ehcache.search.aggregator.Average;
+
 
 public class StudentRepositoryImpl implements StudentRepositoryCustom {
 
@@ -47,13 +49,12 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
     private JPQLQueryFactory factory;
 
     @Override
-    public List<StudentStudPredTuple> prosecnaOcena() {
+    public Double prosecnaOcena(Integer userId) {
         log.trace(".prosecnaOcena()");
         final QStudPred studPred = QStudPred.studPred;
-        final QStudent student = QStudent.student;
-        final QStudent studPredStudent = new QStudent("studPredStudent");
-        return factory.select(studPred, student).from(student, studPred).innerJoin(studPred.student, studPredStudent).where(student.id.eq(studPredStudent.id)).fetch().stream()
-                .map(t -> new StudentStudPredTuple(t.get(student), t.get(studPred))).collect(Collectors.toList());
+        return factory.select(studPred.ocena.avg().doubleValue()).from(studPred)
+        		.where(studPred.student.id.eq(Long.valueOf(userId)).and(studPred.ocena.isNotNull()))
+        		.fetchOne();
     }
 
     @Override
