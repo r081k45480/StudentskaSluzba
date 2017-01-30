@@ -33,7 +33,8 @@
             createStudent: createStudent,
             updateStudent: updateStudent,
             deleteStudent: deleteStudent,
-            trenutnoStanje: trenutnoStanje
+            trenutnoStanje: trenutnoStanje,
+            prosecnaOcena: prosecnaOcena
         };
 
         /** readStudent 
@@ -161,6 +162,22 @@
          *
          */
         function trenutnoStanje(model) {
+            $timeout(function() {
+                successCallback({
+                    //TODO fill up mocked data values
+                }, 500);
+            });
+        }
+
+        /** prosecnaOcena 
+         * request - Unit
+         *
+         * response - ProsecnaOcenaResponse {
+         *   prosek: Decimal(10, 4)
+         * }
+         *
+         */
+        function prosecnaOcena(model) {
             $timeout(function() {
                 successCallback({
                     //TODO fill up mocked data values

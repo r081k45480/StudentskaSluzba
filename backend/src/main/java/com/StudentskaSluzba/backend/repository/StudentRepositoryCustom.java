@@ -26,9 +26,12 @@ import java.util.Optional;
 
 import com.StudentskaSluzba.backend.model.*;
 import com.StudentskaSluzba.backend.model.enumeration.*;
+import com.StudentskaSluzba.backend.repository.tuple.*;
 
 
 public interface StudentRepositoryCustom {
+
+    List<StudentStudPredTuple> prosecnaOcena();
 
     List<Student> findByIme(String ime);
 

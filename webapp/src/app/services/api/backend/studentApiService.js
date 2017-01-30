@@ -36,7 +36,8 @@
             createStudent: createStudent,
             updateStudent: updateStudent,
             deleteStudent: deleteStudent,
-            trenutnoStanje: trenutnoStanje
+            trenutnoStanje: trenutnoStanje,
+            prosecnaOcena: prosecnaOcena
         };
 
         function init(backendUrl) {
@@ -196,6 +197,24 @@
                 url: backendApiUrl + '/api/trenutno-stanje',
                 params: {
                     id: model.id
+                }
+            });
+        }
+
+        /** prosecnaOcena 
+         * request - Unit
+         *
+         * response - ProsecnaOcenaResponse {
+         *   prosek: Decimal(10, 4)
+         * }
+         *
+         */
+        function prosecnaOcena(model) {
+            return $http({
+                method: 'GET',
+                url: backendApiUrl + '/api/prosecna-ocena',
+                params: {
+                    userId: model.userId
                 }
             });
         }

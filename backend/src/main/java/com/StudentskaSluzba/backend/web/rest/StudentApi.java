@@ -102,6 +102,14 @@ public class StudentApi {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/prosecna-ocena", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<ProsecnaOcenaResponse> prosecnaOcena(@RequestParam("userId") Integer userId) {
+        log.debug("GET /prosecna-ocena");
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
     private ReadStudentResponse convertToReadStudentResponse(Student model) {
         final ReadStudentResponse dto = new ReadStudentResponse();
         dto.setId(model.getId());
