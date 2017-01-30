@@ -21,6 +21,10 @@ StudentskaSluzba project[
       budzet boolean
       tekuciSemestar integer[min 1]
       osvojeniBodovi integer[min 0]
+
+      prosecnaOcena find
+        from Student
+        join StudPred on StudPred.student
     )
 
     Predmet model(
@@ -89,6 +93,12 @@ StudentskaSluzba project[
           Student.trenutnoStanjeRacuna
         )
         rest /trenutno-stanje
+      ]
+
+      prosecnaOcena custom[
+        request dto( userId integer )
+        response dto( prosek decimal )
+        get /prosecna-ocena
       ]
     )
 
