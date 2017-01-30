@@ -61,6 +61,7 @@ StudentskaSluzba project[
                 min 1]
             osvojeniBodovi integer[
                 min 0]
+            prosecnaOcena find from Student as Student join StudPred as StudPred on Student with StudPred.student
             role UserRole
             username text[
                 unique
@@ -533,6 +534,19 @@ StudentskaSluzba project[
             )
             TrenutnoStanjeResponse dto(
                 trenutnoStanjeRacuna decimal[
+                    precision 10
+                    scale 4]
+            )
+            prosecnaOcena custom[
+                request ProsecnaOcenaRequest
+                response ProsecnaOcenaResponse
+                get /prosecna-ocena
+                errors]
+            ProsecnaOcenaRequest dto(
+                userId integer
+            )
+            ProsecnaOcenaResponse dto(
+                prosek decimal[
                     precision 10
                     scale 4]
             )
@@ -1349,6 +1363,7 @@ StudentskaSluzba project[
             backend.StudentApi.updateStudent
             backend.StudentApi.deleteStudent
             backend.StudentApi.trenutnoStanje
+            backend.StudentApi.prosecnaOcena
             backend.StudPredApi.readStudPred
             backend.StudPredApi.createStudPred
             backend.StudPredApi.updateStudPred

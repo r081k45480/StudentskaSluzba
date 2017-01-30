@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,9 @@ import javax.inject.Inject;
 import com.StudentskaSluzba.backend.model.*;
 import com.StudentskaSluzba.backend.model.enumeration.*;
 import com.StudentskaSluzba.backend.repository.StudentRepositoryCustom;
+import com.StudentskaSluzba.backend.repository.tuple.*;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQueryFactory;
 
 
@@ -42,6 +45,16 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
 
     @Inject
     private JPQLQueryFactory factory;
+
+    @Override
+    public List<StudentStudPredTuple> prosecnaOcena() {
+        log.trace(".prosecnaOcena()");
+        final QStudPred studPred = QStudPred.studPred;
+        final QStudent student = QStudent.student;
+        final QStudent studPredStudent = new QStudent("studPredStudent");
+        return factory.select(studPred, student).from(student, studPred).innerJoin(studPred.student, studPredStudent).where(student.id.eq(studPredStudent.id)).fetch().stream()
+                .map(t -> new StudentStudPredTuple(t.get(student), t.get(studPred))).collect(Collectors.toList());
+    }
 
     @Override
     public List<Student> findByIme(String ime) {
